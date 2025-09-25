@@ -17,6 +17,10 @@
   word-wrap: break-word;
 }
 
+::placeholder {
+  color: #374151;
+}
+
 /* Success message animations */
 .animate-in {
   animation-fill-mode: both;
@@ -65,33 +69,12 @@
   font-size: 16px;
 }
 
-/* Menu Overlay */
-.menu-overlay {
-  display: none;
-}
-
-.flag-icon {
-  width: 25px;
-  height: 25px;
-}
-
-.city-name {
-  font-size: 0.75rem;
-  font-weight: 500;
-  color: #414141;
-}
-
-.city-link {
-  color: #3E5EC0;
-  transform: rotate(-45deg);
-}
 
 /* Container */
 .container {
   max-width: 90%;
   margin: 0 auto;
   position: relative;
-  z-index: 1;
 }
 
 .swiper-pagination-bullet {
@@ -669,15 +652,15 @@
   line-height: 1.7;
 }
 
-.overview-text p strong:only-child + * {
+.overview-text p strong:only-child+* {
   margin-top: 16px;
 }
 
-.overview-text .unit-heading + * {
+.overview-text .unit-heading+* {
   margin-top: 12px;
 }
 
-.overview-text .secondary-heading + * {
+.overview-text .secondary-heading+* {
   margin-top: 8px;
 }
 

@@ -73,8 +73,8 @@ export const orderedMonths = [
 ];
 
 export const durationOptions = [
-  { value: 1, label: "1 Week" },
-  { value: 2, label: "2 Weeks" },
+  { value: 5, label: "1 Week" },
+  { value: 10, label: "2 Weeks" },
 ];
 
 // API Endpoints

@@ -6,7 +6,7 @@ import { useCategories, useCities } from '@/services/hooks'
 import { RotateCcw, Search } from 'lucide-react'
 import Button from './button'
 import Input from './input'
-import Select, { SelectOption as SelectOptionType } from './select'
+import CustomSelect, { SelectOption as SelectOptionType } from './custom-select'
 
 // Field types
 export type FieldType = 'select' | 'input' | 'date'
@@ -289,13 +289,14 @@ export default function SearchBanner({
     switch (field.type) {
       case 'select':
         return (
-          <Select
+          <CustomSelect
             {...commonProps}
             key={field.name}
-            selectSize={field.size || 'md'}
+            size={field.size === 'sm' ? 'sm' : field.size === 'lg' ? 'lg' : 'default'}
             placeholder={field.placeholder}
             options={field.options ? convertOptions(field.options) : []}
-            onChange={(e) => handleInputChange(field.name, e.target.value)}
+            value={formData[field.name] || ''}
+            onValueChange={(value) => handleInputChange(field.name, value.toString())}
           />
         )
       
@@ -327,7 +328,7 @@ export default function SearchBanner({
   }
 
   return (
-    <div className={`w-full mx-auto bg-white rounded-xl md:rounded-full p-3 md:pb-3 pb-[30px] shadow-[1px_1px_37px_0_rgba(62,94,192,0.35)] transform -translate-y-9 ${containerClassName}`}>
+    <div className={`relative z-50 w-full mx-auto bg-white rounded-xl md:rounded-full p-3 md:pb-3 pb-[30px] shadow-[1px_1px_37px_0_rgba(62,94,192,0.35)] transform -translate-y-9 ${containerClassName}`}>
       <form onSubmit={handleSubmit} className={`flex flex-col md:flex-row items-stretch md:items-center justify-between gap-2 md:gap-2 ${className}`}>
         {/* Dynamic Fields */}
         {dynamicFields.map((field) => renderField(field))}

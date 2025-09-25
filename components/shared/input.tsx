@@ -38,7 +38,7 @@ export default function Input({
   suppressHydrationWarning,
   ...props
 }: InputProps) {
-  const baseStyles = 'rounded-full font-medium text-gray-700 transition-all duration-300 focus:outline-none focus:shadow-[0_0_0_3px_rgba(102,126,234,0.1),0_4px_12px_rgba(102,126,234,0.15)] focus:-translate-y-0.5 disabled:opacity-50 disabled:cursor-not-allowed'
+  const baseStyles = 'rounded-full font-medium text-[#374151] transition-all duration-300 focus:outline-none focus:shadow-[0_0_0_3px_rgba(102,126,234,0.1),0_4px_12px_rgba(102,126,234,0.15)] focus:-translate-y-0.5 disabled:opacity-50 disabled:cursor-not-allowed'
   
   const variantStyles = inputVariants[variant]
   const sizeStyles = inputSizes[inputSize]

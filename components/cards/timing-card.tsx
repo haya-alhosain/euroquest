@@ -34,7 +34,7 @@ export default function TimingCard({
   return (
     <>
       <Link
-        href={`/training-cities/${timing.city.slug}`}
+        href={`/training-course/${course.slug}/${timing.city.slug}`}
         className="bg-white rounded-xl border border-gray-200 shadow-[1px_1px_17px_0_rgba(62,94,192,0.22)] transition-all duration-300 hover:-translate-y-1 cursor-pointer overflow-hidden relative group h-max"
       >
         {/* Hover Effect Line */}

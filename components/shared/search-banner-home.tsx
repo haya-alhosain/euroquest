@@ -5,7 +5,7 @@ import { Search, RotateCcw } from "lucide-react";
 import { orderedMonths, durationOptions } from "@/constants";
 import { useCategories, useCities } from "@/services/hooks";
 import Input from "./input";
-import Select from "./select";
+import CustomSelect from "./custom-select";
 import Button from "./button";
 
 interface SearchFormData {
@@ -66,12 +66,6 @@ export default function SearchBannerHome() {
     label: month.label,
   }));
 
-  const handleInputChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
-  ) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
-  };
 
   const handleReset = () => {
     setFormData({
@@ -180,7 +174,7 @@ export default function SearchBannerHome() {
                 type="text"
                 placeholder="Search By Keyword .."
                 value={formData.keyword}
-                onChange={handleInputChange}
+                onChange={(e) => setFormData(prev => ({ ...prev, keyword: e.target.value }))}
                 inputSize="lg"
                 className="h-[45px] text-sm"
                 suppressHydrationWarning={true}
@@ -189,12 +183,11 @@ export default function SearchBannerHome() {
 
             {/* Category Select */}
             <div className="flex-1">
-              <Select
-                name="category_id"
-                value={formData.category_id}
-                onChange={handleInputChange}
+              <CustomSelect
+                value={formData.category_id ? Number(formData.category_id) : ""}
+                onValueChange={(value) => setFormData(prev => ({ ...prev, category_id: value.toString() }))}
                 placeholder="Select Category"
-                selectSize="lg"
+                size="lg"
                 className="h-[45px] text-sm min-w-[calc(100%/6)]"
                 options={
                   categories?.map((cat) => ({
@@ -211,12 +204,11 @@ export default function SearchBannerHome() {
           <div className="flex justify-between gap-2 w-full flex-col md:flex-row">
             {/* City Select */}
             <div className="flex-1">
-              <Select
-                name="city_id"
-                value={formData.city_id}
-                onChange={handleInputChange}
+              <CustomSelect
+                value={formData.city_id ? Number(formData.city_id) : ""}
+                onValueChange={(value) => setFormData(prev => ({ ...prev, city_id: value.toString() }))}
                 placeholder="Select City"
-                selectSize="lg"
+                size="lg"
                 className="h-[45px] text-sm min-w-[calc(100%/6)]"
                 options={
                   cities?.map((city) => ({
@@ -230,12 +222,11 @@ export default function SearchBannerHome() {
 
             {/* Month Select */}
             <div className="flex-1">
-              <Select
-                name="month"
+              <CustomSelect
                 value={formData.month}
-                onChange={handleInputChange}
+                onValueChange={(value) => setFormData(prev => ({ ...prev, month: value.toString() }))}
                 placeholder="Select Month"
-                selectSize="lg"
+                size="lg"
                 className="h-[45px] text-sm min-w-[calc(100%/6)]"
                 options={monthOptions}
                 suppressHydrationWarning={true}
@@ -244,12 +235,11 @@ export default function SearchBannerHome() {
 
             {/* Duration Select */}
             <div className="flex-1">
-              <Select
-                name="duration"
+              <CustomSelect
                 value={formData.duration}
-                onChange={handleInputChange}
+                onValueChange={(value) => setFormData(prev => ({ ...prev, duration: value.toString() }))}
                 placeholder="Select Duration"
-                selectSize="lg"
+                size="lg"
                 className="h-[45px] text-sm min-w-[calc(100%/6)]"
                 options={durationOptions.map((option) => ({
                   value: option.value,
