@@ -175,33 +175,121 @@ export default function PhoneInput({
 
   // Phone number validation patterns for different countries
   const phoneValidationPatterns: Record<string, RegExp> = {
+    // North America
     'US': /^\+1[2-9]\d{2}[2-9]\d{2}\d{4}$/,
     'CA': /^\+1[2-9]\d{2}[2-9]\d{2}\d{4}$/,
+    
+    // Europe
     'GB': /^\+44\d{10}$/,
-    'DE': /^\+49\d{10,11}$/,
-    'FR': /^\+33\d{9}$/,
-    'AE': /^\+971[5-9]\d{8}$/,
-    'SA': /^\+966[5-9]\d{8}$/,
+    'DE': /^\+49[1-9]\d{9,10}$/,
+    'FR': /^\+33[1-9]\d{8}$/,
+    'IT': /^\+39[3]\d{8,9}$/,
+    'ES': /^\+34[6-9]\d{8}$/,
+    'NL': /^\+31[6]\d{8}$/,
+    'BE': /^\+32[4]\d{7,8}$/,
+    'CH': /^\+41[7-9]\d{8}$/,
+    'AT': /^\+43[6]\d{7,8}$/,
+    'SE': /^\+46[7]\d{8}$/,
+    'NO': /^\+47[4-9]\d{7}$/,
+    'DK': /^\+45[2-9]\d{7}$/,
+    'FI': /^\+358[4-5]\d{7,8}$/,
+    'PL': /^\+48[5-9]\d{8}$/,
+    'CZ': /^\+420[6-9]\d{8}$/,
+    'HU': /^\+36[2-3,6-9]\d{7,8}$/,
+    'RO': /^\+40[7]\d{8}$/,
+    'BG': /^\+359[8-9]\d{8}$/,
+    'GR': /^\+30[6-9]\d{8}$/,
+    'PT': /^\+351[9]\d{8}$/,
+    'IE': /^\+353[8-9]\d{8}$/,
+    'SK': /^\+421[9]\d{8}$/,
+    'TR': /^\+90[5]\d{9}$/,
+    
+    // Middle East & Gulf
+    'AE': /^\+971[5]\d{8}$/,
+    'SA': /^\+966[5]\d{8}$/,
+    'KW': /^\+965[569]\d{7}$/,
+    'QA': /^\+974[3-7]\d{7}$/,
+    'BH': /^\+973[3-9]\d{7}$/,
+    'OM': /^\+968[7-9]\d{7}$/,
+    'JO': /^\+962[7]\d{8}$/,
+    'LB': /^\+961[3-9]\d{7}$/,
     'SY': /^\+963[9]\d{8}$/,
-    'EG': /^\+20[1-2]\d{8}$/,
+    'IQ': /^\+964[7]\d{9}$/,
+    'YE': /^\+967[7]\d{8}$/,
+    'PS': /^\+970[5]\d{8}$/,
+    
+    // North Africa
+    'EG': /^\+20[1]\d{9}$/,
+    'MA': /^\+212[6-7]\d{8}$/,
+    'TN': /^\+216[2,4-5,9]\d{7}$/,
+    'DZ': /^\+213[5-7]\d{8}$/,
+    'LY': /^\+218[9]\d{8}$/,
+    'SD': /^\+249[9]\d{8}$/,
+    
+    // Asia
     'IN': /^\+91[6-9]\d{9}$/,
     'PK': /^\+92[3]\d{9}$/,
     'BD': /^\+880[1]\d{9}$/,
+    'LK': /^\+94[7]\d{8}$/,
+    'NP': /^\+977[9]\d{8}$/,
     'CN': /^\+86[1]\d{10}$/,
-    'JP': /^\+81\d{10,11}$/,
+    'JP': /^\+81[7-9]\d{8,9}$/,
     'KR': /^\+82[1]\d{8,9}$/,
+    'SG': /^\+65[8-9]\d{7}$/,
+    'MY': /^\+60[1]\d{8,9}$/,
+    'TH': /^\+66[6-9]\d{8}$/,
+    'VN': /^\+84[3,5-9]\d{8}$/,
+    'PH': /^\+63[9]\d{9}$/,
+    'ID': /^\+62[8]\d{9,10}$/,
+    'AF': /^\+93[7]\d{8}$/,
+    'IR': /^\+98[9]\d{9}$/,
+    
+    // Oceania
     'AU': /^\+61[4]\d{8}$/,
+    
+    // South America
     'BR': /^\+55[1-9]\d{10}$/,
-    'MX': /^\+52[1-9]\d{9}$/,
-    'RU': /^\+7[3-9]\d{9}$/,
-    'TR': /^\+90[5]\d{9}$/,
+    'AR': /^\+54[9]\d{10}$/,
+    'CL': /^\+56[9]\d{8}$/,
+    'CO': /^\+57[3]\d{9}$/,
+    'PE': /^\+51[9]\d{8}$/,
+    'MX': /^\+52[1]\d{9}$/,
+    
+    // Africa
+    'ZA': /^\+27[6-8]\d{8}$/,
+    'NG': /^\+234[8-9]\d{9}$/,
+    'KE': /^\+254[7]\d{8}$/,
+    'GH': /^\+233[2]\d{8}$/,
+    'ET': /^\+251[9]\d{8}$/,
+    'UG': /^\+256[7]\d{8}$/,
+    'TZ': /^\+255[6-7]\d{8}$/,
+    
+    // Eastern Europe & Central Asia
+    'RU': /^\+7[9]\d{9}$/,
+    'UA': /^\+380[6-9]\d{8}$/,
+    'BY': /^\+375[2,4,5,9]\d{7}$/,
+    'KZ': /^\+7[7]\d{9}$/,
+    'UZ': /^\+998[9]\d{8}$/,
+    'KG': /^\+996[7]\d{8}$/,
+    'TJ': /^\+992[9]\d{8}$/,
+    'TM': /^\+993[6]\d{7}$/,
+    'AZ': /^\+994[4-7,9]\d{8}$/,
+    'GE': /^\+995[5]\d{8}$/,
+    'AM': /^\+374[4-6,9]\d{7}$/,
   }
 
   // Function to validate phone number format
   const validatePhoneNumber = (phoneNumber: string, countryCode: string): boolean => {
+    // Remove any spaces or special characters except +
+    const cleanNumber = phoneNumber.replace(/[\s\-\(\)]/g, '')
+    
     const pattern = phoneValidationPatterns[countryCode]
-    if (!pattern) return phoneNumber.length >= 7 && phoneNumber.length <= 15 // Basic validation
-    return pattern.test(phoneNumber)
+    if (!pattern) {
+      // Basic validation for countries without specific patterns
+      return cleanNumber.length >= 7 && cleanNumber.length <= 15 && cleanNumber.startsWith('+')
+    }
+    
+    return pattern.test(cleanNumber)
   }
 
   // Auto-detect country from phone number
@@ -466,7 +554,7 @@ export default function PhoneInput({
         )}>
           {error ? helperText : (
             enableAutoDetect && phoneInput && selectedCountry && !validatePhoneNumber(`${selectedCountry.dialCode}${phoneInput}`, selectedCountry.code)
-              ? `Invalid phone number format for ${selectedCountry.name}`
+              ? `Invalid phone number format for ${selectedCountry.name}. Please check the correct format`
               : helperText
           )}
         </p>

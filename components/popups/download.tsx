@@ -10,6 +10,8 @@ import ReCaptchaV2 from '@/components/shared/recaptcha-v2'
 import { RECAPTCHA_CONFIG, validateRecaptchaConfig } from '@/constants/recaptcha'
 import CourseBrochure from '@/components/brochure/course-brochure'
 import { PDFGenerator } from '@/lib/pdf-generator'
+import ProgressBar from '@/components/shared/progress-bar'
+import SuccessMessage from '@/components/shared/success-message'
 
 interface DownloadFormData {
   fullName: string
@@ -49,6 +51,10 @@ export default function DownloadPopup({
   const [errors, setErrors] = useState<Partial<DownloadFormData>>({})
   const [recaptchaToken, setRecaptchaToken] = useState<string | null>(null)
   const [recaptchaVerified, setRecaptchaVerified] = useState(false)
+  const [isGeneratingPDF, setIsGeneratingPDF] = useState(false)
+  const [progress, setProgress] = useState(0)
+  const [showSuccessMessage, setShowSuccessMessage] = useState(false)
+  const [downloadedFileName, setDownloadedFileName] = useState('')
   
   // Use the download form mutation
   const downloadMutation = useDownloadForm()
@@ -67,6 +73,16 @@ export default function DownloadPopup({
     document.addEventListener('keydown', handleEscape)
     return () => document.removeEventListener('keydown', handleEscape)
   }, [isOpen, onClose])
+
+  // Reset progress state when popup closes
+  useEffect(() => {
+    if (!isOpen) {
+      setIsGeneratingPDF(false)
+      setProgress(0)
+      setShowSuccessMessage(false)
+      setDownloadedFileName('')
+    }
+  }, [isOpen])
 
   // Prevent body scroll when modal is open
   useEffect(() => {
@@ -149,12 +165,25 @@ export default function DownloadPopup({
     try {
       await downloadMutation.mutateAsync(apiData)
       
-      toast.success('Thank you! Your brochure download will start shortly.')
-      
-      // Generate and download PDF after successful API call
+      // Start PDF generation process
       if (course && timing && formatDate) {
+        setIsGeneratingPDF(true)
+        setProgress(0)
+        
         try {
           const filename = `${course.title.replace(/[^a-zA-Z0-9]/g, '_')}_${timing.city.title.replace(/[^a-zA-Z0-9]/g, '_')}_brochure.pdf`;
+          setDownloadedFileName(filename)
+          
+          // Simulate progress updates
+          const progressInterval = setInterval(() => {
+            setProgress(prev => {
+              if (prev >= 90) {
+                clearInterval(progressInterval)
+                return 90
+              }
+              return prev + Math.random() * 15
+            })
+          }, 200)
           
           // Create brochure component
           const brochureComponent = (
@@ -172,10 +201,34 @@ export default function DownloadPopup({
             scale: 2,
             backgroundColor: '#ffffff'
           });
+          
+          // Complete progress
+          clearInterval(progressInterval)
+          setProgress(100)
+          
+          // Wait a moment then show success message
+          setTimeout(() => {
+            setIsGeneratingPDF(false)
+            onClose() // Close the popup first
+            
+            // Show success message after popup closes
+            setTimeout(() => {
+              setShowSuccessMessage(true)
+            }, 300)
+          }, 500)
+          
         } catch (pdfError) {
           console.error('Error generating PDF:', pdfError);
+          setIsGeneratingPDF(false)
+          setProgress(0)
           toast.error('PDF generation failed, but your request was submitted successfully.')
         }
+      } else {
+        // If no course/timing data, just show success
+        toast.success('Thank you! Your brochure download will start shortly.')
+        setTimeout(() => {
+          onClose()
+        }, 1000)
       }
       
       // Reset form
@@ -189,11 +242,9 @@ export default function DownloadPopup({
       setRecaptchaVerified(false)
       setRecaptchaToken(null)
       
-      // Auto-close modal after successful submission
-      setTimeout(() => {
-        onClose()
-      }, 1000)
     } catch (error) {
+      setIsGeneratingPDF(false)
+      setProgress(0)
       toast.error('There was an error processing your download request. Please try again.')
     }
   }
@@ -207,10 +258,19 @@ export default function DownloadPopup({
   }
 
   return (
-    <div
-      className="fixed top-0 left-0 z-50 inset-0 bg-black/70 flex items-center justify-center p-4 overflow-y-auto md:p-4 max-md:pt-8 max-md:p-2"
-      onClick={handleOverlayClick}
-    >
+    <>
+      {/* Success Message */}
+      {/* <SuccessMessage
+        isVisible={showSuccessMessage}
+        onClose={() => setShowSuccessMessage(false)}
+        message="Brochure downloaded successfully!"
+        fileName={downloadedFileName}
+      /> */}
+
+      <div
+        className="fixed top-0 left-0 z-50 inset-0 bg-black/70 flex items-center justify-center p-4 overflow-y-auto md:p-4 max-md:pt-8 max-md:p-2"
+        onClick={handleOverlayClick}
+      >
       {/* Modal Content */}
       <div className="bg-gradient-to-br from-[#f8faff] to-[#f0f4ff] w-full max-w-[1152px] rounded-lg md:rounded-[18px] md:p-2.5 overflow-hidden relative mx-auto max-md:rounded-lg">
         
@@ -232,6 +292,17 @@ export default function DownloadPopup({
                 {courseTitle || 'Download Brochure'}
               </h3>
             </div>
+
+            {/* Progress Bar - Inside Modal */}
+            {isGeneratingPDF && (
+              <div className="mb-6">
+                <ProgressBar 
+                  progress={progress}
+                  isVisible={isGeneratingPDF}
+                  message="Preparing brochure for download..."
+                />
+              </div>
+            )}
 
             <form onSubmit={handleSubmit} className="form-inputs flex flex-col gap-4">
               {/* Form Grid */}
@@ -316,11 +387,15 @@ export default function DownloadPopup({
                 {/* Submit Button */}
                 <button
                   type="submit"
-                  disabled={!recaptchaVerified || downloadMutation.isPending}
+                  disabled={!recaptchaVerified || downloadMutation.isPending || isGeneratingPDF}
                   className="submit-btn min-w-[170px] w-fit h-12 rounded-[10px] px-[18px] text-sm font-semibold text-white bg-gradient-to-r from-[#314EA9] to-[#446AE1] border-none cursor-pointer flex items-center justify-center gap-2 ml-0 transition-all duration-500 hover:shadow-lg disabled:opacity-50 disabled:cursor-not-allowed max-md:w-full max-md:min-w-auto max-md:h-11 max-md:text-[13px]"
                 >
-                  <span className="btn-text">{downloadMutation.isPending ? 'Processing...' : 'Download Brochure'}</span>
-                  {!downloadMutation.isPending && <ChevronRight className="w-4 h-4 transition-transform duration-500 group-hover:translate-x-0.5" />}
+                  <span className="btn-text">
+                    {downloadMutation.isPending ? 'Processing...' : 
+                     isGeneratingPDF ? 'Generating PDF...' : 
+                     'Download Brochure'}
+                  </span>
+                  {!downloadMutation.isPending && !isGeneratingPDF && <ChevronRight className="w-4 h-4 transition-transform duration-500 group-hover:translate-x-0.5" />}
                 </button>
 
                 {/* reCAPTCHA v2 */}
@@ -337,5 +412,6 @@ export default function DownloadPopup({
         </div>
       </div>
     </div>
+    </>
   )
 }
