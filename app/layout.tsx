@@ -20,6 +20,13 @@ const inter = Inter({
 export const metadata: Metadata = {
   title: "EuroQuest International",
   description: "EuroQuest International",
+  openGraph: {
+    siteName: "EuroQest International",
+    locale: "en_US",
+  },
+  twitter: {
+    site: "@EuroQest",
+  },
 };
 
 export default function RootLayout({

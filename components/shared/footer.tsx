@@ -10,7 +10,6 @@ import { Mail, MapPin, Phone } from "lucide-react";
 
 export default function Footer() {
   const [isContactOpen, setIsContactOpen] = useState(false);
-  const [isJoinOpen, setIsJoinOpen] = useState(false);
 
   return (
     <>
@@ -49,26 +48,6 @@ export default function Footer() {
                   <span className="text-base">+421 911 803 183</span>
                 </li>
               </ul>
-
-              {/* Contact Us Button */}
-              <div className="mt-6 flex gap-3">
-                <Button
-                  onClick={() => setIsContactOpen(true)}
-                  variant="outline"
-                  className="bg-transparent border-white/30 text-white hover:bg-white hover:text-[#2A3453] transition-all duration-300"
-                  suppressHydrationWarning={true}
-                >
-                  Contact Us
-                </Button>
-                <Button
-                  onClick={() => setIsJoinOpen(true)}
-                  variant="outline"
-                  className="bg-transparent border-white/30 text-white hover:bg-white hover:text-[#2A3453] transition-all duration-300"
-                  suppressHydrationWarning={true}
-                >
-                  Join Us
-                </Button>
-              </div>
             </div>
 
             {/* Popular Categories */}
@@ -104,6 +83,7 @@ export default function Footer() {
                     </Link>
                   </li>
                 ))}
+                <li className="cursor-pointer" onClick={() => setIsContactOpen(true)}>Contact Us</li>
               </ul>
             </div>
 
@@ -148,12 +128,6 @@ export default function Footer() {
       <ContactPopup
         isOpen={isContactOpen}
         onClose={() => setIsContactOpen(false)}
-      />
-
-      {/* Join Popup */}
-      <JoinPopup 
-        isOpen={isJoinOpen}
-        onClose={() => setIsJoinOpen(false)}
       />
     </>
   );

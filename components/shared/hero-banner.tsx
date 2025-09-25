@@ -64,7 +64,7 @@ export default function HeroBanner({
             <h1 className="text-2xl md:text-3xl font-bold mb-4">{title}</h1>
 
             {description && isClient && (
-              <div className="text-sm md:text-base leading-relaxed max-w-4xl font-medium" dangerouslySetInnerHTML={{ __html: description }} />
+              <div className="text-sm md:text-base leading-relaxed max-w-6xl font-medium" dangerouslySetInnerHTML={{ __html: description }} />
             )}
           </div>
         </div>

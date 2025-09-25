@@ -7,8 +7,8 @@ interface AboutSectionProps {
 
 export default function AboutSection({ className = "" }: AboutSectionProps) {
   return (
-    <section className={`about-section py-16 lg:py-24 bg-white ${className}`}>
-      <div className="container mx-auto about-container">
+    <section className={`py-16 lg:py-24 bg-white ${className}`}>
+      <div className="container mx-auto">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
           {/* About Content */}
           <div className="about-content relative">
@@ -16,22 +16,22 @@ export default function AboutSection({ className = "" }: AboutSectionProps) {
             <img
               src="/assets/images/bullets-shape.svg"
               alt=""
-              className="bullets-shape absolute -top-8 -left-8 w-16 h-16 opacity-20"
+              className="absolute -top-8 -left-8 w-16 h-16 opacity-20"
             />
 
             {/* Section Header */}
-            <div className="section-header mb-8">
-              <div className="section-title">
+            <div className="mb-8">
+              <div>
                 <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 leading-tight">
                   <span className="text-gray-800">About</span>
-                  <div className="highlight-wrapper inline-block ml-3 relative">
-                    <span className="highlight text-[#3E5EC0] font-bold">
+                  <div className="inline-block ml-3 relative">
+                    <span className="text-[#3E5EC0] font-bold">
                       EuroQuest
                     </span>
                     <img
                       src="/assets/images/line.svg"
                       alt=""
-                      className="underline-img absolute -bottom-1 left-0 w-full h-auto"
+                      className="absolute -bottom-1 left-0 w-full h-auto"
                     />
                   </div>
                 </h2>
@@ -40,8 +40,8 @@ export default function AboutSection({ className = "" }: AboutSectionProps) {
 
             {/* About Text Points */}
             <div className="space-y-6 mb-8">
-              <p className="about-text flex items-start gap-4 text-gray-700 text-base lg:text-lg leading-relaxed">
-                <Check className="about-icon text-[#3E5EC0] w-5 h-5 mt-1 flex-shrink-0" />
+              <p className="flex items-start gap-4 text-gray-700 text-base lg:text-lg leading-relaxed">
+                <Check className="text-[#3E5EC0] w-5 h-5 mt-1 flex-shrink-0" />
                 <span>
                   EuroQuest International is a leading
                   <span className="text-emphasis font-semibold text-[#3E5EC0]">
@@ -57,8 +57,8 @@ export default function AboutSection({ className = "" }: AboutSectionProps) {
                 </span>
               </p>
 
-              <p className="about-text flex items-start gap-4 text-gray-700 text-base lg:text-lg leading-relaxed">
-                <Check className="about-icon text-[#3E5EC0] w-5 h-5 mt-1 flex-shrink-0" />
+              <p className="flex items-start gap-4 text-gray-700 text-base lg:text-lg leading-relaxed">
+                <Check className="text-[#3E5EC0] w-5 h-5 mt-1 flex-shrink-0" />
                 <span>
                   We focus on
                   <span className="text-emphasis font-semibold text-[#3E5EC0]">
@@ -70,8 +70,8 @@ export default function AboutSection({ className = "" }: AboutSectionProps) {
                 </span>
               </p>
 
-              <p className="about-text flex items-start gap-4 text-gray-700 text-base lg:text-lg leading-relaxed">
-                <Check className="about-icon text-[#3E5EC0] w-5 h-5 mt-1 flex-shrink-0" />
+              <p className="flex items-start gap-4 text-gray-700 text-base lg:text-lg leading-relaxed">
+                <Check className="text-[#3E5EC0] w-5 h-5 mt-1 flex-shrink-0" />
                 <span>
                   Our programs
                   <span className="text-emphasis font-semibold text-[#3E5EC0]">

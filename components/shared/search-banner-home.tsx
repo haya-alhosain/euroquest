@@ -26,7 +26,7 @@ const WarningPopup: React.FC<WarningPopupProps> = ({ isOpen, onClose }) => {
 
   return (
     <div className="fixed top-0 left-0 w-full h-full bg-black bg-opacity-40 flex items-center justify-center z-[9999] animate-in">
-      <div className="bg-white rounded-xl max-w-md w-[90%] p-5 text-center shadow-[0_8px_20px_rgba(0,0,0,0.2)] animate-[popIn_0.3s_ease] border-t-[6px] border-t-[#314ea9]">
+      <div className="bg-white rounded-xl max-w-md w-[90%] p-5 text-center shadow-[0_8px_20px_rgba(0,0,0,0.2)] border-t-[6px] border-t-[#314ea9]">
         <h3 className="m-0 mb-2.5 text-[#314ea9] text-xl font-semibold">
           ⚠ Warning
         </h3>
@@ -165,8 +165,7 @@ export default function SearchBannerHome() {
         isOpen={showWarning}
         onClose={() => setShowWarning(false)}
       />
-
-      <div className="w-full mx-auto max-w-5xl md:mt-8 mt-5 bg-white rounded-[20px] md:rounded-[15px] shadow-xl md:p-[20px_16px] p-4 pb-9 border border-gray-100 transform translate-y-0">
+      <div className="w-full mx-auto max-w-5xl md:mt-8 mt-5 bg-white rounded-[20px] md:rounded-[15px] shadow-[1px_1px_37px_0_rgb(62_94_192_/35%)] md:p-[20px_16px] p-4 pb-9 border border-gray-100 transform translate-y-0">
         <form
           ref={formRef}
           onSubmit={handleSubmit}

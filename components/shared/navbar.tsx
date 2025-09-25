@@ -62,36 +62,47 @@ export default function Navbar() {
   return (
     <>
       {/* Main Navbar */}
-      <nav className="navbar z-30">
-        <div className="container">
-          <div className="nav-container">
-            <div className="nav-left">
+      <nav className="fixed top-0 left-0 w-full h-[70px] bg-white flex items-center z-30">
+        <div className="container mx-auto">
+          <div className="w-full flex items-center justify-between">
+            <div className="flex items-center gap-4 max-w-[280px] justify-between">
               <Link href="/">
                 <Image
                   src="/assets/images/logo.svg"
                   alt="Logo"
                   width={120}
                   height={40}
-                  className="nav-logo"
+                  className="w-[160px] lg:w-[190px] lg:h-[50px]"
                 />
               </Link>
             </div>
 
-            <ul className="nav-links">
+            <ul className="hidden lg:flex gap-6">
               {navLinks.map((link) => (
                 <li
                   key={link.href}
-                  className={isActive(link.href) ? "active" : ""}
+                  className="relative group"
                 >
-                  <Link href={link.href} className="nav-link nav-link2">
+                  <Link 
+                    href={link.href} 
+                    className={`text-[#314EA9] transition-colors duration-300 font-semibold text-[15px] relative ${
+                      isActive(link.href) ? "font-bold" : "font-semibold"
+                    }`}
+                  >
                     {link.label}
+                    {/* Active indicator */}
+                    <span 
+                      className={`absolute -bottom-1 left-1/2 transform -translate-x-1/2 h-[3px] bg-[#20b486] rounded-full transition-all duration-1000 ease-in-out ${
+                        isActive(link.href) ? "w-8" : "w-0 group-hover:w-[10px]"
+                      }`}
+                    />
                   </Link>
                 </li>
               ))}
               <li>
                 <button
                   onClick={openContactPopup}
-                  className="nav-link contact-link"
+                  className="text-[#314EA9] transition-colors duration-300 font-semibold text-[15px]"
                   suppressHydrationWarning={true}
                 >
                   Contact Us
@@ -99,14 +110,15 @@ export default function Navbar() {
               </li>
             </ul>
 
-            <div className="nav-right">
+            <div className="flex items-center gap-12 md:hidden">
               <button
-                className="menu-toggle"
+                className="w-11 h-11 rounded-xl border-2 border-[#DDE9FF] flex items-center justify-center cursor-pointer bg-gradient-to-br from-[#f8faff] to-[#f0f4ff] outline-none transition-all duration-300 ease-out shadow-[0_2px_8px_rgba(49,78,169,0.1)] hover:shadow-lg"
                 onClick={openSidebar}
               >
                 <Menu className="w-5 h-5 font-semibold text-blue-600" />
               </button>
             </div>
+            <div className="hidden md:block"></div>
           </div>
         </div>
       </nav>

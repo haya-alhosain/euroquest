@@ -1,7 +1,7 @@
 'use client'
 
-import React, { useState, useRef, useEffect } from 'react'
-import { ChevronDown } from 'lucide-react'
+import React, { useState, useRef, useEffect, useMemo } from 'react'
+import { ChevronDown, Search } from 'lucide-react'
 import { cn } from '@/lib/utils'
 
 interface Country {
@@ -129,6 +129,7 @@ export interface PhoneInputProps {
   disabled?: boolean
   className?: string
   defaultCountry?: string // Country code like 'SY', 'AE', etc.
+  enableAutoDetect?: boolean // Enable automatic country detection from phone number
 }
 
 export default function PhoneInput({
@@ -144,7 +145,8 @@ export default function PhoneInput({
   required = false,
   disabled = false,
   className,
-  defaultCountry = 'SY' // Default to Syria
+  defaultCountry = 'SY', // Default to Syria
+  enableAutoDetect = true
 }: PhoneInputProps) {
   // Find default country or fallback to first country
   const initialCountry = countries.find(c => c.code === defaultCountry) || countries[0]
@@ -152,13 +154,87 @@ export default function PhoneInput({
   const [selectedCountry, setSelectedCountry] = useState<Country>(initialCountry)
   const [isDropdownOpen, setIsDropdownOpen] = useState(false)
   const [phoneInput, setPhoneInput] = useState('')
+  const [searchQuery, setSearchQuery] = useState('')
+  const [highlightedIndex, setHighlightedIndex] = useState(-1)
+  const [isSearching, setIsSearching] = useState(false)
   const dropdownRef = useRef<HTMLDivElement>(null)
+  const searchInputRef = useRef<HTMLInputElement>(null)
+  const phoneInputRef = useRef<HTMLInputElement>(null)
+
+  // Filter countries based on search query
+  const filteredCountries = useMemo(() => {
+    if (!searchQuery.trim()) return countries
+    
+    const query = searchQuery.toLowerCase()
+    return countries.filter(country => 
+      country.name.toLowerCase().includes(query) ||
+      country.code.toLowerCase().includes(query) ||
+      country.dialCode.includes(query)
+    )
+  }, [searchQuery])
+
+  // Phone number validation patterns for different countries
+  const phoneValidationPatterns: Record<string, RegExp> = {
+    'US': /^\+1[2-9]\d{2}[2-9]\d{2}\d{4}$/,
+    'CA': /^\+1[2-9]\d{2}[2-9]\d{2}\d{4}$/,
+    'GB': /^\+44\d{10}$/,
+    'DE': /^\+49\d{10,11}$/,
+    'FR': /^\+33\d{9}$/,
+    'AE': /^\+971[5-9]\d{8}$/,
+    'SA': /^\+966[5-9]\d{8}$/,
+    'SY': /^\+963[9]\d{8}$/,
+    'EG': /^\+20[1-2]\d{8}$/,
+    'IN': /^\+91[6-9]\d{9}$/,
+    'PK': /^\+92[3]\d{9}$/,
+    'BD': /^\+880[1]\d{9}$/,
+    'CN': /^\+86[1]\d{10}$/,
+    'JP': /^\+81\d{10,11}$/,
+    'KR': /^\+82[1]\d{8,9}$/,
+    'AU': /^\+61[4]\d{8}$/,
+    'BR': /^\+55[1-9]\d{10}$/,
+    'MX': /^\+52[1-9]\d{9}$/,
+    'RU': /^\+7[3-9]\d{9}$/,
+    'TR': /^\+90[5]\d{9}$/,
+  }
+
+  // Function to validate phone number format
+  const validatePhoneNumber = (phoneNumber: string, countryCode: string): boolean => {
+    const pattern = phoneValidationPatterns[countryCode]
+    if (!pattern) return phoneNumber.length >= 7 && phoneNumber.length <= 15 // Basic validation
+    return pattern.test(phoneNumber)
+  }
+
+  // Auto-detect country from phone number
+  const detectCountryFromPhone = (phoneNumber: string): Country | null => {
+    if (!phoneNumber || !phoneNumber.startsWith('+')) return null
+    
+    // Find country by dial code
+    const dialCode = phoneNumber.substring(0, 4) // Try 4 digits first
+    let country = countries.find(c => phoneNumber.startsWith(c.dialCode))
+    
+    if (!country) {
+      // Try 3 digits
+      const dialCode3 = phoneNumber.substring(0, 3)
+      country = countries.find(c => phoneNumber.startsWith(c.dialCode))
+    }
+    
+    if (!country) {
+      // Try 2 digits
+      const dialCode2 = phoneNumber.substring(0, 2)
+      country = countries.find(c => phoneNumber.startsWith(c.dialCode))
+    }
+    
+    return country || null
+  }
 
   // Close dropdown when clicking outside
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
         setIsDropdownOpen(false)
+        setIsSearching(false)
+        setSearchQuery('')
+        setHighlightedIndex(-1)
       }
     }
 
@@ -172,21 +248,101 @@ export default function PhoneInput({
   const handleCountrySelect = (country: Country) => {
     setSelectedCountry(country)
     setIsDropdownOpen(false)
+    setIsSearching(false)
+    setSearchQuery('')
+    setHighlightedIndex(-1)
     onCountryChange?.(country)
     
     // Update the full phone number
     const fullNumber = `${country.dialCode}${phoneInput}`
     onChange?.(fullNumber)
+    
+    // Focus back to phone input
+    setTimeout(() => {
+      phoneInputRef.current?.focus()
+    }, 100)
   }
 
-  // Handle phone number input change
+  // Handle phone number input change with auto-detection
   const handlePhoneInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const newPhoneNumber = e.target.value
     setPhoneInput(newPhoneNumber)
     
+    // Auto-detect country if enabled and user types a full international number
+    if (enableAutoDetect && newPhoneNumber.startsWith('+') && newPhoneNumber.length > 4) {
+      const detectedCountry = detectCountryFromPhone(newPhoneNumber)
+      if (detectedCountry && detectedCountry.code !== selectedCountry.code) {
+        setSelectedCountry(detectedCountry)
+        onCountryChange?.(detectedCountry)
+        // Extract phone number without country code
+        const phoneWithoutCode = newPhoneNumber.replace(detectedCountry.dialCode, '')
+        setPhoneInput(phoneWithoutCode)
+        onChange?.(newPhoneNumber)
+        return
+      }
+    }
+    
     // Update the full phone number
     const fullNumber = `${selectedCountry.dialCode}${newPhoneNumber}`
     onChange?.(fullNumber)
+  }
+
+  // Handle keyboard navigation in dropdown
+  const handleKeyDown = (e: React.KeyboardEvent) => {
+    if (!isDropdownOpen) return
+
+    switch (e.key) {
+      case 'ArrowDown':
+        e.preventDefault()
+        setHighlightedIndex(prev => 
+          prev < filteredCountries.length - 1 ? prev + 1 : 0
+        )
+        break
+      case 'ArrowUp':
+        e.preventDefault()
+        setHighlightedIndex(prev => 
+          prev > 0 ? prev - 1 : filteredCountries.length - 1
+        )
+        break
+      case 'Enter':
+        e.preventDefault()
+        if (highlightedIndex >= 0 && filteredCountries[highlightedIndex]) {
+          handleCountrySelect(filteredCountries[highlightedIndex])
+        }
+        break
+      case 'Escape':
+        setIsDropdownOpen(false)
+        setIsSearching(false)
+        setSearchQuery('')
+        setHighlightedIndex(-1)
+        phoneInputRef.current?.focus()
+        break
+      case 'Tab':
+        setIsDropdownOpen(false)
+        setIsSearching(false)
+        setSearchQuery('')
+        setHighlightedIndex(-1)
+        break
+    }
+  }
+
+  // Handle search input change
+  const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchQuery(e.target.value)
+    setHighlightedIndex(-1)
+  }
+
+  // Handle country selector click
+  const handleCountrySelectorClick = () => {
+    if (disabled) return
+    
+    setIsDropdownOpen(!isDropdownOpen)
+    if (!isDropdownOpen) {
+      setIsSearching(true)
+      setTimeout(() => {
+        searchInputRef.current?.focus()
+      }, 100)
+    }
   }
 
   // Parse existing value to extract phone number without country code
@@ -219,7 +375,7 @@ export default function PhoneInput({
           <div className="country-code-selector relative min-w-[85px] max-md:min-w-[100px] border-r border-[#E5E7EB] rounded-l-xl cursor-pointer transition-colors duration-300">
             <div 
               className="country-code-display flex items-center gap-0.5 px-1.5 py-3 max-md:px-3 text-[13px] text-[#374151]"
-              onClick={() => !disabled && setIsDropdownOpen(!isDropdownOpen)}
+              onClick={handleCountrySelectorClick}
             >
               <img
                 src={selectedCountry.flag}
@@ -235,27 +391,52 @@ export default function PhoneInput({
 
             {/* Dropdown */}
             {isDropdownOpen && !disabled && (
-              <div className="country-dropdown absolute top-full left-0 bg-white border border-[#E5E7EB] rounded-lg shadow-[0_10px_25px_rgba(0,0,0,0.1)] z-[1000] max-h-[300px] w-[300px] overflow-y-auto">
-                <div className="country-list max-h-[250px] overflow-y-auto">
-                  {countries.map((country) => (
-                    <button
-                      key={country.code}
-                      type="button"
-                      className={cn(
-                        "country-option flex items-center gap-3 px-4 py-3 cursor-pointer transition-colors duration-200 hover:bg-[#fafafa] border-none bg-none w-full text-left text-sm text-[#374151]",
-                        selectedCountry.code === country.code && "bg-blue-50 text-[#3E5EC0]"
-                      )}
-                      onClick={() => handleCountrySelect(country)}
-                    >
-                      <img
-                        src={country.flag}
-                        alt={country.name}
-                        className="flag w-5 h-[15px] rounded-sm object-cover"
-                      />
-                      <span className="name flex-1 font-medium">{country.name}</span>
-                      <span className="code text-[#6B7280] text-xs">{country.dialCode}</span>
-                    </button>
-                  ))}
+              <div className="country-dropdown absolute top-full left-0 bg-white border border-[#E5E7EB] rounded-lg shadow-[0_10px_25px_rgba(0,0,0,0.1)] z-[1000] max-h-[300px] w-[300px] overflow-hidden">
+                {/* Search Input */}
+                <div className="search-container border-b border-[#E5E7EB] p-3">
+                  <div className="relative">
+                    <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-[#6B7280]" />
+                    <input
+                      ref={searchInputRef}
+                      type="text"
+                      placeholder="Search country..."
+                      value={searchQuery}
+                      onChange={handleSearchChange}
+                      onKeyDown={handleKeyDown}
+                      className="w-full pl-9 pr-3 py-2 border border-[#E5E7EB] rounded-lg text-sm focus:outline-none focus:border-[#667eea] focus:ring-1 focus:ring-[#667eea]"
+                    />
+                  </div>
+                </div>
+
+                {/* Country List */}
+                <div className="country-list max-h-[200px] overflow-y-auto">
+                  {filteredCountries.length > 0 ? (
+                    filteredCountries.map((country, index) => (
+                      <button
+                        key={country.code}
+                        type="button"
+                        className={cn(
+                          "country-option flex items-center gap-3 px-4 py-3 cursor-pointer transition-colors duration-200 hover:bg-[#fafafa] border-none bg-none w-full text-left text-sm text-[#374151]",
+                          selectedCountry.code === country.code && "bg-blue-50 text-[#3E5EC0]",
+                          highlightedIndex === index && "bg-blue-100"
+                        )}
+                        onClick={() => handleCountrySelect(country)}
+                        onMouseEnter={() => setHighlightedIndex(index)}
+                      >
+                        <img
+                          src={country.flag}
+                          alt={country.name}
+                          className="flag w-5 h-[15px] rounded-sm object-cover"
+                        />
+                        <span className="name flex-1 font-medium">{country.name}</span>
+                        <span className="code text-[#6B7280] text-xs">{country.dialCode}</span>
+                      </button>
+                    ))
+                  ) : (
+                    <div className="px-4 py-3 text-sm text-[#6B7280] text-center">
+                      No countries found
+                    </div>
+                  )}
                 </div>
               </div>
             )}
@@ -263,6 +444,7 @@ export default function PhoneInput({
 
           {/* Phone Number Input */}
           <input
+            ref={phoneInputRef}
             type="tel"
             id={id}
             name={name}
@@ -270,18 +452,23 @@ export default function PhoneInput({
             placeholder={placeholder}
             value={phoneInput}
             onChange={handlePhoneInputChange}
+            onKeyDown={handleKeyDown}
             required={required}
             disabled={disabled}
           />
         </div>
       </div>
       
-      {helperText && (
+      {(helperText || (enableAutoDetect && phoneInput && selectedCountry)) && (
         <p className={cn(
           'mt-1 text-xs',
           error ? 'text-red-500' : 'text-gray-500'
         )}>
-          {helperText}
+          {error ? helperText : (
+            enableAutoDetect && phoneInput && selectedCountry && !validatePhoneNumber(`${selectedCountry.dialCode}${phoneInput}`, selectedCountry.code)
+              ? `Invalid phone number format for ${selectedCountry.name}`
+              : helperText
+          )}
         </p>
       )}
     </div>

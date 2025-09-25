@@ -1,4 +1,5 @@
 import { Calendar, Euro, MapPin } from "lucide-react";
+import Link from "next/link";
 
 // Timing Card Component
 interface TimingCardProps {
@@ -32,7 +33,10 @@ export default function TimingCard({
 
   return (
     <>
-      <div className="bg-white rounded-xl border border-gray-200 shadow-[1px_1px_17px_0_rgba(62,94,192,0.22)] transition-all duration-300 hover:-translate-y-1 cursor-pointer overflow-hidden relative group h-max">
+      <Link
+        href={`/training-cities/${timing.city.slug}`}
+        className="bg-white rounded-xl border border-gray-200 shadow-[1px_1px_17px_0_rgba(62,94,192,0.22)] transition-all duration-300 hover:-translate-y-1 cursor-pointer overflow-hidden relative group h-max"
+      >
         {/* Hover Effect Line */}
         <div className="absolute top-0 left-0 right-0 h-[3px] bg-gradient-to-r from-[#314EA9] to-[#446AE1] opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
 
@@ -46,7 +50,7 @@ export default function TimingCard({
               </h3>
             </div>
             <div className="price text-[#253a7b] font-semibold text-sm flex items-center gap-1">
-              Fees: {timing.fees} <Euro size={14} />
+              Fees: {timing.fees}0 <Euro size={14} />
             </div>
           </div>
 
@@ -101,8 +105,7 @@ export default function TimingCard({
             Enquire
           </button>
         </div>
-      </div>
-
+      </Link>
     </>
   );
 }
