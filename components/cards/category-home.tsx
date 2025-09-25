@@ -1,33 +1,38 @@
+import { ArrowRight } from "lucide-react";
+import Link from "next/link";
+
 interface CategoryHomeProps {
   category: Category;
-  onClick: (slug: string) => void;
 }
 
-export default function CategoryHome({ category, onClick }: CategoryHomeProps) {
+export default function CategoryHome({ category }: CategoryHomeProps) {
   return (
-    <div
-      className="block text-inherit transition-all duration-300 hover:-translate-y-0.5 cursor-pointer"
-      onClick={() => onClick(category.slug)}
-    >
-      <div className="flex items-center justify-between gap-4 bg-white p-3 rounded-md shadow-[1px_1px_37px_0_rgba(62,94,192,0.25)] transition-all duration-300 hover:shadow-[1px_1px_37px_0_rgba(62,94,192,0.40)]">
-        <div className="flex items-center gap-3">
-          <div className="w-5 h-5 text-[#3E5EC0] text-xl flex items-center justify-center">
-            <img
-              src="/assets/images/category-icon.svg"
-              alt="Category"
-              className="w-full h-full"
-            />
-          </div>
-          <h3 className="text-xs font-semibold capitalize flex-1 line-clamp-2">
-            {category.title}
-          </h3>
-        </div>
-        <div className="text-[#3E5EC0] text-sm transition-all duration-300 transform -rotate-45 hover:scale-120 hover:rotate-0 hover:font-bold">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
-            <path d="M5 12h14m-7-7l7 7-7 7" />
-          </svg>
-        </div>
-      </div>
+    <Link
+    href={`/training-courses/${category.slug}`}
+    className="group block text-inherit no-underline transition-all duration-[400ms] cubic-bezier-[0.175,0.885,0.32,1.275] relative overflow-hidden hover:transform hover:translate-y-[-2px] hover:shadow-[1px_1px_37px_0_rgb(62_94_192_/_15%)]"
+  >
+    {/* Shimmer effect */}
+    <div className="absolute top-0 left-[-100%] w-full h-full bg-gradient-to-r from-transparent via-blue-600/10 to-transparent transition-all duration-600 ease-out group-hover:left-full z-[1]"></div>
+
+    <div className="flex items-center justify-between gap-4 bg-white p-[10px_16px] rounded-md shadow-[0_4px_20px_rgba(62,94,192,0.15)] transition-all duration-[400ms] cubic-bezier-[0.175,0.885,0.32,1.275] relative z-[2] group-hover:shadow-[0_8px_30px_rgba(62,94,192,0.25)] group-hover:border-none group-hover:bg-gradient-to-r group-hover:from-white group-hover:to-blue-50">
+      {/* Category Icon */}
+      <img
+        src={category.icon}
+        alt={category.title}
+        className="max-w-[25px] h-[25px] transition-all duration-[400ms] cubic-bezier-[0.175,0.885,0.32,1.275] drop-shadow-[0_2px_4px_rgba(62,94,192,0.2)] group-hover:drop-shadow-[0_4px_8px_rgba(62,94,192,0.3)] group-hover:animate-pulse"
+      />
+
+      {/* Category Title */}
+      <h3 className="text-[12.5px] font-semibold capitalize flex-1 transition-all duration-[400ms] cubic-bezier-[0.175,0.885,0.32,1.275] text-[#2B2B2B] group-hover:text-[#3E5EC0] group-hover:transform group-hover:translate-x-1">
+        {category.title}
+      </h3>
+
+      {/* Arrow Icon */}
+      <ArrowRight
+        size={14}
+        className="text-[#3E5EC0] transition-all duration-[400ms] cubic-bezier-[0.175,0.885,0.32,1.275] transform rotate-[-45deg] drop-shadow-[0_2px_4px_rgba(62,94,192,0.2)] group-hover:text-[#3E5EC0] group-hover:rotate-0 group-hover:drop-shadow-[0_4px_8px_rgba(62,94,192,0.3)]"
+      />
     </div>
+  </Link>
   );
 }

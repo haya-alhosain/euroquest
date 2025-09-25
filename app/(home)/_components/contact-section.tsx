@@ -1,8 +1,4 @@
-"use client";
-import { useState } from "react";
-import { ChevronRight } from "lucide-react";
-import JoinPopup from "../../../components/popups/join";
-
+import JoinBtn from "@/components/shared/join-btn";
 interface ContactSectionProps {
   className?: string;
 }
@@ -10,12 +6,6 @@ interface ContactSectionProps {
 export default function ContactSection({
   className = "",
 }: ContactSectionProps) {
-  const [isJoinPopupOpen, setIsJoinPopupOpen] = useState(false);
-
-  const handleJoinTeam = () => {
-    setIsJoinPopupOpen(true);
-  };
-
   return (
     <>
       <section className={`pt-[10px] pb-[30px] bg-[#F2F8FF] ${className}`}>
@@ -31,14 +21,7 @@ export default function ContactSection({
                 in the world
               </p>
 
-              <button
-                onClick={handleJoinTeam}
-                className="bg-[#3E5EC0] hover:bg-[#2d4aa7] !mt-0 mx-auto md:mx-0 text-white px-8 py-3 rounded-lg font-semibold text-base transition-all duration-300 transform cursor-pointer flex items-center gap-3 group"
-                suppressHydrationWarning={true}
-              >
-                <span>Join To Our Team</span>
-                <ChevronRight className="w-5 h-5 transition-transform duration-300 group-hover:translate-x-1" />
-              </button>
+              <JoinBtn />
             </div>
 
             {/* Request Image */}
@@ -52,10 +35,6 @@ export default function ContactSection({
           </div>
         </div>
       </section>
-      <JoinPopup
-        isOpen={isJoinPopupOpen}
-        onClose={() => setIsJoinPopupOpen(false)}
-      />
     </>
   );
 }

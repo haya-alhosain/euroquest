@@ -1,11 +1,11 @@
 import { Metadata } from "next";
-import CategoriesSection from "@/app/(home)/_components/categories-section";
-import HeroSection from "@/app/(home)/_components/hero-home-section";
-import AboutSection from "@/app/(home)/_components/about-section";
-import ContactSection from "@/app/(home)/_components/contact-section";
-import CitiesSection from "@/app/(home)/_components/cities-section";
-import UpcomingCoursesSection from "@/app/(home)/_components/upcoming-courses-section";
+import HeroSection from "./_components/hero-home-section";
+import AboutSection from "./_components/about-section";
+import ContactSection from "./_components/contact-section";
+import CitiesSection from "./_components/cities-section";
+import UpcomingCoursesSection from "./_components/upcoming-courses-section";
 import { getCategories, getSeoData } from "@/services/services";
+import CategoriesSection from "./_components/categories-section";
 
 // Generate metadata dynamically
 export async function generateMetadata(): Promise<Metadata> {
