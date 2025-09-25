@@ -1568,11 +1568,6 @@
   display: inline;
 }
 
-.overview-text p:last-of-type strong {
-  color: #ffd700;
-  font-size: inherit;
-}
-
 /* Responsive adjustments */
 @media (max-width: 768px) {
   .overview-text {
