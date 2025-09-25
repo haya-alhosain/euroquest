@@ -21,7 +21,7 @@ export default function CityCard({ city }: CityCardProps) {
       </div>
 
       {/* Gradient Overlay */}
-      <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent rounded-3xl pointer-events-none" />
+      <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent rounded-2xl pointer-events-none" />
 
       {/* City Content */}
       <div className="absolute bottom-0 left-0 w-full p-4 text-white flex items-center justify-between gap-2 z-10">

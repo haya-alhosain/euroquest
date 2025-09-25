@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 interface CourseBrochureProps {
   course: Course;
@@ -11,6 +11,44 @@ export default function CourseBrochure({
   timing, 
   formatDate 
 }: CourseBrochureProps) {
+  // Function to style headings with specific classes
+  useEffect(() => {
+    const styleHeadings = () => {
+      const brochureContent = document.querySelector('.brochure-content');
+      if (brochureContent) {
+        const strongElements = brochureContent.querySelectorAll('p strong:only-child');
+        
+        // Define main headings that should get primary styling
+        const mainHeadings = [
+          'Course Overview',
+          'Course Benefits', 
+          'Course Objectives',
+          'Training Methodology',
+          'Target Audience',
+          'Target Competencies',
+          'Course Outline',
+          'Why Attend'
+        ];
+        
+        strongElements.forEach(strong => {
+          const text = strong.textContent?.trim() || '';
+          
+          // Check if it's a Unit heading
+          if (text.startsWith('Unit ')) {
+            strong.classList.add('unit-heading');
+          }
+          // Check if it's NOT one of the main headings, make it secondary
+          else if (!mainHeadings.includes(text)) {
+            strong.classList.add('secondary-heading');
+          }
+          // Main headings keep the default primary styling
+        });
+      }
+    };
+
+    styleHeadings();
+  }, [course.content]);
+
   return (
     <>
       <style jsx>{`
@@ -169,6 +207,10 @@ export default function CourseBrochure({
         .brochure-content {
           flex: 1;
           margin-block: 32px;
+          line-height: 1.8 !important;
+          color: #333 !important;
+          font-size: 16px !important;
+          max-width: none !important;
         }
 
         .brochure-content h3 {
@@ -177,7 +219,71 @@ export default function CourseBrochure({
         }
 
         .brochure-content p {
-          font-size: 13px;
+          font-size: 16px !important;
+          margin-bottom: 16px !important;
+        }
+
+        .brochure-content p:last-child {
+          margin-bottom: 0 !important;
+        }
+
+        .brochure-content strong {
+          color: #2c3e50 !important;
+          font-weight: 600 !important;
+          font-size: 18px !important;
+        }
+
+        /* Main section headings */
+        .brochure-content p strong:only-child {
+          display: block !important;
+          margin: 32px 0 20px 0 !important;
+          font-size: 22px !important;
+          color: #3E5EC0 !important;
+          padding-bottom: 0 !important;
+          border-bottom: none !important;
+          position: relative !important;
+          text-align: left !important;
+        }
+
+        .brochure-content p strong:only-child::after {
+          content: '' !important;
+          position: absolute !important;
+          bottom: -2px !important;
+          left: 0 !important;
+          width: 60px !important;
+          height: 3px !important;
+          background: #20b486 !important;
+          border-radius: 2px !important;
+        }
+
+        /* Unit headings */
+        .brochure-content .unit-heading {
+          font-size: 18px !important;
+          margin: 24px 0 12px 0 !important;
+          background: #f7fafc !important;
+          color: #2d3748 !important;
+          padding: 12px 16px !important;
+          border-radius: 0 8px 8px 0 !important;
+          box-shadow: 0 2px 4px rgba(0,0,0,0.05) !important;
+          position: relative !important;
+        }
+
+        .brochure-content .unit-heading::after {
+          display: none !important;
+        }
+
+        /* Secondary headings */
+        .brochure-content .secondary-heading {
+          font-size: 16px !important;
+          margin: 20px 0 12px 0 !important;
+          color: #333 !important;
+          background: none !important;
+          display: inline !important;
+          font-weight: 600 !important;
+        }
+
+        .brochure-content .secondary-heading::after {
+          display: none !important;
         }
 
         .course-details {
@@ -202,6 +308,7 @@ export default function CourseBrochure({
           gap: 20px;
           padding-bottom: 15px;
           margin-bottom: 40px;
+          margin-top:250px
         }
         
         .course-details-header::after {
@@ -223,18 +330,6 @@ export default function CourseBrochure({
           font-size: 10px;
         }
         
-        .brochure-content p {
-          margin-bottom: 8px !important;
-          line-height: 1.75 !important;
-        }
-        
-        .brochure-content ul,
-        .brochure-content li,
-        .brochure-content p {
-          color: #6f6f6f;
-          font-size: 16px;
-          margin: 0;
-        }
         
         h3 {
           margin-block: 16px;
@@ -247,16 +342,34 @@ export default function CourseBrochure({
         }
         
         .brochure-content ul {
-          color: #6f6f6f;
-          flex: 1;
-          list-style: disc !important;
-          width: 100%;
-          display: -webkit-flex;
-          flex-direction: column;
-          gap: 10px;
-          list-style-position: inside;
-          margin: 8px !important;
-          padding-left: 24px;
+          margin: 16px 0 !important;
+          padding-left: 16px !important;
+        }
+
+        .brochure-content ul:last-of-type {
+          margin-bottom: 70px !important;
+        }
+
+        .brochure-content li {
+          list-style: none !important;
+          position: relative !important;
+          padding-left: 24px !important;
+          line-height: 1.6 !important;
+        }
+
+        .brochure-content li:before {
+          content: "✓" !important;
+          position: absolute !important;
+          left: 0 !important;
+          top: 0 !important;
+          color: #10b981 !important;
+          font-weight: bold !important;
+          font-size: 14px !important;
+        }
+
+        .brochure-content li p {
+          margin: 0 !important;
+          display: inline !important;
         }
         
         .full-page-svg {
