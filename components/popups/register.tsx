@@ -50,6 +50,8 @@ export default function RegisterPopup({ isOpen, onClose, courseTitle = '', timin
   const [errors, setErrors] = useState<Partial<RegisterFormData>>({})
   const [recaptchaToken, setRecaptchaToken] = useState<string | null>(null)
   const [recaptchaVerified, setRecaptchaVerified] = useState(false)
+  const [isPhoneValid, setIsPhoneValid] = useState(false)
+  const [isResponsiblePhoneValid, setIsResponsiblePhoneValid] = useState(false)
   
   // Use the register form mutation
   const registerMutation = useRegisterForm()
@@ -107,7 +109,11 @@ export default function RegisterPopup({ isOpen, onClose, courseTitle = '', timin
 
     // Contact Information
     if (!formData.fullName.trim()) newErrors.fullName = 'Full name is required'
-    if (!formData.phoneNumber.trim()) newErrors.phoneNumber = 'Phone number is required'
+    if (!formData.phoneNumber.trim()) {
+      newErrors.phoneNumber = 'Phone number is required'
+    } else if (!isPhoneValid) {
+      newErrors.phoneNumber = 'Please enter a valid phone number'
+    }
     if (!formData.jobTitle.trim()) newErrors.jobTitle = 'Job title is required'
     if (!formData.email.trim()) {
       newErrors.email = 'Email is required'
@@ -123,7 +129,11 @@ export default function RegisterPopup({ isOpen, onClose, courseTitle = '', timin
     } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.responsibleEmail)) {
       newErrors.responsibleEmail = 'Please enter a valid email address'
     }
-    if (!formData.responsiblePhone.trim()) newErrors.responsiblePhone = 'Responsible phone is required'
+    if (!formData.responsiblePhone.trim()) {
+      newErrors.responsiblePhone = 'Responsible phone is required'
+    } else if (!isResponsiblePhoneValid) {
+      newErrors.responsiblePhone = 'Please enter a valid phone number'
+    }
 
     setErrors(newErrors)
     return Object.keys(newErrors).length === 0
@@ -215,7 +225,7 @@ export default function RegisterPopup({ isOpen, onClose, courseTitle = '', timin
 
   return (
     <div 
-      className="fixed inset-0 bg-black/70 z-40 flex items-center justify-center p-4 overflow-y-auto md:p-4 max-md:items-start max-md:pt-8 max-md:p-2"
+      className="fixed inset-0 bg-black/70 z-[100] flex items-center justify-center p-4 overflow-y-auto md:p-4 max-md:items-start max-md:pt-8 max-md:p-2"
       onClick={handleOverlayClick}
     >
       {/* Modal Content */}
@@ -336,6 +346,7 @@ export default function RegisterPopup({ isOpen, onClose, courseTitle = '', timin
                       placeholder="Enter phone number"
                       value={formData.phoneNumber}
                       onChange={handlePhoneChange1}
+                      onValidationChange={setIsPhoneValid}
                       error={!!errors.phoneNumber}
                       helperText={errors.phoneNumber}
                       required
@@ -453,6 +464,7 @@ export default function RegisterPopup({ isOpen, onClose, courseTitle = '', timin
                       placeholder="Responsible Phone"
                       value={formData.responsiblePhone}
                       onChange={handlePhoneChange2}
+                      onValidationChange={setIsResponsiblePhoneValid}
                       error={!!errors.responsiblePhone}
                       helperText={errors.responsiblePhone}
                       required
@@ -470,7 +482,7 @@ export default function RegisterPopup({ isOpen, onClose, courseTitle = '', timin
                 {/* Submit Button */}
                 <button
                   type="submit"
-                  disabled={!recaptchaVerified || registerMutation.isPending}
+                  disabled={!recaptchaVerified || registerMutation.isPending || !isPhoneValid || !isResponsiblePhoneValid}
                   className="submit-btn min-w-[170px] w-fit h-12 rounded-[10px] px-[18px] text-sm font-semibold text-white bg-gradient-to-r from-[#314EA9] to-[#446AE1] border-none cursor-pointer flex items-center justify-center gap-2 ml-0 transition-all duration-500 hover:shadow-lg disabled:opacity-50 disabled:cursor-not-allowed max-md:w-full max-md:min-w-auto max-md:h-11 max-md:text-[13px]"
                 >
                   <span className="btn-text">{registerMutation.isPending ? 'Registering...' : 'Register'}</span>

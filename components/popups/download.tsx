@@ -51,6 +51,7 @@ export default function DownloadPopup({
   const [errors, setErrors] = useState<Partial<DownloadFormData>>({})
   const [recaptchaToken, setRecaptchaToken] = useState<string | null>(null)
   const [recaptchaVerified, setRecaptchaVerified] = useState(false)
+  const [isPhoneValid, setIsPhoneValid] = useState(false)
   const [isGeneratingPDF, setIsGeneratingPDF] = useState(false)
   const [progress, setProgress] = useState(0)
   const [showSuccessMessage, setShowSuccessMessage] = useState(false)
@@ -112,7 +113,11 @@ export default function DownloadPopup({
     const newErrors: Partial<DownloadFormData> = {}
 
     if (!formData.fullName.trim()) newErrors.fullName = 'Full name is required'
-    if (!formData.phoneNumber.trim()) newErrors.phoneNumber = 'Phone number is required'
+    if (!formData.phoneNumber.trim()) {
+      newErrors.phoneNumber = 'Phone number is required'
+    } else if (!isPhoneValid) {
+      newErrors.phoneNumber = 'Please enter a valid phone number'
+    }
     if (!formData.email.trim()) {
       newErrors.email = 'Email is required'
     } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
@@ -268,7 +273,7 @@ export default function DownloadPopup({
       /> */}
 
       <div
-        className="fixed top-0 left-0 z-50 inset-0 bg-black/70 flex items-center justify-center p-4 overflow-y-auto md:p-4 max-md:pt-8 max-md:p-2"
+        className="fixed top-0 left-0 z-[100] inset-0 bg-black/70 flex items-center justify-center p-4 overflow-y-auto md:p-4 max-md:pt-8 max-md:p-2"
         onClick={handleOverlayClick}
       >
       {/* Modal Content */}
@@ -334,6 +339,7 @@ export default function DownloadPopup({
                   placeholder="Enter phone number"
                   value={formData.phoneNumber}
                   onChange={handlePhoneChange}
+                  onValidationChange={setIsPhoneValid}
                   error={!!errors.phoneNumber}
                   helperText={errors.phoneNumber}
                   required
@@ -387,7 +393,7 @@ export default function DownloadPopup({
                 {/* Submit Button */}
                 <button
                   type="submit"
-                  disabled={!recaptchaVerified || downloadMutation.isPending || isGeneratingPDF}
+                  disabled={!recaptchaVerified || downloadMutation.isPending || isGeneratingPDF || !isPhoneValid}
                   className="submit-btn min-w-[170px] w-fit h-12 rounded-[10px] px-[18px] text-sm font-semibold text-white bg-gradient-to-r from-[#314EA9] to-[#446AE1] border-none cursor-pointer flex items-center justify-center gap-2 ml-0 transition-all duration-500 hover:shadow-lg disabled:opacity-50 disabled:cursor-not-allowed max-md:w-full max-md:min-w-auto max-md:h-11 max-md:text-[13px]"
                 >
                   <span className="btn-text">

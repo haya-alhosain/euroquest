@@ -42,6 +42,7 @@ export default function InquirePopup({ isOpen, onClose, courseTitle = '', timing
   const [errors, setErrors] = useState<Partial<InquireFormData>>({})
   const [recaptchaToken, setRecaptchaToken] = useState<string | null>(null)
   const [recaptchaVerified, setRecaptchaVerified] = useState(false)
+  const [isPhoneValid, setIsPhoneValid] = useState(false)
   
   // Use the inquire form mutation
   const inquireMutation = useInquireForm()
@@ -94,7 +95,11 @@ export default function InquirePopup({ isOpen, onClose, courseTitle = '', timing
     } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
       newErrors.email = 'Please enter a valid email address'
     }
-    if (!formData.phoneNumber.trim()) newErrors.phoneNumber = 'Phone number is required'
+    if (!formData.phoneNumber.trim()) {
+      newErrors.phoneNumber = 'Phone number is required'
+    } else if (!isPhoneValid) {
+      newErrors.phoneNumber = 'Please enter a valid phone number'
+    }
     if (!formData.company.trim()) newErrors.company = 'Company is required'
     // City is not required in the original template
     if (!formData.country.trim()) newErrors.country = 'Country is required'
@@ -179,7 +184,7 @@ export default function InquirePopup({ isOpen, onClose, courseTitle = '', timing
 
   return (
     <div 
-      className="fixed inset-0 bg-black/70 z-40 flex items-center justify-center p-4 overflow-y-auto md:p-4 max-md:items-start max-md:pt-8 max-md:p-2"
+      className="fixed inset-0 bg-black/70 z-[100] flex items-center justify-center p-4 overflow-y-auto md:p-4 max-md:items-start max-md:pt-8 max-md:p-2"
       onClick={handleOverlayClick}
     >
       {/* Modal Content */}
@@ -253,6 +258,7 @@ export default function InquirePopup({ isOpen, onClose, courseTitle = '', timing
                   placeholder="Enter phone number"
                   value={formData.phoneNumber}
                   onChange={handlePhoneChange}
+                  onValidationChange={setIsPhoneValid}
                   error={!!errors.phoneNumber}
                   helperText={errors.phoneNumber}
                   required
@@ -342,7 +348,7 @@ export default function InquirePopup({ isOpen, onClose, courseTitle = '', timing
                 {/* Submit Button */}
                 <button
                   type="submit"
-                  disabled={!recaptchaVerified || inquireMutation.isPending}
+                  disabled={!recaptchaVerified || inquireMutation.isPending || !isPhoneValid}
                   className="submit-btn min-w-[170px] w-fit h-12 rounded-[10px] px-[18px] text-sm font-semibold text-white bg-gradient-to-r from-[#314EA9] to-[#446AE1] border-none cursor-pointer flex items-center justify-center gap-2 ml-0 transition-all duration-500 hover:shadow-lg disabled:opacity-50 disabled:cursor-not-allowed max-md:w-full max-md:min-w-auto max-md:h-11 max-md:text-[13px]"
                 >
                   <span className="btn-text">{inquireMutation.isPending ? 'Sending Message...' : 'Send Message'}</span>

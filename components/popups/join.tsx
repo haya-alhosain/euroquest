@@ -41,6 +41,7 @@ export default function JoinPopup({ isOpen, onClose }: JoinPopupProps) {
   const [errors, setErrors] = useState<Partial<Record<keyof JoinFormData, string>>>({});
   const [recaptchaToken, setRecaptchaToken] = useState<string | null>(null);
   const [recaptchaVerified, setRecaptchaVerified] = useState(false);
+  const [isPhoneValid, setIsPhoneValid] = useState(false);
 
   // Use the join form mutation
   const joinMutation = useJoinForm();
@@ -113,6 +114,8 @@ export default function JoinPopup({ isOpen, onClose }: JoinPopupProps) {
     }
     if (!formData.phone.trim()) {
       newErrors.phone = "Phone number is required";
+    } else if (!isPhoneValid) {
+      newErrors.phone = "Please enter a valid phone number";
     }
     if (!formData.cv) {
       newErrors.cv = "CV file is required";
@@ -216,7 +219,7 @@ export default function JoinPopup({ isOpen, onClose }: JoinPopupProps) {
 
   return (
     <div
-      className="fixed inset-0 bg-black/70 z-40 flex items-center justify-center p-4 overflow-y-auto md:p-4 max-md:items-start max-md:pt-8 max-md:p-2"
+      className="fixed inset-0 bg-black/70 z-[100] flex items-center justify-center p-4 overflow-y-auto md:p-4 max-md:items-start max-md:pt-8 max-md:p-2"
       onClick={handleOverlayClick}
     >
       {/* Modal Content */}
@@ -414,6 +417,7 @@ export default function JoinPopup({ isOpen, onClose }: JoinPopupProps) {
                         name="join_phone"
                         value={formData.phone}
                         onChange={(value) => handleInputChange("phone", value)}
+                        onValidationChange={setIsPhoneValid}
                         placeholder="Enter phone number"
                         required
                         defaultCountry="SK"
@@ -492,7 +496,7 @@ export default function JoinPopup({ isOpen, onClose }: JoinPopupProps) {
                     {/* Submit Button */}
                     <button
                       type="submit"
-                      disabled={!recaptchaVerified || joinMutation.isPending}
+                      disabled={!recaptchaVerified || joinMutation.isPending || !isPhoneValid}
                       className="submit-btn min-w-[170px] w-fit h-12 rounded-[10px] px-[18px] text-sm font-semibold text-white bg-gradient-to-r from-[#314EA9] to-[#446AE1] border-none cursor-pointer flex items-center justify-center gap-2 ml-0 transition-all duration-500 ease-in-out hover:[&_svg]:translate-x-0.5 disabled:opacity-50 disabled:cursor-not-allowed max-md:w-full max-md:min-w-auto max-md:h-11 max-md:text-[13px]"
                     >
                       <span className="btn-text">

@@ -123,6 +123,7 @@ export interface PhoneInputProps {
   value?: string
   onChange?: (value: string) => void
   onCountryChange?: (country: Country) => void
+  onValidationChange?: (isValid: boolean) => void // New prop to notify parent about validation status
   error?: boolean
   helperText?: string
   required?: boolean
@@ -140,6 +141,7 @@ export default function PhoneInput({
   value = '',
   onChange,
   onCountryChange,
+  onValidationChange,
   error = false,
   helperText,
   required = false,
@@ -442,6 +444,14 @@ export default function PhoneInput({
       setPhoneInput('')
     }
   }, [value, selectedCountry.dialCode])
+
+  // Notify parent component about validation status
+  useEffect(() => {
+    if (onValidationChange && phoneInput) {
+      const isValid = validatePhoneNumber(`${selectedCountry.dialCode}${phoneInput}`, selectedCountry.code)
+      onValidationChange(isValid)
+    }
+  }, [phoneInput, selectedCountry, onValidationChange])
 
   return (
     <div className="w-full">
