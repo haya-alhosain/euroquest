@@ -50,7 +50,7 @@ export default function TimingCard({
               </h3>
             </div>
             <div className="price text-[#253a7b] font-semibold text-sm flex items-center gap-1">
-              Fees: {timing.fees}0 <Euro size={14} />
+              Fees: {Number(timing.fees) + 0} <Euro size={14} />
             </div>
           </div>
 
