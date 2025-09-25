@@ -1,7 +1,4 @@
-"use client";
-import { useEffect, useState } from "react";
 import Breadcrumb, { BreadcrumbItem } from "../ui/breadcrumb";
-import { useTypewriterWithCursor } from "@/hooks/useTypewriter";
 
 interface HeroBannerProps {
   backgroundImage: string;
@@ -20,27 +17,9 @@ export default function HeroBanner({
   title,
   description,
   breadcrumbs = [],
-  className = "",
-  enableTypewriter = false,
-  typewriterSpeed = 100,
-  typewriterDelay = 500,
-  typewriterLoop = false,
+  className = ""
 }: HeroBannerProps) {
-  const [isClient, setIsClient] = useState(false);
-  
-  const { displayedText, showCursor, isComplete } = useTypewriterWithCursor({
-    text: title,
-    enabled: enableTypewriter,
-    speed: typewriterSpeed,
-    delay: typewriterDelay,
-    loop: typewriterLoop,
-    cursorBlinkSpeed: 530,
-    fastCursorWhileTyping: true,
-  });
-
-  useEffect(() => {
-    setIsClient(true);
-  }, []);
+ 
 
   return (
     <section
@@ -63,7 +42,7 @@ export default function HeroBanner({
           <div className="pb-6">
             <h1 className="text-2xl md:text-3xl font-bold mb-4">{title}</h1>
 
-            {description && isClient && (
+            {description && (
               <div className="text-sm md:text-base leading-relaxed max-w-6xl font-medium" dangerouslySetInnerHTML={{ __html: description }} />
             )}
           </div>

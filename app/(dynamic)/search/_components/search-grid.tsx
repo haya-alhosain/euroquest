@@ -1,4 +1,4 @@
-import SearchTimingCard from '@/components/cards/search-timing-card';
+import SearchTimingCard from "./search-timing-card";
 
 interface SearchGridProps {
   items: SearchTiming[];

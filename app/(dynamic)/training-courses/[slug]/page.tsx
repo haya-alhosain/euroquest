@@ -1,6 +1,6 @@
 import { Metadata } from "next";
 import { getCategoryDetails } from "@/services/services";
-import CategoryPageClient from "../_components/category-page-client";
+import CategoryPage from "../_components/category-page";
 
 // Generate metadata dynamically
 export async function generateMetadata({
@@ -62,5 +62,5 @@ export default async function CoursesCategoryPage({
   const categoryData = await getCategoryDetails(slug);
   const { category, courses } = categoryData;
 
-  return <CategoryPageClient category={category} courses={courses} slug={slug} />;
+  return <CategoryPage category={category} courses={courses} slug={slug} />;
 }

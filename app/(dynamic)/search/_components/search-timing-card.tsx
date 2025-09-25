@@ -1,5 +1,4 @@
-import React from "react";
-import { Calendar, Euro, MapPin, Clock, Tag } from "lucide-react";
+import { Calendar, Euro, MapPin } from "lucide-react";
 import Link from "next/link";
 
 interface SearchTimingCardProps {

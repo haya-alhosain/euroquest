@@ -3,16 +3,19 @@ import React, { useState } from "react";
 import HeroBanner from "@/components/shared/hero-banner";
 import { BreadcrumbItem } from "@/components/ui/breadcrumb";
 import { Home, Search } from "lucide-react";
-import Overview from "./overview";
 import CoursesList from "@/components/shared/courses-list";
 
-interface CategoryPageClientProps {
+interface CategoryPageProps {
   category: any;
   courses: any[];
   slug: string;
 }
 
-export default function CategoryPageClient({ category, courses, slug }: CategoryPageClientProps) {
+export default function CategoryPage({
+  category,
+  courses,
+  slug,
+}: CategoryPageProps) {
   const [searchTerm, setSearchTerm] = useState("");
 
   // Filter courses based on search
@@ -75,7 +78,23 @@ export default function CategoryPageClient({ category, courses, slug }: Category
           <CoursesList filteredCourses={filteredCourses} categorySlug={slug} />
 
           {/* Overview Section */}
-          {category && <Overview category={category} />}
+          {category && (
+            <section className="bg-[#f8fafc] p-8 rounded-2xl shadow-[0_2px_8px_rgba(0,0,0,0.04)] mt-15">
+              <div className="overview-content">
+                <h2 className="text-[28px] text-[#2d3748] mb-5 border-l-4 border-[#3e5ec0] pl-3 font-semibold">
+                  {category.title}
+                </h2>
+                <div className="overview-text">
+                  <div
+                    className="text-[#4a5568] text-base leading-relaxed"
+                    dangerouslySetInnerHTML={{
+                      __html: category.additional_description,
+                    }}
+                  />
+                </div>
+              </div>
+            </section>
+          )}
         </div>
       </section>
     </>
