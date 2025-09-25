@@ -79,6 +79,7 @@ export default function TimingCard({
         <div className="flex gap-2 p-3">
           <button
             onClick={(e) => {
+              e.preventDefault();
               e.stopPropagation();
               handleDownloadClick();
             }}
@@ -88,6 +89,7 @@ export default function TimingCard({
           </button>
           <button
             onClick={(e) => {
+              e.preventDefault();
               e.stopPropagation();
               handleRegisterClick();
             }}
@@ -97,6 +99,7 @@ export default function TimingCard({
           </button>
           <button
             onClick={(e) => {
+              e.preventDefault();
               e.stopPropagation();
               handleInquireClick();
             }}
