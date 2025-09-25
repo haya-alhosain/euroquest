@@ -1,11 +1,11 @@
 'use client'
 import React, { useState } from 'react'
 import Image from 'next/image'
-import PhoneInput from '@/components/shared/phone-input'
+import PhoneInput from '@/components/ui/phone-input'
 import { cn } from '@/lib/utils'
 import { useContactForm } from '@/services/forms/forms-hooks'
 import { toast } from 'sonner'
-import ReCaptchaV2 from '@/components/shared/recaptcha-v2'
+import ReCaptchaV2 from '@/components/ui/recaptcha-v2'
 import { validateRecaptchaConfig } from '@/constants/recaptcha'
 
 export default function ContactPageClient() {

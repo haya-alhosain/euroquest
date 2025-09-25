@@ -1,6 +1,6 @@
 import HeroBanner from "@/components/shared/hero-banner";
 import SearchBanner from "@/components/shared/search-banner";
-import { BreadcrumbItem } from "@/components/shared/breadcrumb";
+import { BreadcrumbItem } from "@/components/ui/breadcrumb";
 import { Home } from "lucide-react";
 import CategoriesCards from "./categories-cards";
 

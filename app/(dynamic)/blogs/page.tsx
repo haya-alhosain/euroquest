@@ -1,6 +1,6 @@
 import { Metadata } from "next";
 import HeroBanner from "@/components/shared/hero-banner";
-import BlogsSection from "@/components/sections/blogs-section";
+import BlogsSection from "@/app/(dynamic)/blogs/_components/blogs-section";
 import { Home } from "lucide-react";
 import { getBlogs, getSeoData } from "@/services/services";
 

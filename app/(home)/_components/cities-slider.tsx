@@ -1,6 +1,6 @@
 "use client";
 import { ChevronLeft, ChevronRight } from "lucide-react";
-import CityHomeCard from "../cards/city-home";
+import CityHomeCard from "../../../components/cards/city-home";
 import { useRef, useEffect, useState } from "react";
 
 interface CitiesSliderProps {

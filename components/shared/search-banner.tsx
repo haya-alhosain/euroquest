@@ -4,9 +4,9 @@ import { useRouter } from 'next/navigation'
 import { orderedMonths, durationOptions } from '@/constants'
 import { useCategories, useCities } from '@/services/hooks'
 import { RotateCcw, Search } from 'lucide-react'
-import Button from './button'
-import Input from './input'
-import CustomSelect, { SelectOption as SelectOptionType } from './custom-select'
+import Button from '../ui/button'
+import Input from '../ui/input'
+import CustomSelect, { SelectOption as SelectOptionType } from '../ui/custom-select'
 
 // Field types
 export type FieldType = 'select' | 'input' | 'date'

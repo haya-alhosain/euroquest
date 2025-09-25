@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
-import SectionTitle from "../shared/section-title";
+import SectionTitle from "../../../components/shared/section-title";
 import { getCategories } from "@/services/services";
 
 export default async function CategoriesSection({categories } :{categories:Category[]}) {

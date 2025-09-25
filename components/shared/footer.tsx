@@ -1,16 +1,10 @@
-"use client";
 import Link from "next/link";
 import Image from "next/image";
-import { useState } from "react";
 import { popularCategories, quickAccessLinks, socialLinks } from "@/constants";
-import ContactPopup from "@/components/popups/contact";
-import JoinPopup from "@/components/popups/join";
-import Button from "@/components/shared/button";
 import { Mail, MapPin, Phone } from "lucide-react";
+import ContactBtn from "./contact-btn";
 
 export default function Footer() {
-  const [isContactOpen, setIsContactOpen] = useState(false);
-
   return (
     <>
       <footer className="bg-[#2A3453] text-white/50 py-10">
@@ -83,7 +77,7 @@ export default function Footer() {
                     </Link>
                   </li>
                 ))}
-                <li className="cursor-pointer" onClick={() => setIsContactOpen(true)}>Contact Us</li>
+                <ContactBtn />
               </ul>
             </div>
 
@@ -103,7 +97,7 @@ export default function Footer() {
               <div className="mb-4">
                 <div className="flex gap-2">
                   {socialLinks.map((social, index) => (
-                    <a
+                    <Link
                       key={index}
                       href={social.href}
                       className="w-10 h-10 bg-white rounded-lg flex items-center justify-center transition-transform duration-300 hover:-translate-y-0.5"
@@ -111,7 +105,7 @@ export default function Footer() {
                       rel="noopener noreferrer"
                     >
                       <social.Icon className="text-[#2A3453] text-xl" />
-                    </a>
+                    </Link>
                   ))}
                 </div>
               </div>
@@ -123,12 +117,6 @@ export default function Footer() {
           </p>
         </div>
       </footer>
-
-      {/* Contact Popup */}
-      <ContactPopup
-        isOpen={isContactOpen}
-        onClose={() => setIsContactOpen(false)}
-      />
     </>
   );
 }

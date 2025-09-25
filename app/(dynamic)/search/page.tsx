@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from "react";
 import { useSearchParams } from "next/navigation";
 import { searchTimings } from "@/services/services";
-import LoadingSpinner from "@/components/shared/loading-spinner";
+import LoadingSpinner from "@/components/ui/loading-spinner";
 import HeroBanner from "@/components/shared/hero-banner";
 import SearchBanner from "@/components/shared/search-banner";
 import SearchGrid from "@/components/shared/search-grid";
@@ -10,7 +10,7 @@ import { Home } from "lucide-react";
 import RegisterPopup from "@/components/popups/register";
 import InquirePopup from "@/components/popups/inquire";
 import DownloadPopup from "@/components/popups/download";
-import CoursesList from "../../../components/sections/courses-list";
+import CoursesList from "../../../components/shared/courses-list";
 
 export default function SearchPage() {
   const searchParams = useSearchParams();

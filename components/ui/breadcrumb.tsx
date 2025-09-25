@@ -1,4 +1,3 @@
-"use client";
 import { Fragment, ReactNode } from "react";
 
 export interface BreadcrumbItem {

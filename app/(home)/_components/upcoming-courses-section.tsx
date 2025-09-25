@@ -1,4 +1,4 @@
-import SectionTitle from "../shared/section-title";
+import SectionTitle from "../../../components/shared/section-title";
 import UpcomingCoursesSlider from "./upcoming-courses-slider";
 import { getUpcomingCourses } from "@/services/services";
 

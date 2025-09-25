@@ -4,9 +4,9 @@ import { useRouter } from "next/navigation";
 import { Search, RotateCcw } from "lucide-react";
 import { orderedMonths, durationOptions } from "@/constants";
 import { useCategories, useCities } from "@/services/hooks";
-import Input from "./input";
-import CustomSelect from "./custom-select";
-import Button from "./button";
+import Input from "../../../components/ui/input";
+import CustomSelect from "../../../components/ui/custom-select";
+import Button from "../../../components/ui/button";
 
 interface SearchFormData {
   keyword: string;

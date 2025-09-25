@@ -4,7 +4,7 @@ import {
   ChevronRight,
 } from "lucide-react";
 import { useRef, useEffect, useState } from "react";
-import UpcommingCourseCard from "../cards/upcomming-card";
+import UpcommingCourseCard from "../../../components/cards/upcomming-card";
 
 interface UpcomingCoursesSliderProps {
   upcomingCourses: UpcomingCourse[];

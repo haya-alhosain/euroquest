@@ -3,10 +3,10 @@ import React, { useState } from "react";
 import { useParams } from "next/navigation";
 import { useCityCategoryDetails } from "@/services/hooks";
 import HeroBanner from "@/components/shared/hero-banner";
-import { BreadcrumbItem } from "@/components/shared/breadcrumb";
+import { BreadcrumbItem } from "@/components/ui/breadcrumb";
 import { Home, Search } from "lucide-react";
-import LoadingSpinner from "@/components/shared/loading-spinner";
-import CoursesList from "../../../../components/sections/courses-list";
+import LoadingSpinner from "@/components/ui/loading-spinner";
+import CoursesList from "../../../../components/shared/courses-list";
 
 export default function CityCategoryPageClient() {
   const params = useParams();

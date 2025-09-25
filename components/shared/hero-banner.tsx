@@ -1,6 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
-import Breadcrumb, { BreadcrumbItem } from "./breadcrumb";
+import Breadcrumb, { BreadcrumbItem } from "../ui/breadcrumb";
 import { useTypewriterWithCursor } from "@/hooks/useTypewriter";
 
 interface HeroBannerProps {

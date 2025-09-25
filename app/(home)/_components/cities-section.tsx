@@ -1,5 +1,5 @@
 import Link from "next/link";
-import SectionTitle from "../shared/section-title";
+import SectionTitle from "../../../components/shared/section-title";
 import CitiesSlider from "./cities-slider";
 import { getCities } from "@/services/services";
 

@@ -1,10 +1,10 @@
 import { Metadata } from "next";
-import CategoriesSection from "@/components/sections/categories-section";
-import HeroSection from "@/components/sections/hero-home-section";
-import AboutSection from "@/components/sections/about-section";
-import ContactSection from "@/components/sections/contact-section";
-import CitiesSection from "@/components/sections/cities-section";
-import UpcomingCoursesSection from "@/components/sections/upcoming-courses-section";
+import CategoriesSection from "@/app/(home)/_components/categories-section";
+import HeroSection from "@/app/(home)/_components/hero-home-section";
+import AboutSection from "@/app/(home)/_components/about-section";
+import ContactSection from "@/app/(home)/_components/contact-section";
+import CitiesSection from "@/app/(home)/_components/cities-section";
+import UpcomingCoursesSection from "@/app/(home)/_components/upcoming-courses-section";
 import { getCategories, getSeoData } from "@/services/services";
 
 // Generate metadata dynamically

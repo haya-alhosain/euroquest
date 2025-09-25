@@ -1,6 +1,6 @@
 import { Metadata } from "next";
 import HeroBanner from "@/components/shared/hero-banner";
-import { BreadcrumbItem } from "@/components/shared/breadcrumb";
+import { BreadcrumbItem } from "@/components/ui/breadcrumb";
 import { Home } from "lucide-react";
 import { getSeoData } from "@/services/services";
 

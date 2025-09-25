@@ -1,7 +1,7 @@
 "use client";
 import { useState } from "react";
 import { ChevronRight } from "lucide-react";
-import JoinPopup from "../popups/join";
+import JoinPopup from "../../../components/popups/join";
 
 interface ContactSectionProps {
   className?: string;

@@ -1,7 +1,6 @@
-"use client";
-import { useCopyToClipboard } from "@/hooks/useCopyToClipboard";
-import { Clock, Copy, ArrowRight, CheckCircle } from "lucide-react";
+import { Clock, ArrowRight } from "lucide-react";
 import Link from "next/link";
+import CourseCode from "../shared/course-code";
 
 interface CourseCardProps {
   course: Course;
@@ -9,14 +8,6 @@ interface CourseCardProps {
 }
 
 export default function CourseCard({ course, citySlug }: CourseCardProps) {
-  // Copy to clipboard hook
-  const { copy, isCopied } = useCopyToClipboard(2000);
-
-  // Handle copy course code
-  const handleCopyCode = async (code: string) => {
-    await copy(code);
-  };
-
   return (
     <Link
       href={`/training-course/${course.slug}${citySlug ? `/${citySlug}` : ""}`}
@@ -39,26 +30,7 @@ export default function CourseCard({ course, citySlug }: CourseCardProps) {
       {/* Course Actions */}
       <div className="flex items-center gap-4 justify-between">
         {/* Course Code */}
-        <div
-          className={`text-gray-700 text-[13px] font-medium flex items-center min-w-[80px] min-h-[20px] gap-2 px-1.5 py-0.5 cursor-pointer transition-all duration-300 border border-gray-300 rounded-lg hover:text-[#3E5EC0]`}
-          onClick={(e) => {
-            e.preventDefault();
-            e.stopPropagation();
-            handleCopyCode(course.code);
-          }}
-        >
-          {isCopied(course.code) ? (
-            <>
-              <span>Copied</span>
-              <CheckCircle size={12} />
-            </>
-          ) : (
-            <>
-              <span>{course.code}</span>
-              <Copy size={12} />
-            </>
-          )}
-        </div>
+        <CourseCode code={course.code} />
 
         {/* Arrow Link */}
         <div className="w-9 h-9 rounded-lg bg-gradient-to-br from-[#f7fafc] to-[#edf2f7] text-[#667eea] flex items-center justify-center transition-all duration-300 border-2 border-transparent">

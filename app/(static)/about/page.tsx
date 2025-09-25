@@ -1,7 +1,7 @@
 import { Metadata } from "next";
 import HeroBanner from "@/components/shared/hero-banner";
 import SectionTitle from "@/components/shared/section-title";
-import Button from "@/components/shared/button";
+import Button from "@/components/ui/button";
 import { Home } from 'lucide-react';
 import { services } from "@/constants";
 import { getSeoData } from "@/services/services";

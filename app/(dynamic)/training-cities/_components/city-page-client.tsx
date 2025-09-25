@@ -2,10 +2,10 @@
 import React, { useState } from "react";
 import { useParams } from "next/navigation";
 import HeroBanner from "@/components/shared/hero-banner";
-import { BreadcrumbItem } from "@/components/shared/breadcrumb";
+import { BreadcrumbItem } from "@/components/ui/breadcrumb";
 import { Home, Search } from "lucide-react";
 import SectionTitle from "@/components/shared/section-title";
-import CoursesList from "../../../../components/sections/courses-list";
+import CoursesList from "../../../../components/shared/courses-list";
 import CityCategoriesGrid from "./city-categories-grid";
 
 interface CityPageClientProps {

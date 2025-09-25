@@ -1,7 +1,7 @@
 import { Metadata } from "next";
 import HeroBanner from "@/components/shared/hero-banner";
 import SearchBanner from "@/components/shared/search-banner";
-import { BreadcrumbItem } from "@/components/shared/breadcrumb";
+import { BreadcrumbItem } from "@/components/ui/breadcrumb";
 import { Home } from "lucide-react";
 import CitiesCards from "./_components/cities-cards";
 import { getCities, getSeoData } from "@/services/services";

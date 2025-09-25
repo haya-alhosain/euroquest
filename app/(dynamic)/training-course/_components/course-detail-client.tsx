@@ -1,7 +1,7 @@
 "use client";
 import React, { useState } from "react";
 import HeroBanner from "@/components/shared/hero-banner";
-import { BreadcrumbItem } from "@/components/shared/breadcrumb";
+import { BreadcrumbItem } from "@/components/ui/breadcrumb";
 import { Home } from "lucide-react";
 import CourseContent from "./course-content";
 import CourseTimings from "./course-timings";

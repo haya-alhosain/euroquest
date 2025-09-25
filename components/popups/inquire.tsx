@@ -3,10 +3,10 @@
 import React, { useState, useEffect } from 'react'
 import { X, ChevronRight } from 'lucide-react'
 import { cn } from '@/lib/utils'
-import PhoneInput from '@/components/shared/phone-input'
+import PhoneInput from '@/components/ui/phone-input'
 import { useInquireForm } from '@/services/forms/forms-hooks'
 import { toast } from 'sonner'
-import ReCaptchaV2 from '@/components/shared/recaptcha-v2'
+import ReCaptchaV2 from '@/components/ui/recaptcha-v2'
 import { RECAPTCHA_CONFIG, validateRecaptchaConfig } from '@/constants/recaptcha'
 
 interface InquireFormData {

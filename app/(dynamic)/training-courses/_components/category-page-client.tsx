@@ -1,10 +1,10 @@
 "use client";
 import React, { useState } from "react";
 import HeroBanner from "@/components/shared/hero-banner";
-import { BreadcrumbItem } from "@/components/shared/breadcrumb";
+import { BreadcrumbItem } from "@/components/ui/breadcrumb";
 import { Home, Search } from "lucide-react";
 import Overview from "./overview";
-import CoursesList from "@/components/sections/courses-list";
+import CoursesList from "@/components/shared/courses-list";
 
 interface CategoryPageClientProps {
   category: any;

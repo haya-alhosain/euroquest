@@ -1,5 +1,5 @@
 import { ChevronDown } from "lucide-react";
-import SearchBannerHome from "../shared/search-banner-home";
+import SearchBannerHome from "./search-banner-home";
 
 interface HeroSectionProps {
   className?: string;
