@@ -308,7 +308,7 @@ export default function CourseBrochure({
           gap: 20px;
           padding-bottom: 15px;
           margin-bottom: 40px;
-          margin-top:250px
+          margin-top:290px
         }
         
         .course-details-header::after {
