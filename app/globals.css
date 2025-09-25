@@ -1607,7 +1607,7 @@
 .overview-content {
   display: flex;
   flex-direction: column;
-  padding-top: 70px;
+  /* padding-top: 70px; */
   color: #6f6f6f;
 }
 

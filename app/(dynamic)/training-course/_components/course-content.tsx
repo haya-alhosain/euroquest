@@ -60,7 +60,7 @@ export default function CourseContent({ course }: CourseContentProps) {
   return (
     <section className="overview-section" id="overview-section">
       <div className="overview-content flex flex-col pt-[70px] text-[#6f6f6f]">
-        <h2 className="text-[#3E5EC0] text-[32px] font-bold mb-6">
+        <h2 className="text-[#3E5EC0] text-[32px] font-bold">
           {course.title}
         </h2>
         
