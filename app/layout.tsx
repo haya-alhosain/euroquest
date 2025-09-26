@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Exo, Inter } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/shared/navbar";
@@ -19,6 +19,7 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://euroqst.com"),
   title: "EuroQuest International",
   description: "EuroQuest International - Professional Training and Certification Courses",
   keywords: "training, certification, courses, professional development, EuroQuest",
@@ -48,7 +49,11 @@ export const metadata: Metadata = {
   icons: {
     icon: "/assets/images/mini-logo.png",
   },
-  viewport: "width=device-width, initial-scale=1.0",
+};
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1.0,
 };
 
 export default function RootLayout({
