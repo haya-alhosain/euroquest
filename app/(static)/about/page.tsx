@@ -11,6 +11,7 @@ const breadcrumbs = [
   { label: 'About', href: '/about' }
 ];
 
+
 // Generate metadata dynamically
 export async function generateMetadata(): Promise<Metadata> {
   try {

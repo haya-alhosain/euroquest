@@ -6,7 +6,9 @@ interface AnimatedCitiesGridProps {
   children: ReactNode;
 }
 
-export default function AnimatedCitiesGrid({ children }: AnimatedCitiesGridProps) {
+export default function AnimatedCitiesGrid({
+  children,
+}: AnimatedCitiesGridProps) {
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -16,8 +18,8 @@ export default function AnimatedCitiesGrid({ children }: AnimatedCitiesGridProps
 
   // Animation variants for individual cards
   const cardVariants = {
-    hidden: { 
-      opacity: 0, 
+    hidden: {
+      opacity: 0,
       y: 20,
       scale: 0.95,
     },
@@ -29,10 +31,10 @@ export default function AnimatedCitiesGrid({ children }: AnimatedCitiesGridProps
   };
 
   return (
-    <motion.div 
+    <motion.div
       className="grid gap-4"
       style={{
-        gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 1fr))',
+        gridTemplateColumns: "repeat(auto-fill, minmax(200px, 1fr))",
       }}
       variants={containerVariants}
       initial="hidden"
@@ -51,8 +53,8 @@ export default function AnimatedCitiesGrid({ children }: AnimatedCitiesGridProps
 
 export function AnimatedCityCard({ children }: { children: ReactNode }) {
   const cardVariants = {
-    hidden: { 
-      opacity: 0, 
+    hidden: {
+      opacity: 0,
       y: 20,
       scale: 0.95,
     },
@@ -73,22 +75,22 @@ export function AnimatedCityCard({ children }: { children: ReactNode }) {
         stiffness: 100,
         damping: 15,
       }}
-      whileHover={{ 
+      whileHover={{
         y: -3,
-        transition: { 
+        transition: {
           duration: 0.3,
           ease: [0.25, 0.1, 0.25, 1],
           type: "spring",
           stiffness: 300,
           damping: 20,
-        }
+        },
       }}
-      whileTap={{ 
+      whileTap={{
         scale: 0.99,
-        transition: { 
+        transition: {
           duration: 0.1,
-          ease: [0.25, 0.1, 0.25, 1]
-        }
+          ease: [0.25, 0.1, 0.25, 1],
+        },
       }}
     >
       {children}
@@ -106,7 +108,7 @@ export function AnimatedCoursesList({ children }: { children: ReactNode }) {
   };
 
   return (
-    <motion.div 
+    <motion.div
       className="flex flex-col gap-4"
       variants={containerVariants}
       initial="hidden"
@@ -125,8 +127,8 @@ export function AnimatedCoursesList({ children }: { children: ReactNode }) {
 
 export function AnimatedCourseCard({ children }: { children: ReactNode }) {
   const cardVariants = {
-    hidden: { 
-      opacity: 0, 
+    hidden: {
+      opacity: 0,
       y: 25,
       scale: 0.96,
     },
@@ -147,24 +149,24 @@ export function AnimatedCourseCard({ children }: { children: ReactNode }) {
         stiffness: 120,
         damping: 18,
       }}
-      whileHover={{ 
+      whileHover={{
         y: -4,
         scale: 1.01,
-        transition: { 
+        transition: {
           duration: 0.3,
           ease: [0.25, 0.1, 0.25, 1],
           type: "spring",
           stiffness: 400,
           damping: 25,
-        }
+        },
       }}
-      whileTap={{ 
+      whileTap={{
         scale: 0.98,
         y: -1,
-        transition: { 
+        transition: {
           duration: 0.15,
-          ease: [0.25, 0.1, 0.25, 1]
-        }
+          ease: [0.25, 0.1, 0.25, 1],
+        },
       }}
     >
       {children}
@@ -182,10 +184,10 @@ export function AnimatedCategoriesGrid({ children }: { children: ReactNode }) {
   };
 
   return (
-    <motion.div 
+    <motion.div
       className="grid gap-4"
       style={{
-        gridTemplateColumns: 'repeat(auto-fill, minmax(240px, 1fr))',
+        gridTemplateColumns: "repeat(auto-fill, minmax(240px, 1fr))",
       }}
       variants={containerVariants}
       initial="hidden"
@@ -204,8 +206,8 @@ export function AnimatedCategoriesGrid({ children }: { children: ReactNode }) {
 
 export function AnimatedCategoryCard({ children }: { children: ReactNode }) {
   const cardVariants = {
-    hidden: { 
-      opacity: 0, 
+    hidden: {
+      opacity: 0,
       y: 20,
     },
     visible: {
@@ -221,9 +223,9 @@ export function AnimatedCategoryCard({ children }: { children: ReactNode }) {
         duration: 0.5,
         ease: [0.25, 0.1, 0.25, 1],
       }}
-      whileHover={{ 
+      whileHover={{
         y: -5,
-        transition: { duration: 0.2 }
+        transition: { duration: 0.2 },
       }}
     >
       {children}

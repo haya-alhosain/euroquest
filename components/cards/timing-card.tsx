@@ -5,10 +5,10 @@ import Link from "next/link";
 interface TimingCardProps {
   timing: Timing;
   course: Course;
-  onDownload: (timing: Timing, course: Course) => void;
-  onRegister: (timing: Timing, course: Course) => void;
-  onInquire: (timing: Timing, course: Course) => void;
-  formatDate: (date: string) => string;
+  onDownload?: (timing: Timing, course: Course) => void;
+  onRegister?: (timing: Timing, course: Course) => void;
+  onInquire?: (timing: Timing, course: Course) => void;
+  formatDate?: (date: string) => string;
 }
 
 export default function TimingCard({
@@ -20,15 +20,15 @@ export default function TimingCard({
   formatDate,
 }: TimingCardProps) {
   const handleRegisterClick = () => {
-    onRegister(timing, course);
+    onRegister?.(timing, course);
   };
 
   const handleInquireClick = () => {
-    onInquire(timing, course);
+    onInquire?.(timing, course);
   };
 
   const handleDownloadClick = () => {
-    onDownload(timing, course);
+    onDownload?.(timing, course);
   };
 
   return (
@@ -61,7 +61,7 @@ export default function TimingCard({
                 From:
               </span>
               <span className="value text-[11px] whitespace-nowrap text-[#253a7b] font-semibold">
-                {formatDate(timing.start_date)}
+                {formatDate?.(timing.start_date)}
               </span>
             </div>
             <div className="flex items-center gap-1">
@@ -69,7 +69,7 @@ export default function TimingCard({
                 To:
               </span>
               <span className="value text-[11px] whitespace-nowrap text-[#253a7b] font-semibold">
-                {formatDate(timing.end_date)}
+                {formatDate?.(timing.end_date)}
               </span>
             </div>
           </div>

@@ -669,9 +669,9 @@
   padding-left: 16px;
 }
 
-.overview-text ul:last-of-type {
+/* .overview-text ul:last-of-type {
   margin-bottom: 70px !important;
-}
+} */
 
 .overview-text li {
   list-style: none;

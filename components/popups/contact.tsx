@@ -8,6 +8,7 @@ import { useContactForm } from "@/services/forms/forms-hooks";
 import { toast } from "sonner";
 import ReCaptchaV2 from "@/components/ui/recaptcha-v2";
 import { RECAPTCHA_CONFIG, validateRecaptchaConfig } from "@/constants/recaptcha";
+import { usePopupStore } from "@/store/popup-store";
 
 interface ContactFormData {
   fullName: string;
@@ -19,12 +20,8 @@ interface ContactFormData {
   message: string;
 }
 
-interface ContactPopupProps {
-  isOpen: boolean;
-  onClose: () => void;
-}
-
-export default function ContactPopup({ isOpen, onClose }: ContactPopupProps) {
+export default function ContactPopup() {
+  const { isContactOpen, closeContact } = usePopupStore();
   const [formData, setFormData] = useState<ContactFormData>({
     fullName: "",
     company: "",
@@ -48,18 +45,18 @@ export default function ContactPopup({ isOpen, onClose }: ContactPopupProps) {
   // Close modal on escape key
   useEffect(() => {
     const handleEscape = (event: KeyboardEvent) => {
-      if (event.key === "Escape" && isOpen) {
-        onClose();
+      if (event.key === "Escape" && isContactOpen) {
+        closeContact();
       }
     };
 
     document.addEventListener("keydown", handleEscape);
     return () => document.removeEventListener("keydown", handleEscape);
-  }, [isOpen, onClose]);
+  }, [isContactOpen, closeContact]);
 
   // Prevent body scroll when modal is open
   useEffect(() => {
-    if (isOpen) {
+    if (isContactOpen) {
       document.body.style.overflow = "hidden";
     } else {
       document.body.style.overflow = "unset";
@@ -68,7 +65,7 @@ export default function ContactPopup({ isOpen, onClose }: ContactPopupProps) {
     return () => {
       document.body.style.overflow = "unset";
     };
-  }, [isOpen]);
+  }, [isContactOpen]);
 
   const handleInputChange = (field: keyof ContactFormData, value: string) => {
     setFormData((prev) => ({ ...prev, [field]: value }));
@@ -166,7 +163,7 @@ export default function ContactPopup({ isOpen, onClose }: ContactPopupProps) {
       });
       setRecaptchaVerified(false);
       setRecaptchaToken(null);
-      onClose();
+      closeContact();
     } catch (error) {
       toast.error(
         "There was an error submitting your message. Please try again."
@@ -174,11 +171,11 @@ export default function ContactPopup({ isOpen, onClose }: ContactPopupProps) {
     }
   };
 
-  if (!isOpen) return null;
+  if (!isContactOpen) return null;
 
   const handleOverlayClick = (e: React.MouseEvent) => {
     if (e.target === e.currentTarget) {
-      onClose();
+      closeContact();
     }
   };
 
@@ -191,7 +188,7 @@ export default function ContactPopup({ isOpen, onClose }: ContactPopupProps) {
       <div className="bg-gradient-to-br from-[#f8faff] to-[#f0f4ff] w-full max-w-[1152px] rounded-lg md:rounded-[18px] md:p-2.5 overflow-hidden relative mx-auto max-md:rounded-lg">
         {/* Close Button */}
         <button
-          onClick={onClose}
+          onClick={closeContact}
           className="absolute top-1 right-2.5 bg-none border-none text-sm text-[#6F6F6F] cursor-pointer z-10 p-2.5 rounded-full transition-all duration-300 hover:bg-gray-100"
         >
           <X className="w-4 h-4" />

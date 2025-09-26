@@ -335,7 +335,7 @@ export default function SearchBanner({
 
         {/* Dynamic Action Buttons */}
         {actions.length > 0 && (
-          <div className="flex items-center gap-1 md:gap-2 mt-4 md:mt-0 justify-center md:justify-start md:static left-1/2 md:left-auto -translate-x-1/2 md:translate-x-0 -bottom-[17px] md:bottom-auto absolute">
+          <div className="flex items-center gap-1 flex-shrink-0 md:gap-2 mt-4 md:mt-0 justify-center md:justify-start md:static left-1/2 md:left-auto -translate-x-1/2 md:translate-x-0 -bottom-[17px] md:bottom-auto absolute">
             {actions.map((action, index) => (
               <Button
                 key={index}

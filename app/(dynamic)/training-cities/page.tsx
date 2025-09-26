@@ -5,11 +5,12 @@ import { BreadcrumbItem } from "@/components/ui/breadcrumb";
 import { Home } from "lucide-react";
 import CitiesCards from "./_components/cities-cards";
 import { getCities, getSeoData } from "@/services/services";
+import Container from "@/components/shared/container";
 
 // Generate metadata dynamically
 export async function generateMetadata(): Promise<Metadata> {
   try {
-    const seoData = await getSeoData('cities');
+    const seoData = await getSeoData("cities");
     const seo = seoData.seo;
 
     return {
@@ -27,11 +28,11 @@ export async function generateMetadata(): Promise<Metadata> {
             alt: seo.meta_title,
           },
         ],
-        type: 'website',
+        type: "website",
         url: seo.canonical,
       },
       twitter: {
-        card: 'summary_large_image',
+        card: "summary_large_image",
         title: seo.meta_title,
         description: seo.meta_description,
         images: [seo.meta_image],
@@ -41,13 +42,16 @@ export async function generateMetadata(): Promise<Metadata> {
       },
     };
   } catch (error) {
-    console.error('Error generating metadata for cities page:', error);
-    
+    console.error("Error generating metadata for cities page:", error);
+
     // Fallback metadata
     return {
-      title: "Training Cities | EuroQuest International Global Training Locations",
-      description: "Explore training courses in leading global capitals and cities. Browse professional training programs in Dubai, London, Barcelona, Istanbul, Vienna, Paris, and Geneva.",
-      keywords: "training cities, global training locations, Dubai training, London courses, Barcelona training, Istanbul courses, Vienna training, Paris courses, Geneva training",
+      title:
+        "Training Cities | EuroQuest International Global Training Locations",
+      description:
+        "Explore training courses in leading global capitals and cities. Browse professional training programs in Dubai, London, Barcelona, Istanbul, Vienna, Paris, and Geneva.",
+      keywords:
+        "training cities, global training locations, Dubai training, London courses, Barcelona training, Istanbul courses, Vienna training, Paris courses, Geneva training",
     };
   }
 }
@@ -64,7 +68,7 @@ export default async function CitiesPage() {
     },
     {
       href: "/training-cities",
-      label: "Training Cities",
+      label: "Cities",
     },
   ];
 
@@ -81,16 +85,13 @@ export default async function CitiesPage() {
         typewriterDelay={500}
       />
 
-      {/* Cities Content Section */}
-      <div className="pb-24">
-        <div className="container mx-auto">
-          {/* Search Bar */}
-          <SearchBanner resetBehavior="local" />
+      <Container className="md:pb-12 pb-10">
+        {/* Search Bar */}
+        <SearchBanner resetBehavior="local" />
 
-          {/* Cities grid Cards */}
-          <CitiesCards cities={cities}/>
-        </div>
-      </div>
+        {/* Cities grid Cards */}
+        <CitiesCards cities={cities} />
+      </Container>
     </>
   );
 }

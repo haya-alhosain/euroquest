@@ -46,6 +46,7 @@ export const quickAccessLinks = [
   { href: "/about", label: "About" },
   { href: "/blogs", label: "Blogs" },
   { href: "/sitemap", label: "Sitemap" },
+  { href: "/contact", label: "Contact Us" },
   { href: "/terms", label: "Terms & Conditions" },
   { href: "/privacy-policy", label: "Privacy Policy" },
 ];

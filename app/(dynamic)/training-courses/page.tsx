@@ -5,11 +5,13 @@ import { BreadcrumbItem } from "@/components/ui/breadcrumb";
 import { Home } from "lucide-react";
 import CategoriesCards from "./_components/categories-cards";
 import { getCategories, getSeoData } from "@/services/services";
+import Container from "@/components/shared/container";
+
 
 // Generate metadata dynamically
 export async function generateMetadata(): Promise<Metadata> {
   try {
-    const seoData = await getSeoData('categories');
+    const seoData = await getSeoData("categories");
     const seo = seoData.seo;
 
     return {
@@ -27,11 +29,11 @@ export async function generateMetadata(): Promise<Metadata> {
             alt: seo.meta_title,
           },
         ],
-        type: 'website',
+        type: "website",
         url: seo.canonical,
       },
       twitter: {
-        card: 'summary_large_image',
+        card: "summary_large_image",
         title: seo.meta_title,
         description: seo.meta_description,
         images: [seo.meta_image],
@@ -41,13 +43,16 @@ export async function generateMetadata(): Promise<Metadata> {
       },
     };
   } catch (error) {
-    console.error('Error generating metadata for categories page:', error);
-    
+    console.error("Error generating metadata for categories page:", error);
+
     // Fallback metadata
     return {
-      title: "Training Categories | EuroQuest International Professional Courses",
-      description: "Explore all training categories at EuroQuest International. Browse professional courses in management, HR, IT, finance, and more across different fields.",
-      keywords: "training categories, professional courses, management training, HR courses, IT training, finance courses, business development",
+      title:
+        "Training Categories | EuroQuest International Professional Courses",
+      description:
+        "Explore all training categories at EuroQuest International. Browse professional courses in management, HR, IT, finance, and more across different fields.",
+      keywords:
+        "training categories, professional courses, management training, HR courses, IT training, finance courses, business development",
     };
   }
 }
@@ -80,16 +85,13 @@ export default async function CategoriesPage() {
         typewriterDelay={500}
       />
 
-      {/* Categories Content Section */}
-      <section className="pb-15">
-        <div className="container mx-auto">
-          {/* Search Bar */}
-          <SearchBanner resetBehavior="local" />
+      <Container className="md:pb-12 pb-10">
+        {/* Search Bar */}
+        <SearchBanner resetBehavior="local" />
 
-          {/* Categories Cards */}
-          <CategoriesCards categories={categories} />
-        </div>
-      </section>
+        {/* Categories Cards */}
+        <CategoriesCards categories={categories} />
+      </Container>
     </>
   );
 }

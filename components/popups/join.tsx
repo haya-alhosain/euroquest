@@ -8,6 +8,7 @@ import { useJoinForm } from "@/services/forms/forms-hooks";
 import { toast } from "sonner";
 import ReCaptchaV2 from "@/components/ui/recaptcha-v2";
 import { RECAPTCHA_CONFIG, validateRecaptchaConfig } from "@/constants/recaptcha";
+import { usePopupStore } from "@/store/popup-store";
 
 interface JoinFormData {
   full_name: string;
@@ -20,12 +21,8 @@ interface JoinFormData {
   category_id: number;
 }
 
-interface JoinPopupProps {
-  isOpen: boolean;
-  onClose: () => void;
-}
-
-export default function JoinPopup({ isOpen, onClose }: JoinPopupProps) {
+export default function JoinPopup() {
+  const { isJoinOpen, closeJoin } = usePopupStore();
   const [formData, setFormData] = useState<JoinFormData>({
     full_name: "",
     email: "",
@@ -52,14 +49,14 @@ export default function JoinPopup({ isOpen, onClose }: JoinPopupProps) {
   // Close modal on escape key
   useEffect(() => {
     const handleEscape = (event: KeyboardEvent) => {
-      if (event.key === "Escape" && isOpen) {
-        onClose();
+      if (event.key === "Escape" && isJoinOpen) {
+        closeJoin();
       }
     };
 
     document.addEventListener("keydown", handleEscape);
     return () => document.removeEventListener("keydown", handleEscape);
-  }, [isOpen, onClose]);
+  }, [isJoinOpen, closeJoin]);
 
   const handleInputChange = (
     field: keyof JoinFormData,
@@ -201,7 +198,7 @@ export default function JoinPopup({ isOpen, onClose }: JoinPopupProps) {
       setErrors({});
       setRecaptchaVerified(false);
       setRecaptchaToken(null);
-      onClose();
+      closeJoin();
     } catch (error) {
       toast.error(
         "There was an error submitting your application. Please try again."
@@ -209,11 +206,11 @@ export default function JoinPopup({ isOpen, onClose }: JoinPopupProps) {
     }
   };
 
-  if (!isOpen) return null;
+  if (!isJoinOpen) return null;
 
   const handleOverlayClick = (e: React.MouseEvent) => {
     if (e.target === e.currentTarget) {
-      onClose();
+      closeJoin();
     }
   };
 
@@ -226,7 +223,7 @@ export default function JoinPopup({ isOpen, onClose }: JoinPopupProps) {
       <div className="bg-gradient-to-br from-[#f8faff] to-[#f0f4ff] w-full max-w-[1152px] rounded-lg md:rounded-[18px] md:p-2.5 overflow-hidden relative mx-auto max-md:rounded-lg">
         {/* Close Button */}
         <button
-          onClick={onClose}
+          onClick={closeJoin}
           className="absolute top-1 right-2.5 bg-none border-none text-sm text-[#6F6F6F] cursor-pointer z-10 p-2.5 rounded-full transition-all duration-300 hover:bg-gray-100"
         >
           <X className="w-4 h-4" />

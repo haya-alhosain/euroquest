@@ -1,6 +1,7 @@
 import { Metadata } from "next";
 import { getCityCategoryDetails } from "@/services/services";
-import CityCategoryPageClient from "../../_components/city-category-page-client";
+import CityCategoryPage from "../../_components/city-category-page";
+
 
 // Generate metadata dynamically
 export async function generateMetadata({
@@ -53,10 +54,10 @@ export async function generateMetadata({
   }
 }
 
-export default async function CityCategoryPage({
+export default async function Page({
   params,
 }: {
   params: Promise<{ citySlug: string; categorySlug: string }>;
 }) {
-  return <CityCategoryPageClient />;
+  return <CityCategoryPage />;
 }

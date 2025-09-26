@@ -1,10 +1,18 @@
 import CourseCard from "@/components/cards/course";
 
-export default function CoursesList({ filteredCourses, citySlug }: any) {
+interface CoursesListProps {
+  filteredCourses: Course[];
+  citySlug?: string;
+}
+
+export default function CoursesList({
+  filteredCourses,
+  citySlug,
+}: CoursesListProps) {
   return (
-    <div className="flex flex-col gap-4">
+    <section className="flex flex-col gap-4">
       {filteredCourses.length > 0 ? (
-        filteredCourses.map((course: any) => (
+        filteredCourses.map((course: Course) => (
           <CourseCard key={course.slug} course={course} citySlug={citySlug} />
         ))
       ) : (
@@ -12,6 +20,6 @@ export default function CoursesList({ filteredCourses, citySlug }: any) {
           <p>No courses found matching your search criteria.</p>
         </div>
       )}
-    </div>
+    </section>
   );
 }

@@ -4,6 +4,7 @@ import { BreadcrumbItem } from "@/components/ui/breadcrumb";
 import { Home } from "lucide-react";
 import { getSeoData } from "@/services/services";
 
+
 // Generate metadata dynamically
 export async function generateMetadata(): Promise<Metadata> {
   try {
@@ -64,7 +65,7 @@ export default function PrivacyPolicyPage() {
   ];
 
   return (
-    <>      
+    <>     
       {/* Hero Banner */}
       <HeroBanner
         backgroundImage="/assets/images/hero-privacy.png"

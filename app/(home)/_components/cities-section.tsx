@@ -17,11 +17,12 @@ export default async function CitiesSection() {
 
       <div className="container mx-auto">
         {/* Section Header */}
-        <div className="flex flex-col md:flex-row md:items-center items-start gap-3 md:justify-between mb-4">
+        <div className="flex flex-col md:flex-row md:items-center items-start gap-3 md:justify-between md:mb-10 mb-8">
           <SectionTitle
             title="Discover All"
             highlight="Cities"
             description="Explore Professional Training Courses in Major Cities Worldwide"
+            className="mb-0"
           />
           <Link
             href="/training-cities"

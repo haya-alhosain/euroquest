@@ -8,6 +8,7 @@ import { useInquireForm } from '@/services/forms/forms-hooks'
 import { toast } from 'sonner'
 import ReCaptchaV2 from '@/components/ui/recaptcha-v2'
 import { RECAPTCHA_CONFIG, validateRecaptchaConfig } from '@/constants/recaptcha'
+import { usePopupStore } from '@/store/popup-store'
 
 interface InquireFormData {
   fullName: string
@@ -20,15 +21,9 @@ interface InquireFormData {
   timingId?: string
 }
 
-interface InquirePopupProps {
-  isOpen: boolean
-  onClose: () => void
-  courseTitle?: string
-  timingId?: string
-}
-
-
-export default function InquirePopup({ isOpen, onClose, courseTitle = '', timingId = '' }: InquirePopupProps) {
+export default function InquirePopup() {
+  const { isInquireOpen, inquireData, closeInquire } = usePopupStore();
+  const { courseTitle = '', timingId = '' } = inquireData;
   const [formData, setFormData] = useState<InquireFormData>({
     fullName: '',
     email: '',
@@ -53,18 +48,18 @@ export default function InquirePopup({ isOpen, onClose, courseTitle = '', timing
   // Close modal on escape key
   useEffect(() => {
     const handleEscape = (event: KeyboardEvent) => {
-      if (event.key === 'Escape' && isOpen) {
-        onClose()
+      if (event.key === 'Escape' && isInquireOpen) {
+        closeInquire()
       }
     }
 
     document.addEventListener('keydown', handleEscape)
     return () => document.removeEventListener('keydown', handleEscape)
-  }, [isOpen, onClose])
+  }, [isInquireOpen, closeInquire])
 
   // Prevent body scroll when modal is open
   useEffect(() => {
-    if (isOpen) {
+    if (isInquireOpen) {
       document.body.style.overflow = 'hidden'
     } else {
       document.body.style.overflow = 'unset'
@@ -73,7 +68,7 @@ export default function InquirePopup({ isOpen, onClose, courseTitle = '', timing
     return () => {
       document.body.style.overflow = 'unset'
     }
-  }, [isOpen])
+  }, [isInquireOpen])
 
   const handleInputChange = (field: keyof InquireFormData, value: string) => {
     setFormData(prev => ({ ...prev, [field]: value }))
@@ -168,17 +163,17 @@ export default function InquirePopup({ isOpen, onClose, courseTitle = '', timing
       })
       setRecaptchaVerified(false)
       setRecaptchaToken(null)
-      onClose()
+      closeInquire()
     } catch (error) {
       toast.error('There was an error sending your inquiry. Please try again.')
     }
   }
 
-  if (!isOpen) return null
+  if (!isInquireOpen) return null
 
   const handleOverlayClick = (e: React.MouseEvent) => {
     if (e.target === e.currentTarget) {
-      onClose()
+      closeInquire()
     }
   }
 
@@ -192,7 +187,7 @@ export default function InquirePopup({ isOpen, onClose, courseTitle = '', timing
         
         {/* Close Button */}
         <button
-          onClick={onClose}
+          onClick={closeInquire}
           className="absolute top-1 right-2.5 bg-none border-none text-sm text-[#6F6F6F] cursor-pointer z-10 p-2.5 rounded-full transition-all duration-300 hover:bg-gray-100"
         >
           <X className="w-4 h-4" />

@@ -3,12 +3,13 @@ import Link from "next/link";
 
 interface CategoryHomeProps {
   category: Category;
+  citySlug?: string;
 }
 
-export default function CategoryHome({ category }: CategoryHomeProps) {
+export default function CategoryHome({ category, citySlug }: CategoryHomeProps) {
   return (
     <Link
-    href={`/training-courses/${category.slug}`}
+    href={citySlug ? `/training-cities/${citySlug}/${category.slug}` : `/training-courses/${category.slug}`}
     className="group block text-inherit no-underline transition-all duration-[400ms] cubic-bezier-[0.175,0.885,0.32,1.275] relative overflow-hidden hover:transform hover:translate-y-[-2px] hover:shadow-[1px_1px_37px_0_rgb(62_94_192_/_15%)]"
   >
     {/* Shimmer effect */}

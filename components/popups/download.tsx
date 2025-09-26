@@ -12,6 +12,7 @@ import CourseBrochure from '@/components/brochure/course-brochure'
 import { PDFGenerator } from '@/lib/pdf-generator'
 import ProgressBar from '@/components/ui/progress-bar'
 import SuccessMessage from '@/components/shared/success-message'
+import { usePopupStore } from '@/store/popup-store'
 
 interface DownloadFormData {
   fullName: string
@@ -21,26 +22,19 @@ interface DownloadFormData {
   timingId?: string
 }
 
-interface DownloadPopupProps {
-  isOpen: boolean
-  onClose: () => void
-  courseTitle?: string
-  timingId?: string
-  course?: Course
-  timing?: Timing
-  formatDate?: (date: string) => string
-}
-
-
-export default function DownloadPopup({ 
-  isOpen, 
-  onClose, 
-  courseTitle = '', 
-  timingId = '',
-  course,
-  timing,
-  formatDate
-}: DownloadPopupProps) {
+export default function DownloadPopup() {
+  const { isDownloadOpen, downloadData, closeDownload } = usePopupStore();
+  
+  // Format date function
+  const formatDate = (dateString: string) => {
+    const date = new Date(dateString);
+    return date.toLocaleDateString('en-US', {
+      year: 'numeric',
+      month: 'short',
+      day: 'numeric'
+    });
+  };
+  const { course, timing, courseTitle = '', timingId = '' } = downloadData;
   const [formData, setFormData] = useState<DownloadFormData>({
     fullName: '',
     phoneNumber: '',
@@ -66,28 +60,28 @@ export default function DownloadPopup({
   // Close modal on escape key
   useEffect(() => {
     const handleEscape = (event: KeyboardEvent) => {
-      if (event.key === 'Escape' && isOpen) {
-        onClose()
+      if (event.key === 'Escape' && isDownloadOpen) {
+        closeDownload()
       }
     }
 
     document.addEventListener('keydown', handleEscape)
     return () => document.removeEventListener('keydown', handleEscape)
-  }, [isOpen, onClose])
+  }, [isDownloadOpen, closeDownload])
 
   // Reset progress state when popup closes
   useEffect(() => {
-    if (!isOpen) {
+    if (!isDownloadOpen) {
       setIsGeneratingPDF(false)
       setProgress(0)
       setShowSuccessMessage(false)
       setDownloadedFileName('')
     }
-  }, [isOpen])
+  }, [isDownloadOpen])
 
   // Prevent body scroll when modal is open
   useEffect(() => {
-    if (isOpen) {
+    if (isDownloadOpen) {
       document.body.style.overflow = 'hidden'
     } else {
       document.body.style.overflow = 'unset'
@@ -96,7 +90,7 @@ export default function DownloadPopup({
     return () => {
       document.body.style.overflow = 'unset'
     }
-  }, [isOpen])
+  }, [isDownloadOpen])
 
   const handleInputChange = (field: keyof DownloadFormData, value: string) => {
     setFormData(prev => ({ ...prev, [field]: value }))
@@ -214,7 +208,7 @@ export default function DownloadPopup({
           // Wait a moment then show success message
           setTimeout(() => {
             setIsGeneratingPDF(false)
-            onClose() // Close the popup first
+            closeDownload() // Close the popup first
             
             // Show success message after popup closes
             setTimeout(() => {
@@ -232,7 +226,7 @@ export default function DownloadPopup({
         // If no course/timing data, just show success
         toast.success('Thank you! Your brochure download will start shortly.')
         setTimeout(() => {
-          onClose()
+          closeDownload()
         }, 1000)
       }
       
@@ -254,11 +248,11 @@ export default function DownloadPopup({
     }
   }
 
-  if (!isOpen) return null
+  if (!isDownloadOpen) return null
 
   const handleOverlayClick = (e: React.MouseEvent) => {
     if (e.target === e.currentTarget) {
-      onClose()
+      closeDownload()
     }
   }
 
@@ -281,7 +275,7 @@ export default function DownloadPopup({
         
         {/* Close Button */}
         <button
-          onClick={onClose}
+          onClick={closeDownload}
           className="absolute top-1 right-2.5 bg-none border-none text-sm text-[#6F6F6F] cursor-pointer z-10 p-2.5 rounded-full transition-all duration-300 hover:bg-gray-100"
         >
           <X className="w-4 h-4" />

@@ -3,6 +3,7 @@ import { getSitemapData } from "@/services/services";
 import { Home } from "lucide-react";
 import { Metadata } from "next";
 
+
 export const metadata: Metadata = {
   title: "Sitemap | EuroQuest International",
   description:

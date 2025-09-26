@@ -5,6 +5,7 @@ declare interface Category {
   image?: string;
   icon: string;
   courses_count: number;
+  additional_description: string;
 }
 
 declare interface City {
@@ -15,6 +16,7 @@ declare interface City {
   courses_count?: number;
   h1?: string;
   description?: string;
+  additional_description?: string;
 }
 
 declare interface CityDetail {

@@ -1,4 +1,5 @@
 import BlogCard from "@/components/cards/blog";
+import Container from "@/components/shared/container";
 import SectionTitle from "@/components/shared/section-title";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 
@@ -15,7 +16,7 @@ export default function BlogsSection({
 }: BlogsSectionProps) {
   return (
     <section
-      className={`py-15 relative ${className}`}
+      className={`md:py-12 py-10 relative ${className}`}
       id={`blogs-section-${sectionIndex}`}
     >
       {/* Background Shape */}
@@ -25,14 +26,8 @@ export default function BlogsSection({
         className="absolute -left-[100px] top-0 w-[250px] h-[250px]"
       />
 
-      <div className="container mx-auto">
-        <div>
-          <SectionTitle
-            title={section.tagName}
-            highlight={""}
-            className="mb-4"
-          />
-        </div>
+      <Container>
+        <SectionTitle title={section.tagName} highlight={""} />
 
         <div className="relative pb-4 mx-[-12px] md:mx-[-12px] sm:mx-[-8px] overflow-hidden">
           {/* Swiper Container */}
@@ -62,7 +57,7 @@ export default function BlogsSection({
             </button>
           </div>
         </div>
-      </div>
+      </Container>
     </section>
   );
 }

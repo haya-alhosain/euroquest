@@ -2,7 +2,6 @@ import Link from "next/link";
 import Image from "next/image";
 import { popularCategories, quickAccessLinks, socialLinks } from "@/constants";
 import { Mail, MapPin, Phone } from "lucide-react";
-import ContactBtn from "./contact-btn";
 
 export default function Footer() {
   return (
@@ -77,7 +76,6 @@ export default function Footer() {
                     </Link>
                   </li>
                 ))}
-                <ContactBtn />
               </ul>
             </div>
 

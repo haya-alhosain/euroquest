@@ -8,6 +8,7 @@ import { useRegisterForm } from '@/services/forms/forms-hooks'
 import { toast } from 'sonner'
 import ReCaptchaV2 from '@/components/ui/recaptcha-v2'
 import { RECAPTCHA_CONFIG, validateRecaptchaConfig } from '@/constants/recaptcha'
+import { usePopupStore } from '@/store/popup-store'
 
 interface RegisterFormData {
   companyName: string
@@ -24,15 +25,9 @@ interface RegisterFormData {
   timingId?: string
 }
 
-interface RegisterPopupProps {
-  isOpen: boolean
-  onClose: () => void
-  courseTitle?: string
-  timingId?: string
-}
-
-
-export default function RegisterPopup({ isOpen, onClose, courseTitle = '', timingId = '' }: RegisterPopupProps) {
+export default function RegisterPopup() {
+  const { isRegisterOpen, registerData, closeRegister } = usePopupStore();
+  const { courseTitle = '', timingId = '' } = registerData;
   const [formData, setFormData] = useState<RegisterFormData>({
     companyName: '',
     city: '',
@@ -62,18 +57,18 @@ export default function RegisterPopup({ isOpen, onClose, courseTitle = '', timin
   // Close modal on escape key
   useEffect(() => {
     const handleEscape = (event: KeyboardEvent) => {
-      if (event.key === 'Escape' && isOpen) {
-        onClose()
+      if (event.key === 'Escape' && isRegisterOpen) {
+        closeRegister()
       }
     }
 
     document.addEventListener('keydown', handleEscape)
     return () => document.removeEventListener('keydown', handleEscape)
-  }, [isOpen, onClose])
+  }, [isRegisterOpen, closeRegister])
 
   // Prevent body scroll when modal is open
   useEffect(() => {
-    if (isOpen) {
+    if (isRegisterOpen) {
       document.body.style.overflow = 'hidden'
     } else {
       document.body.style.overflow = 'unset'
@@ -82,7 +77,7 @@ export default function RegisterPopup({ isOpen, onClose, courseTitle = '', timin
     return () => {
       document.body.style.overflow = 'unset'
     }
-  }, [isOpen])
+  }, [isRegisterOpen])
 
   const handleInputChange = (field: keyof RegisterFormData, value: string) => {
     setFormData(prev => ({ ...prev, [field]: value }))
@@ -209,17 +204,17 @@ export default function RegisterPopup({ isOpen, onClose, courseTitle = '', timin
       })
       setRecaptchaVerified(false)
       setRecaptchaToken(null)
-      onClose()
+      closeRegister()
     } catch (error) {
       toast.error('There was an error with your registration. Please try again.')
     }
   }
 
-  if (!isOpen) return null
+  if (!isRegisterOpen) return null
 
   const handleOverlayClick = (e: React.MouseEvent) => {
     if (e.target === e.currentTarget) {
-      onClose()
+      closeRegister()
     }
   }
 
@@ -233,7 +228,7 @@ export default function RegisterPopup({ isOpen, onClose, courseTitle = '', timin
         
         {/* Close Button */}
         <button
-          onClick={onClose}
+          onClick={closeRegister}
           className="absolute top-1 right-2.5 bg-none border-none text-sm text-[#6F6F6F] cursor-pointer z-10 p-2.5 rounded-full transition-all duration-300 hover:bg-gray-100"
         >
           <X className="w-4 h-4" />

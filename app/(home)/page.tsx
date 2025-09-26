@@ -7,6 +7,7 @@ import UpcomingCoursesSection from "./_components/upcoming-courses-section";
 import { getCategories, getSeoData } from "@/services/services";
 import CategoriesSection from "./_components/categories-section";
 
+
 // Generate metadata dynamically
 export async function generateMetadata(): Promise<Metadata> {
   try {

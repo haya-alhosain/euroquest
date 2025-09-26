@@ -1,21 +1,17 @@
 import { Calendar, Euro, MapPin } from "lucide-react";
 import Link from "next/link";
+import { usePopupStore } from "@/store/popup-store";
 
 interface SearchTimingCardProps {
   timing: SearchTiming;
   formatDate: (date: string) => string;
-  onRegisterClick: (timing: SearchTiming) => void;
-  onInquireClick: (timing: SearchTiming) => void;
-  onDownloadClick: (timing: SearchTiming) => void;
 }
 
 export default function SearchTimingCard({
   timing,
   formatDate,
-  onRegisterClick,
-  onInquireClick,
-  onDownloadClick,
 }: SearchTimingCardProps) {
+  const { openRegister, openInquire, openDownload } = usePopupStore();
   return (
     <Link
       href={`/training-course/${timing.course_slug}`}
@@ -77,7 +73,10 @@ export default function SearchTimingCard({
           onClick={(e) => {
             e.preventDefault();
             e.stopPropagation();
-            onDownloadClick(timing);
+            openDownload({
+              courseTitle: timing.course_title,
+              timingId: timing.id.toString(),
+            });
           }}
           className="flex-1 h-6.5 text-[11px] bg-[#3E5EC0] text-white cursor-pointer rounded-full font-semibold hover:bg-gradient-to-r hover:from-[#4E71D4] hover:to-[#324B9A] transition-all duration-200 hover:scale-105 flex items-center justify-center gap-1"
         >
@@ -87,7 +86,10 @@ export default function SearchTimingCard({
           onClick={(e) => {
             e.preventDefault();
             e.stopPropagation();
-            onRegisterClick(timing);
+            openRegister({
+              courseTitle: timing.course_title,
+              timingId: timing.id.toString(),
+            });
           }}
           className="flex-1 h-6.5 text-[11px] bg-white text-[#3E5EC0] border border-[#3E5EC0] cursor-pointer rounded-full font-semibold hover:bg-gradient-to-r hover:from-[#4E71D4] hover:to-[#324B9A] hover:text-white transition-all duration-200 hover:scale-105 flex items-center justify-center gap-1"
         >
@@ -97,7 +99,10 @@ export default function SearchTimingCard({
           onClick={(e) => {
             e.preventDefault();
             e.stopPropagation();
-            onInquireClick(timing);
+            openInquire({
+              courseTitle: timing.course_title,
+              timingId: timing.id.toString(),
+            });
           }}
           className="flex-1 h-6.5 text-[11px] bg-white text-[#3E5EC0] border border-[#3E5EC0] cursor-pointer rounded-full font-semibold hover:bg-gradient-to-r hover:from-[#4E71D4] hover:to-[#324B9A] hover:text-white transition-all duration-200 hover:scale-105 flex items-center justify-center gap-1"
         >

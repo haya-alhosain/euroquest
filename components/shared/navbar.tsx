@@ -6,10 +6,11 @@ import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X } from "lucide-react";
 import ContactPopup from "@/components/popups/contact";
+import { usePopupStore } from "@/store/popup-store";
 
 export default function Navbar() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-  const [isContactPopupOpen, setIsContactPopupOpen] = useState(false);
+  const { openContact } = usePopupStore();
   const pathname = usePathname();
 
   // Close sidebar when route changes
@@ -44,8 +45,6 @@ export default function Navbar() {
 
   const openSidebar = () => setIsSidebarOpen(true);
   const closeSidebar = () => setIsSidebarOpen(false);
-  const openContactPopup = () => setIsContactPopupOpen(true);
-  const closeContactPopup = () => setIsContactPopupOpen(false);
 
   const isActive = (path: string) => {
     if (path === "/" && pathname === "/") return true;
@@ -101,7 +100,7 @@ export default function Navbar() {
               ))}
               <li>
                 <button
-                  onClick={openContactPopup}
+                  onClick={() => openContact()}
                   className="text-[#314EA9] transition-colors duration-300 font-semibold text-[15px]"
                   suppressHydrationWarning={true}
                 >
@@ -243,7 +242,7 @@ export default function Navbar() {
                       <button
                         onClick={() => {
                           closeSidebar();
-                          openContactPopup();
+                          openContact();
                         }}
                         className="w-full px-5 py-4 text-start rounded-2xl text-[#3E5EC0] border-none font-semibold text-base cursor-pointer transition-all duration-300"
                         suppressHydrationWarning={true}
@@ -279,7 +278,7 @@ export default function Navbar() {
       </AnimatePresence>
 
       {/* Contact Popup */}
-      <ContactPopup isOpen={isContactPopupOpen} onClose={closeContactPopup} />
+      <ContactPopup />
     </>
   );
 }

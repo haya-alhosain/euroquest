@@ -1,12 +1,12 @@
 "use client";
-import { useState } from "react";
 import JoinPopup from "../popups/join";
 import { ChevronRight } from "lucide-react";
+import { usePopupStore } from "@/store/popup-store";
 
 export default function JoinBtn() {
-  const [isJoinPopupOpen, setIsJoinPopupOpen] = useState(false);
+  const { openJoin } = usePopupStore();
   const handleJoinTeam = () => {
-    setIsJoinPopupOpen(true);
+    openJoin();
   };
 
   return (
@@ -19,10 +19,7 @@ export default function JoinBtn() {
         <span>Join To Our Team</span>
         <ChevronRight className="w-5 h-5 transition-transform duration-300 group-hover:translate-x-1" />
       </button>
-      <JoinPopup
-        isOpen={isJoinPopupOpen}
-        onClose={() => setIsJoinPopupOpen(false)}
-      />
+      <JoinPopup />
     </>
   );
 }

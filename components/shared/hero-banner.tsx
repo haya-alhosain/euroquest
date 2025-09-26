@@ -1,4 +1,5 @@
 import Breadcrumb, { BreadcrumbItem } from "../ui/breadcrumb";
+import Container from "./container";
 
 interface HeroBannerProps {
   backgroundImage: string;
@@ -17,10 +18,8 @@ export default function HeroBanner({
   title,
   description,
   breadcrumbs = [],
-  className = ""
+  className = "",
 }: HeroBannerProps) {
- 
-
   return (
     <section
       className={`relative min-h-[230px] flex overflow-hidden py-6 mt-[70px] ${className}`}
@@ -33,7 +32,7 @@ export default function HeroBanner({
       />
 
       {/* Content Container */}
-      <div className="container mx-auto w-full h-full">
+      <Container className="h-full">
         <div className="relative z-10 text-white h-full w-full flex flex-col justify-start">
           {/* Breadcrumb */}
           <Breadcrumb items={breadcrumbs} />
@@ -43,11 +42,14 @@ export default function HeroBanner({
             <h1 className="text-2xl md:text-3xl font-bold mb-4">{title}</h1>
 
             {description && (
-              <div className="text-sm md:text-base leading-relaxed max-w-6xl font-medium" dangerouslySetInnerHTML={{ __html: description }} />
+              <div
+                className="text-sm md:text-base leading-relaxed max-w-6xl font-medium"
+                dangerouslySetInnerHTML={{ __html: description }}
+              />
             )}
           </div>
         </div>
-      </div>
+      </Container>
     </section>
   );
 }

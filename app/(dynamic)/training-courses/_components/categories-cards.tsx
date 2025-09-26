@@ -7,8 +7,7 @@ export default function CategoriesCards({
   categories: Category[] | undefined;
 }) {
   return (
-    <>
-      {/* Categories Grid */}
+    <section>
       {categories && (
         <AnimatedCategoriesGrid>
           {categories.map((category) => (
@@ -16,6 +15,6 @@ export default function CategoriesCards({
           ))}
         </AnimatedCategoriesGrid>
       )}
-    </>
+    </section>
   );
 }

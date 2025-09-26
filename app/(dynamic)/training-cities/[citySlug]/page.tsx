@@ -1,6 +1,7 @@
 import { Metadata } from "next";
 import { getCityDetails } from "@/services/services";
-import CityPageClient from "../_components/city-page-client";
+import CityPage from "../_components/city-page";
+
 
 // Generate metadata dynamically
 export async function generateMetadata({
@@ -53,7 +54,7 @@ export async function generateMetadata({
   }
 }
 
-export default async function CityPage({
+export default async function Page({
   params,
 }: {
   params: Promise<{ citySlug: string }>;
@@ -62,5 +63,5 @@ export default async function CityPage({
   const cityData = await getCityDetails(citySlug);
   const { city, courses , categories} = cityData;
 
-  return <CityPageClient city={city} courses={courses} categories={categories} />;
+  return <CityPage city={city} courses={courses} categories={categories} />;
 }

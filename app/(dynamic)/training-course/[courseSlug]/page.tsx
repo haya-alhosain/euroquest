@@ -1,6 +1,12 @@
 import { Metadata } from "next";
 import { getCourseDetails } from "@/services/services";
-import CourseDetailClient from "../_components/course-detail-client";
+import { BreadcrumbItem } from "@/components/ui/breadcrumb";
+import { Home } from "lucide-react";
+import HeroBanner from "@/components/shared/hero-banner";
+import Container from "@/components/shared/container";
+import CourseContent from "../_components/course-content";
+import CourseTimings from "../_components/course-timings";
+
 
 // Generate metadata dynamically
 export async function generateMetadata({
@@ -67,7 +73,7 @@ export async function generateMetadata({
   }
 }
 
-export default async function CourseDetailPage({
+export default async function Page({
   params,
 }: {
   params: Promise<{ courseSlug: string }>;
@@ -77,5 +83,44 @@ export default async function CourseDetailPage({
   const courseData = await getCourseDetails(courseSlug);
   const { course, timings } = courseData;
 
-  return <CourseDetailClient course={course} timings={timings} />;
+  // Breadcrumb configuration
+  const breadcrumbs: BreadcrumbItem[] = [
+    {
+      href: "/",
+      label: "",
+      icon: <Home size={14} />,
+    },
+    {
+      href: "/training-courses",
+      label: "categories",
+    },
+    {
+      href: `/training-courses/${course.category.slug}`,
+      label: course.category.title,
+    },
+    {
+      href: `/training-course/${course.slug}`,
+      label: course.title,
+    },
+  ];
+
+  return (
+    <>
+      {/* Hero Banner */}
+      <HeroBanner
+        backgroundImage={"/assets/images/hero-course.webp"}
+        title={course.h1 || course.title}
+        description={course.description || "Loading course details..."}
+        breadcrumbs={breadcrumbs}
+        enableTypewriter={true}
+        typewriterSpeed={100}
+        typewriterDelay={500}
+      />
+
+      <Container>
+        <CourseTimings course={course} timings={timings} />
+        <CourseContent course={course} />
+      </Container>
+    </>
+  );
 }

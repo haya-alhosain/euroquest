@@ -3,6 +3,7 @@ import HeroBanner from "@/components/shared/hero-banner";
 import { Home } from "lucide-react";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
+import Container from "@/components/shared/container";
 
 interface BlogDetailPageProps {
   params: Promise<{
@@ -10,10 +11,12 @@ interface BlogDetailPageProps {
   }>;
 }
 
-export async function generateMetadata({ params }: BlogDetailPageProps): Promise<Metadata> {
+export async function generateMetadata({
+  params,
+}: BlogDetailPageProps): Promise<Metadata> {
   const { slug } = await params;
   const blog = await getBlogBySlug(slug);
-  
+
   if (!blog) {
     return {
       title: "Blog Not Found",
@@ -37,9 +40,11 @@ export async function generateMetadata({ params }: BlogDetailPageProps): Promise
       description: blog.meta_description,
       images: [blog.image],
     },
-    alternates: blog.canonical ? {
-      canonical: blog.canonical,
-    } : undefined,
+    alternates: blog.canonical
+      ? {
+          canonical: blog.canonical,
+        }
+      : undefined,
     other: {
       "article:published_time": blog.created_at,
       "article:modified_time": blog.updated_at,
@@ -84,7 +89,7 @@ export default async function BlogDetailPage({ params }: BlogDetailPageProps) {
       />
 
       {/* Blog Content */}
-      <div className="container mx-auto py-12">
+      <Container className="md:py-12 py-10">
         <div className="max-w-4xl mx-auto">
           {/* Blog Image */}
           <div className="mb-8">
@@ -133,7 +138,8 @@ export default async function BlogDetailPage({ params }: BlogDetailPageProps) {
 
           {/* Blog Content */}
           <div className="bg-white rounded-xl md:p-8 md:shadow-lg">
-            <div className="blog-content prose prose-lg max-w-none 
+            <div
+              className="blog-content prose prose-lg max-w-none 
               prose-headings:text-[#3E5EC0] prose-headings:font-semibold prose-headings:mb-6 prose-headings:mt-8
               prose-h1:text-4xl prose-h1:leading-tight prose-h1:mb-8 prose-h1:mt-12 prose-h1:border-b prose-h1:border-gray-200 prose-h1:pb-4 prose-h1:text-[#3E5EC0] prose-h1:font-bold
               prose-h2:text-3xl prose-h2:leading-tight prose-h2:mb-6 prose-h2:mt-10 prose-h2:text-[#3E5EC0] prose-h2:font-bold prose-h2:border-b prose-h2:border-blue-100 prose-h2:pb-3
@@ -154,7 +160,8 @@ export default async function BlogDetailPage({ params }: BlogDetailPageProps) {
               [&_strong]:text-[#3E5EC0] [&_strong]:font-bold
               [&_a]:text-blue-600 [&_a]:no-underline [&_a]:font-semibold [&_a]:border-b-2 [&_a]:border-blue-200 hover:[&_a]:text-blue-800 hover:[&_a]:border-blue-400
               [&_ul]:list-none [&_ul]:pl-0 [&_ul]:space-y-4 [&_ul]:mb-8
-              [&_li]:pl-6 [&_li]:relative [&_li]:mb-3 [&_li]:text-gray-600 [&_li]:leading-relaxed [&_li]:before:content-['✓'] [&_li]:before:absolute [&_li]:before:left-0 [&_li]:before:top-0 [&_li]:before:text-green-600 [&_li]:before:font-bold [&_li]:before:text-lg">
+              [&_li]:pl-6 [&_li]:relative [&_li]:mb-3 [&_li]:text-gray-600 [&_li]:leading-relaxed [&_li]:before:content-['✓'] [&_li]:before:absolute [&_li]:before:left-0 [&_li]:before:top-0 [&_li]:before:text-green-600 [&_li]:before:font-bold [&_li]:before:text-lg"
+            >
               <div
                 dangerouslySetInnerHTML={{
                   __html: blog.content || blog.description,
@@ -163,7 +170,7 @@ export default async function BlogDetailPage({ params }: BlogDetailPageProps) {
             </div>
           </div>
         </div>
-      </div>
+      </Container>
     </>
   );
 }
