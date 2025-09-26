@@ -2,22 +2,29 @@ import { Metadata } from "next";
 import { getCategoryDetails } from "@/services/services";
 import CategoryPage from "../_components/category-page";
 
-
 // Generate metadata dynamically
 export async function generateMetadata({
   params,
 }: {
-  params: Promise<{ slug: string }>;
+  params: { slug: string };
 }): Promise<Metadata> {
+  const { slug } = params;
+  const categoryData = await getCategoryDetails(slug);
+  const { category } = categoryData;
   try {
-    const { slug } = await params;
-    const categoryData = await getCategoryDetails(slug);
-    const { category } = categoryData;
-
     return {
-      title: category.meta_title || `${category.title} | EuroQuest International Training Courses`,
-      description: category.meta_description || category.description?.replace(/<[^>]*>/g, '') || `Professional ${category.title} training courses by EuroQuest International. Enhance your skills with our expert-led programs.`,
-      keywords: (category as any).meta_keywords || `${category.title}, professional training, EuroQuest International, skill development, ${category.title.toLowerCase()}, training courses, professional development, career advancement`,
+      title:
+        category.meta_title ||
+        `${category.title} | EuroQuest International Training Courses`,
+      description:
+        category.meta_description ||
+        category.description?.replace(/<[^>]*>/g, "") ||
+        `Professional ${category.title} training courses by EuroQuest International. Enhance your skills with our expert-led programs.`,
+      keywords:
+        (category as any).meta_keywords ||
+        `${
+          category.title
+        }, professional training, EuroQuest International, skill development, ${category.title.toLowerCase()}, training courses, professional development, career advancement`,
       authors: [{ name: "EuroQuest International" }],
       creator: "EuroQuest International",
       publisher: "EuroQuest International",
@@ -34,7 +41,9 @@ export async function generateMetadata({
       },
       openGraph: {
         title: category.meta_title || category.title,
-        description: category.meta_description || category.description?.replace(/<[^>]*>/g, ''),
+        description:
+          category.meta_description ||
+          category.description?.replace(/<[^>]*>/g, ""),
         images: [
           {
             url: category.image || "/assets/images/hero-about.webp",
@@ -44,20 +53,26 @@ export async function generateMetadata({
           },
         ],
         type: "website",
-        url: category.canonical || `https://euroqst.com/training-courses/${category.slug}`,
+        url:
+          category.canonical ||
+          `https://euroqst.com/training-courses/${category.slug}`,
         siteName: "EuroQuest International",
         locale: "en_US",
       },
       twitter: {
         card: "summary_large_image",
         title: category.meta_title || category.title,
-        description: category.meta_description || category.description?.replace(/<[^>]*>/g, ''),
+        description:
+          category.meta_description ||
+          category.description?.replace(/<[^>]*>/g, ""),
         images: [category.image || "/assets/images/hero-about.webp"],
         creator: "@euroquestintl",
         site: "@euroquestintl",
       },
       alternates: {
-        canonical: category.canonical || `https://euroqst.com/training-courses/${category.slug}`,
+        canonical:
+          category.canonical ||
+          `https://euroqst.com/training-courses/${category.slug}`,
       },
       category: "Education",
       classification: "Training Courses",
@@ -65,11 +80,13 @@ export async function generateMetadata({
         "geo.region": "AE",
         "geo.placename": "United Arab Emirates",
         "geo.position": "25.2048;55.2708",
-        "ICBM": "25.2048, 55.2708",
+        ICBM: "25.2048, 55.2708",
         "DC.title": category.title,
         "DC.creator": "EuroQuest International",
         "DC.subject": category.title,
-        "DC.description": category.meta_description || category.description?.replace(/<[^>]*>/g, ''),
+        "DC.description":
+          category.meta_description ||
+          category.description?.replace(/<[^>]*>/g, ""),
         "DC.publisher": "EuroQuest International",
         "DC.contributor": "EuroQuest International",
         "DC.date": new Date().toISOString(),
@@ -85,12 +102,15 @@ export async function generateMetadata({
     };
   } catch (error) {
     console.error("Error generating metadata for category page:", error);
-    
+
     // Fallback metadata
     return {
-      title: "Training Category | EuroQuest International Professional Development",
-      description: "Professional training courses by EuroQuest International. Enhance your skills with our expert-led programs designed for career advancement and professional growth.",
-      keywords: "professional training, courses, EuroQuest International, skill development, career advancement, training courses, professional development",
+      title:
+        "Training Category | EuroQuest International Professional Development",
+      description:
+        "Professional training courses by EuroQuest International. Enhance your skills with our expert-led programs designed for career advancement and professional growth.",
+      keywords:
+        "professional training, courses, EuroQuest International, skill development, career advancement, training courses, professional development",
       authors: [{ name: "EuroQuest International" }],
       creator: "EuroQuest International",
       publisher: "EuroQuest International",
@@ -106,8 +126,10 @@ export async function generateMetadata({
         },
       },
       openGraph: {
-        title: "Training Category | EuroQuest International Professional Development",
-        description: "Professional training courses by EuroQuest International. Enhance your skills with our expert-led programs designed for career advancement and professional growth.",
+        title:
+          "Training Category | EuroQuest International Professional Development",
+        description:
+          "Professional training courses by EuroQuest International. Enhance your skills with our expert-led programs designed for career advancement and professional growth.",
         images: [
           {
             url: "/assets/images/hero-about.webp",
@@ -123,8 +145,10 @@ export async function generateMetadata({
       },
       twitter: {
         card: "summary_large_image",
-        title: "Training Category | EuroQuest International Professional Development",
-        description: "Professional training courses by EuroQuest International. Enhance your skills with our expert-led programs designed for career advancement and professional growth.",
+        title:
+          "Training Category | EuroQuest International Professional Development",
+        description:
+          "Professional training courses by EuroQuest International. Enhance your skills with our expert-led programs designed for career advancement and professional growth.",
         images: ["/assets/images/hero-about.webp"],
         creator: "@euroquestintl",
         site: "@euroquestintl",
