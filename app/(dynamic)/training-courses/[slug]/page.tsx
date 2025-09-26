@@ -2,15 +2,13 @@ import { Metadata } from "next";
 import { getCategoryDetails } from "@/services/services";
 import CategoryPage from "../_components/category-page";
 
-// Generate metadata dynamically
-export async function generateMetadata({
-  params,
-}: {
-  params: { slug: string };
-}): Promise<Metadata> {
-  const { slug } = params;
+type Params = { slug: string };
+
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
+  const { slug } = await params;
   const categoryData = await getCategoryDetails(slug);
   const { category } = categoryData;
+
   try {
     return {
       title:
