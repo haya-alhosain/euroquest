@@ -3,6 +3,7 @@ import HeroBanner from "@/components/shared/hero-banner";
 import { BreadcrumbItem } from "@/components/ui/breadcrumb";
 import { Home } from "lucide-react";
 import { getSeoData } from "@/services/services";
+import Container from "@/components/shared/container";
 
 
 // Generate metadata dynamically
@@ -78,11 +79,11 @@ export default function PrivacyPolicyPage() {
       />
 
       {/* Privacy Content */}
-      <section className="py-10 bg-white">
-        <div className="container mx-auto">
+      <section className="md:py-12 py-10 bg-white">
+        <Container>
           {/* Introduction */}
           <div>
-            <p className="text-lg text-gray-600 leading-relaxed mb-6">
+            <p className="md:md:text-lg text-sm font-medium text-sm text-gray-600 leading-relaxed mb-6">
               We respect your privacy and are committed to protecting it through our
               compliance with this privacy policy ("Policy"). This Policy describes
               the types of information we may collect from you or that you may
@@ -109,11 +110,11 @@ export default function PrivacyPolicyPage() {
 
             {/* Collection of Personal Information */}
             <div className="mb-8">
-              <h3 className="text-2xl font-semibold text-[#3E5EC0] mb-2">
+              <h3 className="md:text-2xl text-xl font-semibold text-[#3E5EC0] mb-2">
                 Collection of Personal Information
               </h3>
               <div className="space-y-6">
-                <p className="text-lg text-gray-600 leading-relaxed">
+                <p className="md:text-lg text-sm font-medium text-gray-600 leading-relaxed">
                   You can access and use the Website and Services without telling us
                   who you are or revealing any information by which someone could
                   identify you as a specific, identifiable individual. If, however,
@@ -121,7 +122,7 @@ export default function PrivacyPolicyPage() {
                   be asked to provide certain Personal Information (for example, your
                   name and e-mail address).
                 </p>
-                <p className="text-lg text-gray-600 leading-relaxed">
+                <p className="md:text-lg text-sm font-medium text-gray-600 leading-relaxed">
                   We receive and store any information you knowingly provide to us
                   when you make a purchase, or fill any forms on the Website. When
                   required, this information may include the following: Contact
@@ -133,11 +134,11 @@ export default function PrivacyPolicyPage() {
 
             {/* Privacy of Children */}
             <div className="mb-8">
-              <h3 className="text-2xl font-semibold text-[#3E5EC0] mb-2">
+              <h3 className="md:text-2xl text-xl font-semibold text-[#3E5EC0] mb-2">
                 Privacy of Children
               </h3>
               <div className="space-y-6">
-                <p className="text-lg text-gray-600 leading-relaxed">
+                <p className="md:text-lg text-sm font-medium text-gray-600 leading-relaxed">
                   We do not knowingly collect any Personal Information from children
                   under the age of 18. If you are under the age of 18, please do not
                   submit any Personal Information through the Website and Services. If
@@ -146,7 +147,7 @@ export default function PrivacyPolicyPage() {
                   Services, please contact us to request that we delete that child's
                   Personal Information from our Services.
                 </p>
-                <p className="text-lg text-gray-600 leading-relaxed">
+                <p className="md:text-lg text-sm font-medium text-gray-600 leading-relaxed">
                   We encourage parents and legal guardians to monitor their children's
                   Internet usage and to help enforce this Policy by instructing their
                   children never to provide Personal Information through the Website
@@ -161,17 +162,17 @@ export default function PrivacyPolicyPage() {
 
             {/* Use and Processing of Collected Information */}
             <div className="mb-8">
-              <h3 className="text-2xl font-semibold text-[#3E5EC0] mb-2">
+              <h3 className="md:text-2xl text-xl font-semibold text-[#3E5EC0] mb-2">
                 Use and Processing of Collected Information
               </h3>
               <div className="space-y-6">
-                <p className="text-lg text-gray-600 leading-relaxed">
+                <p className="md:text-lg text-sm font-medium text-gray-600 leading-relaxed">
                   We act as a data controller and a data processor in terms of the
                   GDPR when handling Personal Information, unless we have entered into
                   a data processing agreement with you in which case you would be the
                   data controller and we would be the data processor.
                 </p>
-                <p className="text-lg text-gray-600 leading-relaxed">
+                <p className="md:text-lg text-sm font-medium text-gray-600 leading-relaxed">
                   Our role may also differ depending on the specific situation
                   involving Personal Information. We act in the capacity of a data
                   controller when we ask you to submit your Personal Information that
@@ -187,7 +188,7 @@ export default function PrivacyPolicyPage() {
                   instances, the User providing Personal Information acts as a data
                   controller in terms of the GDPR.
                 </p>
-                <p className="text-lg text-gray-600 leading-relaxed">
+                <p className="md:text-lg text-sm font-medium text-gray-600 leading-relaxed">
                   In order to make the Website and Services available to you, or to
                   meet a legal obligation, we may need to collect and use certain
                   Personal Information. If you do not provide the information that we
@@ -195,7 +196,7 @@ export default function PrivacyPolicyPage() {
                   products or services. Any of the information we collect from you may
                   be used for the following purposes:
                 </p>
-                <ul className="list-disc pl-5 space-y-3 text-lg text-gray-600">
+                <ul className="list-disc pl-5 space-y-3 md:text-lg text-sm font-medium text-gray-600">
                   <li>Fulfill and manage orders</li>
                   <li>Deliver products or services</li>
                   <li>Send administrative information</li>
@@ -210,7 +211,7 @@ export default function PrivacyPolicyPage() {
                   <li>Respond to legal requests and prevent harm</li>
                   <li>Run and operate the Website and Services</li>
                 </ul>
-                <p className="text-lg text-gray-600 leading-relaxed">
+                <p className="md:text-lg text-sm font-medium text-gray-600 leading-relaxed">
                   <span className="font-bold">Note:</span> that under some legislations we may
                   be allowed to process information until you object to such
                   processing by opting out, without having to rely on consent or any
@@ -225,18 +226,18 @@ export default function PrivacyPolicyPage() {
 
             {/* Payment Processing */}
             <div className="mb-8">
-              <h3 className="text-2xl font-semibold text-[#3E5EC0] mb-2">
+              <h3 className="md:text-2xl text-xl font-semibold text-[#3E5EC0] mb-2">
                 Payment Processing
               </h3>
               <div className="space-y-6">
-                <p className="text-lg text-gray-600 leading-relaxed">
+                <p className="md:text-lg text-sm font-medium text-gray-600 leading-relaxed">
                   In case of Services requiring payment, you may need to provide your
                   credit card details or other payment account information, which will
                   be used solely for processing payments. We use third-party payment
                   processors ("Payment Processors") to assist us in processing your
                   payment information securely.
                 </p>
-                <p className="text-lg text-gray-600 leading-relaxed">
+                <p className="md:text-lg text-sm font-medium text-gray-600 leading-relaxed">
                   Payment Processors adhere to the latest security standards as
                   managed by the PCI Security Standards Council, which is a joint
                   effort of brands like Visa, MasterCard, American Express and
@@ -250,7 +251,7 @@ export default function PrivacyPolicyPage() {
                   such payments, and dealing with complaints and queries related to
                   such payments and refunds.
                 </p>
-                <p className="text-lg text-gray-600 leading-relaxed">
+                <p className="md:text-lg text-sm font-medium text-gray-600 leading-relaxed">
                   Please note that the Payment Processors may collect some Personal
                   Information from you, which allows them to process your payments
                   (e.g., your email address, address, credit card details, and bank
@@ -266,11 +267,11 @@ export default function PrivacyPolicyPage() {
 
             {/* Data Retention */}
             <div className="mb-8">
-              <h3 className="text-2xl font-semibold text-[#3E5EC0] mb-2">
+              <h3 className="md:text-2xl text-xl font-semibold text-[#3E5EC0] mb-2">
                 Data Retention
               </h3>
               <div className="space-y-6">
-                <p className="text-lg text-gray-600 leading-relaxed">
+                <p className="md:text-lg text-sm font-medium text-gray-600 leading-relaxed">
                   We will retain and use your Personal Information for the period
                   necessary to comply with our legal obligations, resolve disputes,
                   and enforce our agreements unless a longer retention period is
@@ -287,11 +288,11 @@ export default function PrivacyPolicyPage() {
 
             {/* Your Rights */}
             <div className="mb-8">
-              <h3 className="text-2xl font-semibold text-[#3E5EC0] mb-2">
+              <h3 className="md:text-2xl text-xl font-semibold text-[#3E5EC0] mb-2">
                 Your Rights
               </h3>
               <div className="space-y-6">
-                <p className="text-lg text-gray-600 leading-relaxed">
+                <p className="md:text-lg text-sm font-medium text-gray-600 leading-relaxed">
                   You have the following rights in relation to your Personal
                   Information: the right to be informed about our collection and use
                   of Personal Information; the right of access to the Personal
@@ -309,11 +310,11 @@ export default function PrivacyPolicyPage() {
 
             {/* Security */}
             <div className="mb-8">
-              <h3 className="text-2xl font-semibold text-[#3E5EC0] mb-2">
+              <h3 className="md:text-2xl text-xl font-semibold text-[#3E5EC0] mb-2">
                 Security of Information
               </h3>
               <div className="space-y-6">
-                <p className="text-lg text-gray-600 leading-relaxed">
+                <p className="md:text-lg text-sm font-medium text-gray-600 leading-relaxed">
                   We secure information you provide on computer servers in a
                   controlled, secure environment, protected from unauthorized access,
                   use, or disclosure. We maintain reasonable administrative,
@@ -328,11 +329,11 @@ export default function PrivacyPolicyPage() {
 
             {/* Changes to Policy */}
             <div className="mb-8">
-              <h3 className="text-2xl font-semibold text-[#3E5EC0] mb-2">
+              <h3 className="md:text-2xl text-xl font-semibold text-[#3E5EC0] mb-2">
                 Changes to This Policy
               </h3>
               <div className="space-y-6">
-                <p className="text-lg text-gray-600 leading-relaxed">
+                <p className="md:text-lg text-sm font-medium text-gray-600 leading-relaxed">
                   We reserve the right to modify this Policy at any time. Changes and
                   clarifications will take effect immediately upon their posting on
                   the Website. If we make material changes to this Policy, we will
@@ -345,15 +346,15 @@ export default function PrivacyPolicyPage() {
 
             {/* Contact Information */}
             <div className="mb-8">
-              <h3 className="text-2xl font-semibold text-[#3E5EC0] mb-2">
+              <h3 className="md:text-2xl text-xl font-semibold text-[#3E5EC0] mb-2">
                 Customer Service
               </h3>
               <div className="space-y-6">
                 <div className="bg-gray-50 p-6 rounded-lg">
-                  <span className="text-lg font-bold text-gray-600 block mb-4">
+                  <span className="md:text-lg text-sm font-medium font-bold text-gray-600 block mb-4">
                     info@euroqst.com
                   </span>
-                  <p className="text-lg text-gray-600 leading-relaxed">
+                  <p className="md:text-lg text-sm font-medium text-gray-600 leading-relaxed">
                     We will attempt to resolve complaints and disputes and make every
                     reasonable effort to honor your wish to exercise your rights as
                     quickly as possible and in any event, within the timescales provided
@@ -363,7 +364,7 @@ export default function PrivacyPolicyPage() {
               </div>
             </div>
           </div>
-        </div>
+        </Container>
       </section>
     </>
   );

@@ -5,6 +5,7 @@ import Button from "@/components/ui/button";
 import { Home } from 'lucide-react';
 import { services } from "@/constants";
 import { getSeoData } from "@/services/services";
+import Container from "@/components/shared/container";
 
 const breadcrumbs = [
   { label: '', href: '/', icon: <Home width={16} height={16}/> },
@@ -71,8 +72,8 @@ export default function AboutPage() {
       />
 
       {/* About Section */}
-      <section className="bg-white py-8">
-        <div className="container mx-auto flex flex-col gap-12 relative z-10">
+      <section className="bg-white md:py-12 py-10">
+        <Container className="flex flex-col gap-12 relative z-10">
           <img 
             src="/assets/images/bullets-shape.svg" 
             alt="" 
@@ -94,12 +95,12 @@ export default function AboutPage() {
               approach
             </p>
           </div>
-        </div>
+        </Container>
       </section>
 
       {/* Services Section */}
-      <section className="py-8">
-        <div className="container mx-auto flex items-center justify-between gap-8 lg:flex-nowrap flex-wrap">
+      <section className="md:py-12 py-10">
+        <Container className="flex items-center justify-between gap-8 lg:flex-nowrap flex-wrap">
           <SectionTitle title="Our" highlight="Services" />
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 w-full">
             {services.map((service, index) => (
@@ -114,12 +115,12 @@ export default function AboutPage() {
               </div>
             ))}
           </div>
-        </div>
+        </Container>
       </section>
 
       {/* Goals Section */}
-      <section className="bg-[#F0FAF7] py-8">
-        <div className="container mx-auto">
+      <section className="bg-[#F0FAF7] md:py-12 py-10">
+        <Container>
           <div className="w-full">
             <SectionTitle title="Our" highlight="Goals" className="!mb-4" />
             <p className="font-normal text-base leading-7">
@@ -134,12 +135,12 @@ export default function AboutPage() {
               international professional accreditation for the training programs.
             </p>
           </div>
-        </div>
+        </Container>
       </section>
 
       {/* About Contact Section */}
-      <section className="bg-[#F2F8FF] py-10">
-        <div className="container mx-auto flex flex-col-reverse lg:flex-row items-center justify-between gap-10">
+      <section className="bg-[#F2F8FF] md:py-12 py-10">
+        <Container className="flex flex-col-reverse lg:flex-row items-center justify-between gap-10">
           <div className="max-w-[540px] text-center lg:text-left">
             <p className="text-2xl md:text-4xl font-semibold leading-tight mb-8">
               space where individuals{" "}
@@ -159,7 +160,7 @@ export default function AboutPage() {
               className="w-full h-auto"
             />
           </div>
-        </div>
+        </Container>
       </section>
 
       {/* Coverage Section */}

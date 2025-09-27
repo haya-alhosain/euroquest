@@ -1,3 +1,4 @@
+import Container from "@/components/shared/container";
 import { Check } from "lucide-react";
 import Link from "next/link";
 
@@ -7,8 +8,8 @@ interface AboutSectionProps {
 
 export default function AboutSection({ className = "" }: AboutSectionProps) {
   return (
-    <section className={`py-16 lg:py-24 bg-white ${className}`}>
-      <div className="container mx-auto">
+    <section className={`py-16 lg:py-24 bg-[#F2F8FF] ${className}`}>
+      <Container>
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
           {/* About Content */}
           <div className="about-content relative">
@@ -22,7 +23,7 @@ export default function AboutSection({ className = "" }: AboutSectionProps) {
             {/* Section Header */}
             <div className="mb-8">
               <div>
-                <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 leading-tight">
+                <h2 className="text-xl lg:text-3xl font-bold text-gray-900 leading-tight">
                   <span className="text-gray-800">About</span>
                   <div className="inline-block ml-3 relative">
                     <span className="text-[#3E5EC0] font-bold">
@@ -122,7 +123,7 @@ export default function AboutSection({ className = "" }: AboutSectionProps) {
             <div className="absolute -top-4 -left-4 w-16 h-16 bg-[#3E5EC0]/5 rounded-full blur-lg"></div>
           </div>
         </div>
-      </div>
+      </Container>
     </section>
   );
 }

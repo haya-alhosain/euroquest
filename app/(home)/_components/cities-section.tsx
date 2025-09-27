@@ -2,6 +2,7 @@ import Link from "next/link";
 import SectionTitle from "../../../components/shared/section-title";
 import CitiesSlider from "./cities-slider";
 import { getCities } from "@/services/services";
+import Container from "@/components/shared/container";
 
 export default async function CitiesSection() {
   const cities = await getCities();
@@ -15,7 +16,7 @@ export default async function CitiesSection() {
         className="absolute left-[-100px] top-0 w-[250px] h-[250px]"
       />
 
-      <div className="container mx-auto">
+      <Container>
         {/* Section Header */}
         <div className="flex flex-col md:flex-row md:items-center items-start gap-3 md:justify-between md:mb-10 mb-8">
           <SectionTitle
@@ -34,7 +35,7 @@ export default async function CitiesSection() {
 
         {/* Cities Slider */}
         <CitiesSlider cities={cities} />
-      </div>
+      </Container>
     </section>
   );
 }

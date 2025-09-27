@@ -79,12 +79,14 @@ export default function CityPage({ city, courses, categories }: CityPageProps) {
         <CoursesList filteredCourses={filteredCourses} citySlug={citySlug} />
       </Container>
 
-      <CategoriesSection
-        categories={categories}
-        citySlug={citySlug}
-        title="Categories in"
-        highlight={city.title}
-      />
+      <div className="md:mb-12 mb-10">
+        <CategoriesSection
+          categories={categories}
+          citySlug={citySlug}
+          title="Categories in"
+          highlight={city.title}
+        />
+      </div>
 
       {city && city.additional_description && (
         <AdditionalDescription

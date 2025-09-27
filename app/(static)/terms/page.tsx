@@ -3,6 +3,7 @@ import HeroBanner from "@/components/shared/hero-banner";
 import { BreadcrumbItem } from "@/components/ui/breadcrumb";
 import { Home } from "lucide-react";
 import { getSeoData } from "@/services/services";
+import Container from "@/components/shared/container";
 
 
 // Generate metadata dynamically
@@ -78,11 +79,11 @@ export default function TermsPage() {
       />
 
       {/* Terms Content */}
-      <section className="py-10 bg-white">
-        <div className="container mx-auto">
+      <section className="md:py-12 py-10 bg-white">
+        <Container>
           {/* Introduction */}
           <div>
-            <p className="text-lg text-gray-600 leading-relaxed mb-6">
+            <p className="md:text-lg text-sm font-medium text-gray-600 leading-relaxed mb-6">
               These terms and conditions ("Agreement") set forth the general terms
               and conditions of your use of the Euroquest International website
               ("Website" or "Service") and any of its related products and services
@@ -105,11 +106,11 @@ export default function TermsPage() {
 
             {/* Billing and Payments */}
             <div className="mb-8">
-              <h3 className="text-2xl font-semibold text-[#3E5EC0] mb-2">
+              <h3 className="md:text-2xl text-xl font-semibold text-[#3E5EC0] mb-2">
                 Billing and Payments
               </h3>
               <div className="space-y-6">
-                <p className="text-lg text-gray-600 leading-relaxed">
+                <p className="md:text-lg text-sm font-medium text-gray-600 leading-relaxed">
                   You shall pay all fees or charges to your account in accordance with
                   the fees, charges, and billing terms in effect at the time a fee or
                   charge is due and payable. Sensitive and private data exchange
@@ -130,11 +131,11 @@ export default function TermsPage() {
 
             {/* Accuracy of Information */}
             <div className="mb-8">
-              <h3 className="text-2xl font-semibold text-[#3E5EC0] mb-2">
+              <h3 className="md:text-2xl text-xl font-semibold text-[#3E5EC0] mb-2">
                 Accuracy of Information
               </h3>
               <div className="space-y-6">
-                <p className="text-lg text-gray-600 leading-relaxed">
+                <p className="md:text-lg text-sm font-medium text-gray-600 leading-relaxed">
                   Occasionally there may be information on the Website that contains
                   typographical errors, inaccuracies or omissions that may relate to
                   product descriptions, availability, promotions and offers. We
@@ -154,11 +155,11 @@ export default function TermsPage() {
 
             {/* Links to Other Resources */}
             <div className="mb-8">
-              <h3 className="text-2xl font-semibold text-[#3E5EC0] mb-2">
+              <h3 className="md:text-2xl text-xl font-semibold text-[#3E5EC0] mb-2">
                 Links to Other Resources
               </h3>
               <div className="space-y-6">
-                <p className="text-lg text-gray-600 leading-relaxed">
+                <p className="md:text-lg text-sm font-medium text-gray-600 leading-relaxed">
                   Although the Website and Services may link to other resources (such
                   as websites, mobile applications, etc.), we are not, directly or
                   indirectly, implying any approval, association, sponsorship,
@@ -177,11 +178,11 @@ export default function TermsPage() {
 
             {/* Prohibited Uses */}
             <div className="mb-8">
-              <h3 className="text-2xl font-semibold text-[#3E5EC0] mb-2">
+              <h3 className="md:text-2xl text-xl font-semibold text-[#3E5EC0] mb-2">
                 Prohibited Uses
               </h3>
               <div className="space-y-6">
-                <p className="text-lg text-gray-600 leading-relaxed">
+                <p className="md:text-lg text-sm font-medium text-gray-600 leading-relaxed">
                   In addition to other terms as set forth in the Agreement, you are
                   prohibited from using the Website and Services or Content: (a) for
                   any unlawful purpose; (b) to solicit others to perform or
@@ -208,11 +209,11 @@ export default function TermsPage() {
 
             {/* Intellectual Property Rights */}
             <div className="mb-8">
-              <h3 className="text-2xl font-semibold text-[#3E5EC0] mb-2">
+              <h3 className="md:text-2xl text-xl font-semibold text-[#3E5EC0] mb-2">
                 Intellectual Property Rights
               </h3>
               <div className="space-y-6">
-                <p className="text-lg text-gray-600 leading-relaxed">
+                <p className="md:text-lg text-sm font-medium text-gray-600 leading-relaxed">
                   "Intellectual Property Rights" means all present and future rights
                   conferred by statute, common law or equity in or in relation to any
                   copyright and related rights, trademarks, designs, patents,
@@ -241,11 +242,11 @@ export default function TermsPage() {
 
             {/* Disclaimer of Warranty */}
             <div className="mb-8">
-              <h3 className="text-2xl font-semibold text-[#3E5EC0] mb-2">
+              <h3 className="md:text-2xl text-xl font-semibold text-[#3E5EC0] mb-2">
                 Disclaimer of Warranty
               </h3>
               <div className="space-y-6">
-                <p className="text-lg text-gray-600 leading-relaxed">
+                <p className="md:text-lg text-sm font-medium text-gray-600 leading-relaxed">
                   You agree that such Service is provided on an "as is" and "as
                   available" basis and that your use of the Website and Services is
                   solely at your own risk. We expressly disclaim all warranties of any
@@ -273,11 +274,11 @@ export default function TermsPage() {
 
             {/* Limitation of Liability */}
             <div className="mb-8">
-              <h3 className="text-2xl font-semibold text-[#3E5EC0] mb-2">
+              <h3 className="md:text-2xl text-xl font-semibold text-[#3E5EC0] mb-2">
                 Limitation of Liability
               </h3>
               <div className="space-y-6">
-                <p className="text-lg text-gray-600 leading-relaxed">
+                <p className="md:text-lg text-sm font-medium text-gray-600 leading-relaxed">
                   To the fullest extent permitted by applicable law, in no event will
                   EUROQUEST INTERNATIONAL s.r.o., its affiliates, directors, officers,
                   employees, agents, suppliers or licensors be liable to any person
@@ -305,11 +306,11 @@ export default function TermsPage() {
 
             {/* Indemnification */}
             <div className="mb-8">
-              <h3 className="text-2xl font-semibold text-[#3E5EC0] mb-2">
+              <h3 className="md:text-2xl text-xl font-semibold text-[#3E5EC0] mb-2">
                 Indemnification
               </h3>
               <div className="space-y-6">
-                <p className="text-lg text-gray-600 leading-relaxed">
+                <p className="md:text-lg text-sm font-medium text-gray-600 leading-relaxed">
                   You agree to indemnify and hold EUROQUEST INTERNATIONAL s.r.o. and
                   its affiliates, directors, officers, employees, agents, suppliers
                   and licensors harmless from and against any liabilities, losses,
@@ -324,7 +325,7 @@ export default function TermsPage() {
 
             {/* Customer Service */}
             <div className="mb-8">
-              <h3 className="text-2xl font-semibold text-[#3E5EC0] mb-2">
+              <h3 className="md:text-2xl text-xl font-semibold text-[#3E5EC0] mb-2">
                 Customer Service
               </h3>
               <div className="space-y-6">
@@ -332,7 +333,7 @@ export default function TermsPage() {
                   <span className="text-xl font-bold text-gray-600 block mb-4">
                     info@euroqst.com
                   </span>
-                  <p className="text-lg text-gray-600 leading-relaxed">
+                  <p className="md:text-lg text-sm font-medium text-gray-600 leading-relaxed">
                     We will attempt to resolve complaints and disputes and make every
                     reasonable effort to honor your wish to exercise your rights as
                     quickly as possible and in any event, within the timescales provided
@@ -342,7 +343,7 @@ export default function TermsPage() {
               </div>
             </div>
           </div>
-        </div>
+        </Container>
       </section>
     </>
   );

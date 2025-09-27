@@ -1,3 +1,4 @@
+import Container from "@/components/shared/container";
 import JoinBtn from "@/components/shared/join-btn";
 interface ContactSectionProps {
   className?: string;
@@ -9,7 +10,7 @@ export default function ContactSection({
   return (
     <>
       <section className={`pt-[10px] pb-[30px] bg-[#F2F8FF] ${className}`}>
-        <div className="container mx-auto">
+        <Container>
           <div className="flex items-center md:justify-evenly justify-center md:flex-row flex-col-reverse gap-5">
             {/* Request Content */}
             <div className="max-w-[540px] text-center md:text-start">
@@ -33,7 +34,7 @@ export default function ContactSection({
               />
             </div>
           </div>
-        </div>
+        </Container>
       </section>
     </>
   );

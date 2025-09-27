@@ -1,5 +1,6 @@
 import { ChevronDown } from "lucide-react";
 import SearchBannerHome from "./search-banner-home";
+import Container from "@/components/shared/container";
 
 interface HeroSectionProps {
   className?: string;
@@ -16,7 +17,7 @@ export default function HeroSection({ className = "" }: HeroSectionProps) {
         <div className="absolute -bottom-36 -right-36 w-72 h-72 bg-gradient-to-br from-blue-400/70 to-transparent rounded-full blur-[80px] animate-float-delayed opacity-70"></div>
       </div>
 
-      <div className="container mx-auto h-full min-h-[calc(100vh-160px)] flex flex-col items-center justify-center gap-5 text-center static">
+      <Container className="h-full min-h-[calc(100vh-160px)] flex flex-col items-center justify-center gap-5 text-center static">
         <div className="max-w-full w-full">
           {/* Hero Title */}
           <h1 className="text-2xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-2 leading-tight max-w-5xl mx-auto font-['Jost'] animate-slide-up">
@@ -43,7 +44,7 @@ export default function HeroSection({ className = "" }: HeroSectionProps) {
 
         {/* Search Bar Home */}
         <SearchBannerHome />
-      </div>
+      </Container>
       {/* Scroll Indicator */}
       <div className="absolute bottom-0 left-1/2 transform flex flex-col items-center gap-2 cursor-pointer z-20 animate-scroll-bounce">
         <div className="text-[#3E5EC0] font-medium text-xs uppercase tracking-wide transition-all duration-300 hover:text-blue-700">
