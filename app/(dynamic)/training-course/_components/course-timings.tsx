@@ -5,8 +5,9 @@ import { useTimingFilters } from "./hooks/use-timing-filters";
 import { usePopupHandlers } from "./hooks/use-popup-handlers";
 import SearchSection from "./shared/search-section";
 import TimingGrid from "./shared/timing-grid";
-import { createSearchFields, createCustomActions } from "./utils/search-config";
+import { createSearchFields, createCustomActions, SearchPageType } from "./utils/search-config";
 import LoadingSpinner from "@/components/ui/loading-spinner";
+import { usePathname } from "next/navigation";
 
 interface CourseTimingsProps {
   course: CourseDetail;
@@ -15,18 +16,38 @@ interface CourseTimingsProps {
 
 export default function CourseTimings({ course, timings }: CourseTimingsProps) {
   const { data: cities, isLoading: citiesLoading } = useCities();
-  const { filteredTimings, selectedMonth, handleMonthChange, resetFilters } =
-    useTimingFilters({ timings });
+  const pathname = usePathname();
+  
+  // Determine page type based on pathname
+  const isCityCoursePage = pathname.includes(`/${course.slug}/`) && pathname.split('/').length > 3;
+  const pageType: SearchPageType = isCityCoursePage ? "city-course" : "course";
+  const enableCityFilter = !isCityCoursePage;
+  
+  const { 
+    filteredTimings, 
+    selectedMonth, 
+    selectedCity,
+    handleMonthChange, 
+    handleCityChange,
+    resetFilters 
+  } = useTimingFilters({ timings, enableCityFilter });
+  
   const { handleDownload, handleRegister, handleInquire } = usePopupHandlers();
 
-  // Create search configuration
-  const searchFields = createSearchFields(timings);
-  const customActions = createCustomActions(course.slug);
+  // Create search configuration based on page type
+  const searchFields = createSearchFields(timings, pageType, cities || []);
+  const customActions = createCustomActions(course.slug, pageType);
 
   // Handle search form submission
   const handleSearchSubmit = (data: Record<string, string>) => {
     const month = data.month || null;
+    const city = data.city || null;
+    
     handleMonthChange(month);
+    
+    if (enableCityFilter) {
+      handleCityChange(city);
+    }
   };
 
   // Handle search form reset
@@ -37,6 +58,7 @@ export default function CourseTimings({ course, timings }: CourseTimingsProps) {
   // Initial values for SearchBanner
   const searchInitialValues = {
     month: selectedMonth || "",
+    ...(enableCityFilter && { city: selectedCity || "" }),
   };
 
   if (citiesLoading) {

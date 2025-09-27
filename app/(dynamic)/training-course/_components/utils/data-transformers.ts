@@ -98,6 +98,22 @@ export const getUniqueMonths = (timings: CourseDetailResponse["timings"]) => {
 };
 
 /**
+ * Get unique cities from timings data
+ */
+export const getUniqueCities = (timings: CourseDetailResponse["timings"], cities: City[]) => {
+  const cityIdsSet = new Set<number>();
+  
+  timings.forEach((timing) => {
+    cityIdsSet.add(timing.city_id);
+  });
+
+  return Array.from(cityIdsSet)
+    .map(cityId => cities.find(city => city.id === cityId))
+    .filter((city): city is City => city !== undefined)
+    .sort((a, b) => a.title.localeCompare(b.title));
+};
+
+/**
  * Filter timings by month
  */
 export const filterTimingsByMonth = (
@@ -125,6 +141,40 @@ export const filterTimingsByMonth = (
 
     return monthInRange;
   });
+};
+
+/**
+ * Filter timings by city
+ */
+export const filterTimingsByCity = (
+  timings: CourseDetailResponse["timings"],
+  selectedCityId: string | null
+): CourseDetailResponse["timings"] => {
+  if (!selectedCityId) return timings;
+
+  const cityId = parseInt(selectedCityId);
+  return timings.filter((timing) => timing.city_id === cityId);
+};
+
+/**
+ * Filter timings by month and city
+ */
+export const filterTimingsByMonthAndCity = (
+  timings: CourseDetailResponse["timings"],
+  selectedMonth: string | null,
+  selectedCityId: string | null
+): CourseDetailResponse["timings"] => {
+  let filtered = timings;
+  
+  if (selectedMonth) {
+    filtered = filterTimingsByMonth(filtered, selectedMonth);
+  }
+  
+  if (selectedCityId) {
+    filtered = filterTimingsByCity(filtered, selectedCityId);
+  }
+  
+  return filtered;
 };
 
 /**

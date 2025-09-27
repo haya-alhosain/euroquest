@@ -253,13 +253,13 @@ export default function SearchBannerHome() {
             <div className="flex gap-2 md:static absolute md:left-auto left-1/2 md:bottom-auto -bottom-6 -translate-x-1/2 md:translate-x-0">
               {/* Reset Button */}
               <Button
-                type="button"
+                type="reset"
                 onClick={handleReset}
                 variant="secondary"
                 size="lg"
                 icon={<RotateCcw size={16} />}
                 iconPosition="right"
-                className="h-[45px] px-5 text-sm font-semibold min-w-fit"
+                className="h-[45px] px-5 text-sm font-semibold min-w-fit bg-white cursor-pointer border border-[#3E5EC0] text-[#3E5EC0]"
                 title="Reset"
                 suppressHydrationWarning={true}
               >

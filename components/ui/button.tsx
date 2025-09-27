@@ -11,8 +11,8 @@ export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElemen
 }
 
 const buttonVariants = {
-  primary: 'bg-gradient-to-r from-blue-700 to-blue-500 text-white hover:from-blue-800 hover:to-blue-600 border-none shadow-sm',
-  secondary: 'bg-gray-100 text-gray-700 hover:bg-gray-200 border border-gray-300',
+  primary: 'bg-gradient-to-r from-blue-700 to-blue-500 text-white border-none',
+  secondary: 'bg-gray-100 text-gray-700 border border-gray-300',
   outline: 'border border-blue-600 bg-white text-blue-600 hover:bg-blue-50',
   ghost: 'bg-transparent text-gray-700 hover:bg-gray-100',
   destructive: 'bg-red-500 text-white hover:bg-red-600 border-none'
