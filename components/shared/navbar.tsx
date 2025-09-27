@@ -276,9 +276,6 @@ export default function Navbar() {
           </>
         )}
       </AnimatePresence>
-
-      {/* Contact Popup */}
-      <ContactPopup />
     </>
   );
 }

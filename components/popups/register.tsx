@@ -5,10 +5,10 @@ import { X, ChevronRight } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import PhoneInput from '@/components/ui/phone-input'
 import { useRegisterForm } from '@/services/forms/forms-hooks'
-import { toast } from 'sonner'
 import ReCaptchaV2 from '@/components/ui/recaptcha-v2'
 import { RECAPTCHA_CONFIG, validateRecaptchaConfig } from '@/constants/recaptcha'
 import { usePopupStore } from '@/store/popup-store'
+import { useAlert } from '@/hooks/useAlert'
 
 interface RegisterFormData {
   companyName: string
@@ -27,6 +27,7 @@ interface RegisterFormData {
 
 export default function RegisterPopup() {
   const { isRegisterOpen, registerData, closeRegister } = usePopupStore();
+  const { showSuccessAlert, showErrorAlert } = useAlert();
   const { courseTitle = '', timingId = '' } = registerData;
   const [formData, setFormData] = useState<RegisterFormData>({
     companyName: '',
@@ -161,7 +162,7 @@ export default function RegisterPopup() {
     
     // Check reCAPTCHA only if it's configured
     if (isRecaptchaConfigured && !recaptchaVerified) {
-      toast.error('Please complete the reCAPTCHA verification')
+      showErrorAlert('Error!', 'Please complete the reCAPTCHA verification')
       return
     }
 
@@ -185,7 +186,7 @@ export default function RegisterPopup() {
     try {
       await registerMutation.mutateAsync(apiData)
       
-      toast.success('Registration successful! We will contact you soon.')
+      showSuccessAlert('Registration Successful!', 'We will contact you soon.')
       
       // Reset form
       setFormData({
@@ -206,7 +207,7 @@ export default function RegisterPopup() {
       setRecaptchaToken(null)
       closeRegister()
     } catch (error) {
-      toast.error('There was an error with your registration. Please try again.')
+      showErrorAlert('Error!', 'There was an error with your registration. Please try again.')
     }
   }
 

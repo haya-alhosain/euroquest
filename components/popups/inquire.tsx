@@ -5,10 +5,10 @@ import { X, ChevronRight } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import PhoneInput from '@/components/ui/phone-input'
 import { useInquireForm } from '@/services/forms/forms-hooks'
-import { toast } from 'sonner'
 import ReCaptchaV2 from '@/components/ui/recaptcha-v2'
 import { RECAPTCHA_CONFIG, validateRecaptchaConfig } from '@/constants/recaptcha'
 import { usePopupStore } from '@/store/popup-store'
+import { useAlert } from '@/hooks/useAlert'
 
 interface InquireFormData {
   fullName: string
@@ -23,6 +23,7 @@ interface InquireFormData {
 
 export default function InquirePopup() {
   const { isInquireOpen, inquireData, closeInquire } = usePopupStore();
+  const { showSuccessAlert, showErrorAlert } = useAlert();
   const { courseTitle = '', timingId = '' } = inquireData;
   const [formData, setFormData] = useState<InquireFormData>({
     fullName: '',
@@ -113,7 +114,7 @@ export default function InquirePopup() {
     console.error('reCAPTCHA error:', error)
     setRecaptchaVerified(false)
     setRecaptchaToken(null)
-    toast.error('reCAPTCHA verification failed. Please try again.')
+    showErrorAlert('Error!', 'reCAPTCHA verification failed. Please try again.')
   }
 
   const handleRecaptchaExpire = () => {
@@ -128,7 +129,7 @@ export default function InquirePopup() {
     
     // Check reCAPTCHA only if it's configured
     if (isRecaptchaConfigured && !recaptchaVerified) {
-      toast.error('Please complete the reCAPTCHA verification')
+      showErrorAlert('Error!', 'Please complete the reCAPTCHA verification')
       return
     }
 
@@ -148,7 +149,7 @@ export default function InquirePopup() {
     try {
       await inquireMutation.mutateAsync(apiData)
       
-      toast.success('Thank you for your inquiry! We will get back to you soon.')
+      showSuccessAlert('Inquiry Sent Successfully!', 'Thank you for your inquiry! We will get back to you soon.')
       
       // Reset form
       setFormData({
@@ -165,7 +166,7 @@ export default function InquirePopup() {
       setRecaptchaToken(null)
       closeInquire()
     } catch (error) {
-      toast.error('There was an error sending your inquiry. Please try again.')
+      showErrorAlert('Error!', 'There was an error sending your inquiry. Please try again.')
     }
   }
 

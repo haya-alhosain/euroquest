@@ -1,12 +1,12 @@
 "use client";
 
-import React from "react";
 import { usePopupStore } from "@/store/popup-store";
 import ContactPopup from "./contact";
 import DownloadPopup from "./download";
 import InquirePopup from "./inquire";
 import JoinPopup from "./join";
 import RegisterPopup from "./register";
+import AlertPopup from "./alert";
 
 export default function PopupProvider() {
   const {
@@ -14,7 +14,7 @@ export default function PopupProvider() {
     isDownloadOpen,
     isInquireOpen,
     isJoinOpen,
-    isRegisterOpen,
+    isRegisterOpen
   } = usePopupStore();
 
   return (
@@ -24,6 +24,7 @@ export default function PopupProvider() {
       {isInquireOpen && <InquirePopup />}
       {isJoinOpen && <JoinPopup />}
       {isRegisterOpen && <RegisterPopup />}
+      <AlertPopup />
     </>
   );
 }

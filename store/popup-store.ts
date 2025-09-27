@@ -7,6 +7,23 @@ export interface PopupData {
   timingId?: string
 }
 
+export interface ToastData {
+  id: string;
+  type: "success" | "error" | "warning" | "info";
+  title: string;
+  message?: string;
+  duration?: number;
+}
+
+export interface AlertData {
+  type: "success" | "error" | "warning" | "info";
+  title: string;
+  message?: string;
+  showCloseButton?: boolean;
+  autoClose?: boolean;
+  duration?: number;
+}
+
 interface PopupState {
   // Contact popup
   isContactOpen: boolean
@@ -28,6 +45,12 @@ interface PopupState {
   isRegisterOpen: boolean
   registerData: PopupData
   
+  // Toast notifications
+  toasts: ToastData[]
+  
+  // Alert popup
+  alertData: AlertData | null
+  
   // Actions
   openContact: (data?: PopupData) => void
   closeContact: () => void
@@ -46,6 +69,15 @@ interface PopupState {
   
   // Close all popups
   closeAll: () => void
+  
+  // Toast actions
+  showToast: (toast: Omit<ToastData, 'id'>) => void
+  hideToast: (id: string) => void
+  clearAllToasts: () => void
+  
+  // Alert actions
+  showAlert: (alert: AlertData) => void
+  closeAlert: () => void
 }
 
 export const usePopupStore = create<PopupState>((set) => ({
@@ -64,6 +96,12 @@ export const usePopupStore = create<PopupState>((set) => ({
   
   isRegisterOpen: false,
   registerData: {},
+  
+  // Toast initial state
+  toasts: [],
+  
+  // Alert initial state
+  alertData: null,
   
   // Contact actions
   openContact: (data = {}) => set({ 
@@ -136,6 +174,26 @@ export const usePopupStore = create<PopupState>((set) => ({
     downloadData: {},
     inquireData: {},
     joinData: {},
-    registerData: {}
-  })
+    registerData: {},
+    alertData: null
+  }),
+  
+  // Toast actions
+  showToast: (toast) => {
+    const id = Math.random().toString(36).substr(2, 9);
+    const newToast: ToastData = { ...toast, id };
+    set((state) => ({
+      toasts: [...state.toasts, newToast]
+    }));
+  },
+  
+  hideToast: (id) => set((state) => ({
+    toasts: state.toasts.filter(toast => toast.id !== id)
+  })),
+  
+  clearAllToasts: () => set({ toasts: [] }),
+  
+  // Alert actions
+  showAlert: (alert) => set({ alertData: alert }),
+  closeAlert: () => set({ alertData: null })
 }))

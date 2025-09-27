@@ -5,10 +5,10 @@ import { X, Mail, Phone, MapPin, ChevronRight } from "lucide-react";
 import { cn } from "@/lib/utils";
 import PhoneInput from "@/components/ui/phone-input";
 import { useContactForm } from "@/services/forms/forms-hooks";
-import { toast } from "sonner";
 import ReCaptchaV2 from "@/components/ui/recaptcha-v2";
 import { RECAPTCHA_CONFIG, validateRecaptchaConfig } from "@/constants/recaptcha";
 import { usePopupStore } from "@/store/popup-store";
+import { useAlert } from "@/hooks/useAlert";
 
 interface ContactFormData {
   fullName: string;
@@ -22,6 +22,7 @@ interface ContactFormData {
 
 export default function ContactPopup() {
   const { isContactOpen, closeContact } = usePopupStore();
+  const { showSuccessAlert, showErrorAlert } = useAlert();
   const [formData, setFormData] = useState<ContactFormData>({
     fullName: "",
     company: "",
@@ -128,7 +129,7 @@ export default function ContactPopup() {
     
     // Check reCAPTCHA only if it's configured
     if (isRecaptchaConfigured && !recaptchaVerified) {
-      toast.error("Please complete the reCAPTCHA verification");
+      showErrorAlert("Please complete the reCAPTCHA verification");
       return;
     }
 
@@ -147,7 +148,8 @@ export default function ContactPopup() {
     try {
       await contactMutation.mutateAsync(apiData);
 
-      toast.success(
+      showSuccessAlert(
+        "Message Sent Successfully!",
         "Thank you for your message! We will get back to you soon."
       );
 
@@ -165,7 +167,8 @@ export default function ContactPopup() {
       setRecaptchaToken(null);
       closeContact();
     } catch (error) {
-      toast.error(
+      showErrorAlert(
+        "Submission Error",
         "There was an error submitting your message. Please try again."
       );
     }

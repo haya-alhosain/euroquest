@@ -5,10 +5,10 @@ import { X, Mail, Phone, MapPin, Upload, ChevronRight } from "lucide-react";
 import { cn } from "@/lib/utils";
 import PhoneInput from "@/components/ui/phone-input";
 import { useJoinForm } from "@/services/forms/forms-hooks";
-import { toast } from "sonner";
 import ReCaptchaV2 from "@/components/ui/recaptcha-v2";
 import { RECAPTCHA_CONFIG, validateRecaptchaConfig } from "@/constants/recaptcha";
 import { usePopupStore } from "@/store/popup-store";
+import { useAlert } from "@/hooks/useAlert";
 
 interface JoinFormData {
   full_name: string;
@@ -23,6 +23,7 @@ interface JoinFormData {
 
 export default function JoinPopup() {
   const { isJoinOpen, closeJoin } = usePopupStore();
+  const { showSuccessAlert, showErrorAlert } = useAlert();
   const [formData, setFormData] = useState<JoinFormData>({
     full_name: "",
     email: "",
@@ -153,13 +154,13 @@ export default function JoinPopup() {
 
     if (!validateForm()) return;
     if (!formData.cv) {
-      toast.error("Please upload your CV");
+      showErrorAlert("Error!", "Please upload your CV");
       return;
     }
     
     // Check reCAPTCHA only if it's configured
     if (isRecaptchaConfigured && !recaptchaVerified) {
-      toast.error("Please complete the reCAPTCHA verification");
+      showErrorAlert("Error!", "Please complete the reCAPTCHA verification");
       return;
     }
 
@@ -179,7 +180,8 @@ export default function JoinPopup() {
     try {
       await joinMutation.mutateAsync(apiData);
 
-      toast.success(
+      showSuccessAlert(
+        "Application Submitted Successfully!",
         "Thank you for your interest! We will review your application and get back to you soon."
       );
 
@@ -200,7 +202,8 @@ export default function JoinPopup() {
       setRecaptchaToken(null);
       closeJoin();
     } catch (error) {
-      toast.error(
+      showErrorAlert(
+        "Submission Error",
         "There was an error submitting your application. Please try again."
       );
     }

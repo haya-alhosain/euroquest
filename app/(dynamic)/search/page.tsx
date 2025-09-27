@@ -4,7 +4,6 @@ import LoadingSpinner from "@/components/ui/loading-spinner";
 import SearchBanner from "@/components/shared/search-banner";
 import SearchHero from "./_components/search-hero";
 import SearchResults from "./_components/search-results";
-import SearchPopups from "./_components/search-popups";
 import SearchSummary from "./_components/search-summary";
 import { useSearch } from "./_components/hooks/use-search";
 import Schema from "@/components/shared/schema";
@@ -58,8 +57,6 @@ export default function SearchPage() {
         pageDescription="Search for professional training courses, categories, and cities at EuroQuest International. Find the perfect training program for your career development."
         pageUrl="https://euroqst.com/search"
       />
-      {/* Popups */}
-      <SearchPopups />
 
       {/* Hero Banner */}
       <SearchHero totalCount={totalCount} resultType={resultType} />

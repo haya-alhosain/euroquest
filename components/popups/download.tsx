@@ -5,7 +5,6 @@ import { X, ChevronRight } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import PhoneInput from '@/components/ui/phone-input'
 import { useDownloadForm } from '@/services/forms/forms-hooks'
-import { toast } from 'sonner'
 import ReCaptchaV2 from '@/components/ui/recaptcha-v2'
 import { RECAPTCHA_CONFIG, validateRecaptchaConfig } from '@/constants/recaptcha'
 import CourseBrochure from '@/components/brochure/course-brochure'
@@ -13,6 +12,7 @@ import { PDFGenerator } from '@/lib/pdf-generator'
 import ProgressBar from '@/components/ui/progress-bar'
 import SuccessMessage from '@/components/shared/success-message'
 import { usePopupStore } from '@/store/popup-store'
+import { useAlert } from '@/hooks/useAlert'
 
 interface DownloadFormData {
   fullName: string
@@ -24,6 +24,7 @@ interface DownloadFormData {
 
 export default function DownloadPopup() {
   const { isDownloadOpen, downloadData, closeDownload } = usePopupStore();
+  const { showSuccessAlert, showErrorAlert } = useAlert();
   
   // Format date function
   const formatDate = (dateString: string) => {
@@ -132,7 +133,7 @@ export default function DownloadPopup() {
     console.error('reCAPTCHA error:', error)
     setRecaptchaVerified(false)
     setRecaptchaToken(null)
-    toast.error('reCAPTCHA verification failed. Please try again.')
+    showErrorAlert('Error!', 'reCAPTCHA verification failed. Please try again.')
   }
 
   const handleRecaptchaExpire = () => {
@@ -147,7 +148,7 @@ export default function DownloadPopup() {
     
     // Check reCAPTCHA only if it's configured
     if (isRecaptchaConfigured && !recaptchaVerified) {
-      toast.error('Please complete the reCAPTCHA verification')
+      showErrorAlert('Error!', 'Please complete the reCAPTCHA verification')
       return
     }
 
@@ -220,11 +221,11 @@ export default function DownloadPopup() {
           console.error('Error generating PDF:', pdfError);
           setIsGeneratingPDF(false)
           setProgress(0)
-          toast.error('PDF generation failed, but your request was submitted successfully.')
+          showErrorAlert('Error!', 'PDF generation failed, but your request was submitted successfully.')
         }
       } else {
         // If no course/timing data, just show success
-        toast.success('Thank you! Your brochure download will start shortly.')
+        showSuccessAlert('Success!', 'Thank you! Your brochure download will start shortly.')
         setTimeout(() => {
           closeDownload()
         }, 1000)
@@ -244,7 +245,7 @@ export default function DownloadPopup() {
     } catch (error) {
       setIsGeneratingPDF(false)
       setProgress(0)
-      toast.error('There was an error processing your download request. Please try again.')
+      showErrorAlert('Error!', 'There was an error processing your download request. Please try again.')
     }
   }
 
@@ -259,12 +260,12 @@ export default function DownloadPopup() {
   return (
     <>
       {/* Success Message */}
-      {/* <SuccessMessage
+      <SuccessMessage
         isVisible={showSuccessMessage}
         onClose={() => setShowSuccessMessage(false)}
         message="Brochure downloaded successfully!"
         fileName={downloadedFileName}
-      /> */}
+      />
 
       <div
         className="fixed top-0 left-0 z-[100] inset-0 bg-black/70 flex items-center justify-center p-4 overflow-y-auto md:p-4 max-md:pt-8 max-md:p-2"

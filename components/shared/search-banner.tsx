@@ -33,6 +33,7 @@ export interface ActionButton {
   label: string
   icon?: React.ReactNode
   onClick?: () => void
+  href?: string
   className?: string
   variant?: 'primary' | 'secondary' | 'outline' | 'ghost' | 'destructive'
   size?: 'sm' | 'md' | 'lg' | 'icon'
@@ -261,6 +262,8 @@ export default function SearchBanner({
   const handleButtonClick = (action: ActionButton) => {
     if (action.type === 'reset') {
       handleReset()
+    } else if (action.href) {
+      router.push(action.href)
     } else if (action.onClick) {
       action.onClick()
     }
