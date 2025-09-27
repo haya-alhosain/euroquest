@@ -1,6 +1,7 @@
 import { getCategoryDetails } from "@/services/services";
 import CategoryPage from "../_components/category-page";
 import { Metadata } from "next";
+import Schema from "@/components/shared/schema";
 
 // Generate metadata dynamically for category pages
 export async function generateMetadata({
@@ -75,6 +76,12 @@ export default async function Page({
 
   return (
     <>
+      <Schema 
+        pageType="courses"
+        pageTitle={`${category.title} Training Courses | EuroQuest International`}
+        pageDescription={category.description || `Professional ${category.title} training courses at EuroQuest International. Expert-led programs designed to enhance your skills and career prospects.`}
+        pageUrl={`https://euroqst.com/training-courses/${slug}`}
+      />
       <CategoryPage category={category} courses={courses} slug={slug} />
     </>
   );

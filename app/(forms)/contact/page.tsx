@@ -1,6 +1,7 @@
 import { Metadata } from "next";
 import { getSeoData } from "@/services/services";
 import ContactPageClient from "./_components/contact-page-client";
+import Schema from "@/components/shared/schema";
 
 // Generate metadata dynamically
 export async function generateMetadata(): Promise<Metadata> {
@@ -49,5 +50,15 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default function ContactPage() {
-  return <ContactPageClient />;
+  return (
+    <>
+      <Schema 
+        pageType="contact"
+        pageTitle="Contact Us | EuroQuest International Training"
+        pageDescription="Get in touch with EuroQuest International for professional training courses. Contact our experts for inquiries about management, HSE, finance, HR, IT, and engineering training programs."
+        pageUrl="https://euroqst.com/contact"
+      />
+      <ContactPageClient />
+    </>
+  );
 }

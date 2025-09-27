@@ -6,6 +6,7 @@ import HeroBanner from "@/components/shared/hero-banner";
 import Container from "@/components/shared/container";
 import CourseContent from "../_components/course-content";
 import CourseTimings from "../_components/course-timings";
+import Schema from "@/components/shared/schema";
 
 
 // Generate metadata dynamically
@@ -106,6 +107,12 @@ export default async function Page({
 
   return (
     <>
+      <Schema 
+        pageType="courses"
+        pageTitle={course.meta_title || `${course.title} | EuroQuest International Training Course`}
+        pageDescription={course.meta_description || course.description || `Professional training course: ${course.title}. Enhance your skills with EuroQuest International's expert-led program.`}
+        pageUrl={course.canonical || `https://euroqst.com/training-course/${course.slug}`}
+      />
       {/* Hero Banner */}
       <HeroBanner
         backgroundImage={"/assets/images/hero-course.webp"}

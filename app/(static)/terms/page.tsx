@@ -4,6 +4,7 @@ import { BreadcrumbItem } from "@/components/ui/breadcrumb";
 import { Home } from "lucide-react";
 import { getSeoData } from "@/services/services";
 import Container from "@/components/shared/container";
+import Schema from "@/components/shared/schema";
 
 
 // Generate metadata dynamically
@@ -67,6 +68,12 @@ export default function TermsPage() {
 
   return (
     <>     
+      <Schema 
+        pageType="terms"
+        pageTitle="Terms & Conditions | EuroQuest International Legal Terms & Service Agreement"
+        pageDescription="EuroQuest International Terms & Conditions outline the rules, obligations, and legal agreements governing the use of our website and training services."
+        pageUrl="https://euroqst.com/terms"
+      />
       {/* Hero Banner */}
       <HeroBanner
         backgroundImage="/assets/images/hero-terms.png"

@@ -4,6 +4,7 @@ import { Home } from "lucide-react";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Container from "@/components/shared/container";
+import Schema from "@/components/shared/schema";
 
 interface BlogDetailPageProps {
   params: Promise<{
@@ -79,6 +80,12 @@ export default async function BlogDetailPage({ params }: BlogDetailPageProps) {
 
   return (
     <>
+      <Schema 
+        pageType="blogs"
+        pageTitle={blog.meta_title || blog.title}
+        pageDescription={blog.meta_description}
+        pageUrl={blog.canonical || `https://euroqst.com/blogs/${slug}`}
+      />
       {/* Hero Banner */}
       <HeroBanner
         backgroundImage="/assets/images/hero-blogs.png"

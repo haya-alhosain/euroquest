@@ -4,6 +4,7 @@ import { BreadcrumbItem } from "@/components/ui/breadcrumb";
 import { Home } from "lucide-react";
 import { getSeoData } from "@/services/services";
 import Container from "@/components/shared/container";
+import Schema from "@/components/shared/schema";
 
 
 // Generate metadata dynamically
@@ -67,6 +68,12 @@ export default function PrivacyPolicyPage() {
 
   return (
     <>     
+      <Schema 
+        pageType="privacy"
+        pageTitle="Privacy Policy | EuroQuest International Data Protection & GDPR Compliance"
+        pageDescription="EuroQuest International Privacy Policy explains how we collect, use, and protect your personal information in compliance with GDPR and international data protection standards."
+        pageUrl="https://euroqst.com/privacy-policy"
+      />
       {/* Hero Banner */}
       <HeroBanner
         backgroundImage="/assets/images/hero-privacy.png"

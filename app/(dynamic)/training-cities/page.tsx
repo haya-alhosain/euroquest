@@ -6,6 +6,7 @@ import { Home } from "lucide-react";
 import CitiesCards from "./_components/cities-cards";
 import { getCities, getSeoData } from "@/services/services";
 import Container from "@/components/shared/container";
+import Schema from "@/components/shared/schema";
 
 // Generate metadata dynamically
 export async function generateMetadata(): Promise<Metadata> {
@@ -74,6 +75,12 @@ export default async function CitiesPage() {
 
   return (
     <>
+      <Schema 
+        pageType="cities"
+        pageTitle="Training Cities | EuroQuest International Global Training Locations"
+        pageDescription="Explore training courses in leading global capitals and cities. Browse professional training programs in Dubai, London, Barcelona, Istanbul, Vienna, Paris, and Geneva."
+        pageUrl="https://euroqst.com/training-cities"
+      />
       {/* Hero Banner */}
       <HeroBanner
         backgroundImage="/assets/images/hero-cities.webp"

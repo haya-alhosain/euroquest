@@ -4,6 +4,7 @@ import BlogsSection from "@/app/(dynamic)/blogs/_components/blogs-section";
 import { Home } from "lucide-react";
 import { getBlogs, getSeoData } from "@/services/services";
 import Container from "@/components/shared/container";
+import Schema from "@/components/shared/schema";
 
 
 // Generate metadata dynamically
@@ -73,6 +74,12 @@ export default async function BlogsPage() {
   if (!blogSections || blogSections.length === 0) {
     return (
       <>
+        <Schema 
+          pageType="blogs"
+          pageTitle="Training & Development Blogs | EuroQuest International Expert Articles"
+          pageDescription="Explore EuroQuest International's training and development blog, featuring expert articles on leadership, management, human resources, project planning, and career growth to keep professionals updated with the latest industry trends."
+          pageUrl="https://euroqst.com/blogs"
+        />
         <HeroBanner
           backgroundImage="/assets/images/hero-blogs.png"
           title="Training & Development Blogs"
@@ -98,6 +105,12 @@ export default async function BlogsPage() {
 
   return (
     <>
+      <Schema 
+        pageType="blogs"
+        pageTitle="Training & Development Blogs | EuroQuest International Expert Articles"
+        pageDescription="Explore EuroQuest International's training and development blog, featuring expert articles on leadership, management, human resources, project planning, and career growth to keep professionals updated with the latest industry trends."
+        pageUrl="https://euroqst.com/blogs"
+      />
       {/* Hero Banner */}
       <HeroBanner
         backgroundImage="/assets/images/hero-blogs.png"

@@ -1,6 +1,7 @@
 import { Metadata } from "next";
 import { getCityDetails } from "@/services/services";
 import CityPage from "../_components/city-page";
+import Schema from "@/components/shared/schema";
 
 
 // Generate metadata dynamically
@@ -63,5 +64,15 @@ export default async function Page({
   const cityData = await getCityDetails(citySlug);
   const { city, courses , categories} = cityData;
 
-  return <CityPage city={city} courses={courses} categories={categories} />;
+  return (
+    <>
+      <Schema 
+        pageType="cities"
+        pageTitle={city.meta_title || `${city.title} Training Courses | EuroQuest International`}
+        pageDescription={city.meta_description || city.description?.replace(/<[^>]*>/g, '') || `Professional training courses in ${city.title} by EuroQuest International. Enhance your skills with our expert-led programs.`}
+        pageUrl={city.canonical || `https://euroqst.com/training-cities/${city.slug}`}
+      />
+      <CityPage city={city} courses={courses} categories={categories} />
+    </>
+  );
 }

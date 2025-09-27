@@ -7,6 +7,7 @@ import SearchResults from "./_components/search-results";
 import SearchPopups from "./_components/search-popups";
 import SearchSummary from "./_components/search-summary";
 import { useSearch } from "./_components/hooks/use-search";
+import Schema from "@/components/shared/schema";
 
 export default function SearchPage() {
   // Use custom hooks for search logic
@@ -51,6 +52,12 @@ export default function SearchPage() {
 
   return (
     <>
+      <Schema 
+        pageType="search"
+        pageTitle="Search Training Courses | EuroQuest International"
+        pageDescription="Search for professional training courses, categories, and cities at EuroQuest International. Find the perfect training program for your career development."
+        pageUrl="https://euroqst.com/search"
+      />
       {/* Popups */}
       <SearchPopups />
 

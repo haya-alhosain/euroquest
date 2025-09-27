@@ -6,6 +6,7 @@ import { Home } from 'lucide-react';
 import { services } from "@/constants";
 import { getSeoData } from "@/services/services";
 import Container from "@/components/shared/container";
+import Schema from "@/components/shared/schema";
 
 const breadcrumbs = [
   { label: '', href: '/', icon: <Home width={16} height={16}/> },
@@ -62,6 +63,12 @@ export async function generateMetadata(): Promise<Metadata> {
 export default function AboutPage() {
   return (
     <> 
+      <Schema 
+        pageType="about"
+        pageTitle="About EuroQuest International"
+        pageDescription="Learn about EuroQuest International, a leading educational institute providing high-quality training and learning experiences. Founded in 2015 with over 25 years of expertise."
+        pageUrl="https://euroqst.com/about"
+      />
       {/* Hero Banner */}
       <HeroBanner
         backgroundImage="/assets/images/hero-about.webp"

@@ -2,6 +2,7 @@ import HeroBanner from "@/components/shared/hero-banner";
 import { getSitemapData } from "@/services/services";
 import { Home } from "lucide-react";
 import { Metadata } from "next";
+import Schema from "@/components/shared/schema";
 
 
 export const metadata: Metadata = {
@@ -35,6 +36,12 @@ export default async function SitemapPage() {
 
   return (
     <>
+      <Schema 
+        pageType="sitemap"
+        pageTitle="Sitemap | EuroQuest International"
+        pageDescription="Complete sitemap of EuroQuest International training courses, categories, cities, and all available pages."
+        pageUrl="https://euroqst.com/sitemap"
+      />
       {/* Hero Banner */}
       <HeroBanner
         backgroundImage="/assets/images/hero-sitemap.png"

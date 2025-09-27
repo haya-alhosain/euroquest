@@ -6,6 +6,7 @@ import { Home } from "lucide-react";
 import CategoriesCards from "./_components/categories-cards";
 import { getCategories, getSeoData } from "@/services/services";
 import Container from "@/components/shared/container";
+import Schema from "@/components/shared/schema";
 
 
 // Generate metadata dynamically
@@ -74,6 +75,12 @@ export default async function CategoriesPage() {
 
   return (
     <>
+      <Schema 
+        pageType="courses"
+        pageTitle="Training Categories | EuroQuest International Professional Courses"
+        pageDescription="Explore all training categories at EuroQuest International. Browse professional courses in management, HR, IT, finance, and more across different fields."
+        pageUrl="https://euroqst.com/training-courses"
+      />
       {/* Hero Banner Section */}
       <HeroBanner
         backgroundImage="/assets/images/hero-categories.webp"
